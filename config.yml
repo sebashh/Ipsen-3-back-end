@@ -1,0 +1,4 @@
+logging:
+  level: INFO
+  loggers:
+    Ipsen_3_Back_End: DEBUG
