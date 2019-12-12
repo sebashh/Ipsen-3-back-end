@@ -13,11 +13,11 @@ public class AuthenticationController {
     String passhash = "Wachtwoord";
 
     public String loginUser(String email, String password) {
-//        passhash = BCrypt.with(BCrypt.Version.VERSION_2Y).hashToString(4, password.toCharArray());
+        passhash = BCrypt.with(BCrypt.Version.VERSION_2Y).hashToString(4, password.toCharArray());
 
         if(email != null) {
             if(password != null) {
-                checkUserByCredentials(email, password);
+//                checkUserByCredentials(email, password);
                 System.out.println(passhash);
                 System.out.println(email);
             }
