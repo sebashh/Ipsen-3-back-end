@@ -3,11 +3,14 @@ package src;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import src.controllers.AuthenticationController;
 
 public class Backend_Application extends Application<Backend_Configuration> {
 
     public static void main(final String[] args) throws Exception {
         new Backend_Application().run(args);
+        AuthenticationController authenticationController = new AuthenticationController();
+        authenticationController.loginUser("bla@gmail.com", "wachtwoord");
     }
 
     @Override
