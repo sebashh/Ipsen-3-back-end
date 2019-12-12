@@ -10,7 +10,7 @@ public class Backend_Application extends Application<Backend_Configuration> {
     public static void main(final String[] args) throws Exception {
         new Backend_Application().run(args);
         AuthenticationController authenticationController = new AuthenticationController();
-        authenticationController.loginUser("bla@gmail.com", "wachtwoord");
+        authenticationController.checkPass("bla@gmail.com", "Halloo");
     }
 
     @Override
@@ -30,3 +30,5 @@ public class Backend_Application extends Application<Backend_Configuration> {
     }
 
 }
+//B@41e350f1
+//B@41e350f1
