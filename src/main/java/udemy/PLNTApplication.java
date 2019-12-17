@@ -15,6 +15,7 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.jdbi.v3.core.Jdbi;
+import udemy.services.CorsFilter;
 
 /**
  * The main class used to start the application
@@ -66,6 +67,7 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         environment.jersey().register(new UserProjectResource(userProjectController));
         environment.jersey().register(new StatisticResource(statisticController));
         environment.jersey().register(new JsonProcessingExceptionMapper(true));
+        environment.jersey().register(CorsFilter.class);
 
 
         final Ipsen3ProjectDAO ipsen3ProjectDAO = jdbi.onDemand(Ipsen3ProjectDAO.class);

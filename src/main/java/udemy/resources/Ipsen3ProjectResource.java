@@ -5,6 +5,7 @@ import udemy.Controllers.Ipsen3ProjectController;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("/ipsen3projects")
 public class Ipsen3ProjectResource {
@@ -27,8 +28,12 @@ public class Ipsen3ProjectResource {
     @GET
     @Path("/test")
     @Produces(MediaType.TEXT_PLAIN)
-    public String getTest(){
-        return "testing lol";
+    public Response getTest(){
+        String output = "hello world uwu" ;
+        return Response
+                .status(200)
+                .entity(output)
+                .build();
     }
 
 
