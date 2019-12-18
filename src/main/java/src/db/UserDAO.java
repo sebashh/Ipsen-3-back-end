@@ -6,6 +6,7 @@ import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import src.Mapper.LoginMapper;
+import src.api.User;
 import src.core.LoginModel;
 import src.core.UserModel;
 
@@ -44,7 +45,10 @@ public interface UserDAO {
     Boolean checkUserExistence(@Bind("email") String email);
 
     @SqlQuery("SELECT * FROM person WHERE email = :email")
-    LoginModel getUserByEmail(@Bind("email") String email);
+    User getUserByEmail(@Bind("email") String email);
+
+    @SqlQuery("SELECT * FROM person WHERE password = :password")
+    LoginModel getUserPassword(@Bind("password") String password);
 
     @SqlUpdate("INSERT INTO person(username, pass) VALUES(:user, :password)")
         String register(@Bind("user") String username, @Bind("pass") String password);
