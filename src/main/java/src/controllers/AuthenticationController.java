@@ -43,9 +43,16 @@ public class AuthenticationController {
     public void checkPass(String emaill, String pass) {
         BCrypt.Result result = BCrypt.verifyer().verify(pass.toCharArray(), passw);
         if(result.verified) {
-            System.out.println(result);
+            System.out.println(result.verified);
+        } else {
+            System.out.println(result.verified);
         }
     }
+
+//    public void createUser(String email, String password) {
+//        password = BCrypt.with(BCrypt.Version.VERSION_2Y).hashToString(4, password.toCharArray());
+//        userDAO.register(email, password);
+//    }
 
 //    public LoginModel getUserByEmail(String emailAddress) {
 //        userDAO.getUserByEmail(emailAddress);

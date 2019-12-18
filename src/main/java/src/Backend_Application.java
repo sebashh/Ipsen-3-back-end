@@ -10,7 +10,8 @@ public class Backend_Application extends Application<Backend_Configuration> {
     public static void main(final String[] args) throws Exception {
         new Backend_Application().run(args);
         AuthenticationController authenticationController = new AuthenticationController();
-        authenticationController.checkPass("bla@gmail.com", "Halloo");
+        authenticationController.checkPass("bla@gmail.com", "Hallo");
+//        authenticationController.createUser("bla@gmail.com", "Hallo");
     }
 
     @Override
