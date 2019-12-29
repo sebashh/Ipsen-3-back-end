@@ -25,6 +25,11 @@ public class AuthenticationController {
 
 
     public User getUserByEmail(String emailAddress) {
+//        User user = new User();
+//        user.setPassword(getEncrPass("hallo"));
+//        user.setEmail("bla@gmail.com");
+//        System.out.println(user.getPassword());
+//        return user;
         return userDAO.getUserByEmail(emailAddress);
     }
 }
