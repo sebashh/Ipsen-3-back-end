@@ -1,6 +1,6 @@
 package udemy;
 
-import udemy.Controllers.*;
+import udemy.Controllers.ProjectController;
 import udemy.auth.PLNTAuthenticator;
 import udemy.persistance.*;
 import udemy.resources.*;
@@ -44,16 +44,7 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
                     final Environment environment) {
         final JdbiFactory factory = new JdbiFactory();
         final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
-        final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
-        final ProjectDAO projectDAO = jdbi.onDemand(ProjectDAO.class);
-        final UploadDAO uploadDAO = jdbi.onDemand(UploadDAO.class);
-        final UserProjectDAO userProjectDAO = jdbi.onDemand(UserProjectDAO.class);
-        final StatisticDAO statisticDAO = jdbi.onDemand(StatisticDAO.class);
-        final ProjectController projectController = new ProjectController(projectDAO);
-        final UserController userController = new UserController(userDAO);
-        final UserProjectController userProjectController = new UserProjectController(userProjectDAO);
-        final StatisticController statisticController = new StatisticController(statisticDAO);
-        final UploadController uploadController = new UploadController(uploadDAO);
+
 
         environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>()
                 .setAuthenticator(new PLNTAuthenticator())
@@ -61,18 +52,13 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
                 .buildAuthFilter()));
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
         environment.jersey().register(RolesAllowedDynamicFeature.class);
-        environment.jersey().register(new UserResource(userController));
-        environment.jersey().register(new ProjectResource(projectController));
-        environment.jersey().register(new UploadResource(uploadController));
-        environment.jersey().register(new UserProjectResource(userProjectController));
-        environment.jersey().register(new StatisticResource(statisticController));
         environment.jersey().register(new JsonProcessingExceptionMapper(true));
         environment.jersey().register(CorsFilter.class);
 
 
-        final Ipsen3ProjectDAO ipsen3ProjectDAO = jdbi.onDemand(Ipsen3ProjectDAO.class);
-        final Ipsen3ProjectController ipsen3ProjectController = new Ipsen3ProjectController(ipsen3ProjectDAO);
-        environment.jersey().register(new Ipsen3ProjectResource(ipsen3ProjectController));
+        final ProjectDAO projectDAO = jdbi.onDemand(ProjectDAO.class);
+        final ProjectController projectController = new ProjectController(projectDAO);
+        environment.jersey().register(new ProjectResource(projectController));
         BackupService backupService = new BackupService();
 
     }
