@@ -1,4 +1,4 @@
-package src.ENUM;
+package udemy.ENUM;
 
 public enum Roles {
     Student,

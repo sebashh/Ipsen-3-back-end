@@ -27,4 +27,7 @@ public interface ProjectDAO {
 
     @SqlQuery("SELECT id FROM project ORDER BY id DESC limit 1")
     int getNewProjectId();
+
+//    @SqlQuery("SELECT * FROM project WHERE title = :title")
+//    int getAll(@Bind("title")String title);
 }

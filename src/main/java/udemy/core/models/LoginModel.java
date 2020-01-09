@@ -1,4 +1,4 @@
-package src.core;
+package udemy.core.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -8,6 +8,8 @@ public class LoginModel {
     private String email;
     @JsonProperty
     private String password;
+
+    public LoginModel() {}
 
     public LoginModel(String email, String password) {
         this.email = email;

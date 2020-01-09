@@ -1,8 +1,8 @@
-package src.db;
+package udemy.persistance;
 
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
-import src.core.UserModel;
+import udemy.core.models.UserModel;
 
 public interface RegisterDAO {
 

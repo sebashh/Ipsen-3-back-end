@@ -1,4 +1,4 @@
-package src.core;
+package udemy.core.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import at.favre.lib.crypto.bcrypt.BCrypt;

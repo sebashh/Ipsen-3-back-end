@@ -1,7 +1,7 @@
-package src.controllers;
+package udemy.Controllers;
 
-import src.core.UserModel;
-import src.db.RegisterDAO;
+import udemy.core.models.UserModel;
+import udemy.persistance.RegisterDAO;
 
 public class RegisterController {
 

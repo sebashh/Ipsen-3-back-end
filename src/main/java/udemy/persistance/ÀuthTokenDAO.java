@@ -1,4 +1,4 @@
-package src.db;
+package udemy.persistance;
 
 public class ÀuthTokenDAO {
 }

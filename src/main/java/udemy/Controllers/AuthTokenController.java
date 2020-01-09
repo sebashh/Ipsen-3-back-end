@@ -1,4 +1,4 @@
-package src.controllers;
+package udemy.Controllers;
 
 public class AuthTokenController {
 }

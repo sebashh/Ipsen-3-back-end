@@ -33,10 +33,8 @@ public class ProjectResource {
     @POST
     @Path("/upload/test")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response postTest(Project project){
+    public Response postTest(Project project) {
         projectController.uploadProject(project);
         return Response.status(200).build();
     }
-
-
 }

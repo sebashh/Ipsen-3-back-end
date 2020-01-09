@@ -1,12 +1,16 @@
-package src.controllers;
+package udemy.Controllers;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import src.api.User;
-import src.db.UserDAO;
+import udemy.User;
+import udemy.persistance.UserDAO;
 
 public class AuthenticationController {
 
-    UserDAO userDAO;
+    private final UserDAO userDAO;
+
+    public AuthenticationController(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     public String getEncrPass(String password) {
         password = BCrypt.with(BCrypt.Version.VERSION_2Y).hashToString(4, password.toCharArray());
@@ -16,7 +20,7 @@ public class AuthenticationController {
 
     public boolean passwordValidator(String passCredential, String password) {
         BCrypt.Result cryptResult = BCrypt.verifyer().verify(passCredential.toCharArray(), password);
-        if(cryptResult.verified) {
+        if (cryptResult.verified) {
             return true;
         } else {
             return false;
@@ -24,12 +28,7 @@ public class AuthenticationController {
     }
 
 
-    public User getUserByEmail(String emailAddress) {
-//        User user = new User();
-//        user.setPassword(getEncrPass("hallo"));
-//        user.setEmail("bla@gmail.com");
-//        System.out.println(user.getPassword());
-//        return user;
-        return userDAO.getUserByEmail(emailAddress);
+    public User getUserByEmail(String email) {
+        return userDAO.getUserByEmail(email);
     }
 }

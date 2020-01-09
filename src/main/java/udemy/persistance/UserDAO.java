@@ -1,14 +1,14 @@
-package src.db;
+package udemy.persistance;
 
 
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
-import src.Mapper.LoginMapper;
-import src.api.User;
-import src.core.LoginModel;
-import src.core.UserModel;
+import udemy.Mapper.LoginMapper;
+import udemy.User;
+import udemy.core.models.LoginModel;
+import udemy.core.models.UserModel;
 
 import java.util.List;
 
@@ -44,13 +44,11 @@ public interface UserDAO {
     @SqlQuery("SELECT EXISTS(SELECT * FROM person WHERE username =:username)")
     Boolean checkUserExistence(@Bind("email") String email);
 
-    @SqlQuery("SELECT * FROM person WHERE email = :email")
+    @SqlQuery("SELECT email,password,userrole FROM person WHERE email = :email")
     User getUserByEmail(@Bind("email") String email);
 
     @SqlQuery("SELECT * FROM person WHERE password = :password")
     LoginModel getUserPassword(@Bind("password") String password);
 
-    @SqlUpdate("INSERT INTO person(username, pass) VALUES(:user, :password)")
-        String register(@Bind("user") String username, @Bind("pass") String password);
 }
 
