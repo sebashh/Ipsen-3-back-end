@@ -3,7 +3,6 @@ package udemy.resources;
 import udemy.Controllers.PaperController;
 import udemy.core.models.Paper;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -21,10 +20,11 @@ public class PaperResource {
 
     @POST
     @Path("/upload")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response uploadPaper(Paper paper){
-        return paperController.confirmUploadFile(paper);
+        System.out.println("testing: " + paper.getTitle());
+        System.out.println("date: " + paper.getUploadDate());
+        return paperController.confirmFileUpload(paper);
     }
 
 

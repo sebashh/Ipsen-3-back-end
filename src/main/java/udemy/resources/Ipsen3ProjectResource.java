@@ -30,6 +30,7 @@ public class Ipsen3ProjectResource {
     @Produces(MediaType.TEXT_PLAIN)
     public Response getTest(){
         String output = "hello world uwu" ;
+        System.out.println("hello world uwuwuwuwuwuwu");
         return Response
                 .status(200)
                 .entity(output)

@@ -49,11 +49,13 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         final UploadDAO uploadDAO = jdbi.onDemand(UploadDAO.class);
         final UserProjectDAO userProjectDAO = jdbi.onDemand(UserProjectDAO.class);
         final StatisticDAO statisticDAO = jdbi.onDemand(StatisticDAO.class);
+        final PaperDAO paperDAO = jdbi.onDemand(PaperDAO.class);
         final ProjectController projectController = new ProjectController(projectDAO);
         final UserController userController = new UserController(userDAO);
         final UserProjectController userProjectController = new UserProjectController(userProjectDAO);
         final StatisticController statisticController = new StatisticController(statisticDAO);
         final UploadController uploadController = new UploadController(uploadDAO);
+        final PaperController paperController = new PaperController(paperDAO);
 
         environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>()
                 .setAuthenticator(new PLNTAuthenticator())
@@ -64,6 +66,7 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         environment.jersey().register(new UserResource(userController));
         environment.jersey().register(new ProjectResource(projectController));
         environment.jersey().register(new UploadResource(uploadController));
+        environment.jersey().register(new PaperResource(paperController));
         environment.jersey().register(new UserProjectResource(userProjectController));
         environment.jersey().register(new StatisticResource(statisticController));
         environment.jersey().register(new JsonProcessingExceptionMapper(true));

@@ -19,18 +19,23 @@ public class Paper {
 
     @NotNull
     @JsonProperty
-    private byte[] paperFile;
+    private int uploadedBy;
+
+    @JsonProperty
+    private String uploadDate;
 
     @NotNull
     @JsonProperty
-    private int uploadedBy;
+    private String paperFile;
 
-    public Paper (int projectId, String title, String author, byte[] paperFile, int uploadedBy){
+
+    public Paper (int projectId, String title, String author, int uploadedBy, String uploadDate, String paperFile){
         this.projectId = projectId;
         this.title = title;
         this.author = author;
         this.paperFile = paperFile;
         this.uploadedBy = uploadedBy;
+        this.uploadDate = uploadDate;
     }
 
     public Paper (){
@@ -39,6 +44,14 @@ public class Paper {
 
     public int getUploadedBy() {
         return uploadedBy;
+    }
+
+    public String getUploadDate() {
+        return uploadDate;
+    }
+
+    public void setUploadDate(String uploadDate) {
+        this.uploadDate = uploadDate;
     }
 
     public void setUploadedBy(int uploadedBy) {
@@ -70,11 +83,11 @@ public class Paper {
         this.author = author;
     }
 
-    public byte[] getPaperFile() {
+    public String getPaperFile() {
         return paperFile;
     }
 
-    public void setPaperFile(byte[] paperFile) {
+    public void setPaperFile(String paperFile) {
         this.paperFile = paperFile;
     }
 }
