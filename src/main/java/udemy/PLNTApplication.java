@@ -1,5 +1,6 @@
 package udemy;
 
+import udemy.Controllers.PaperController;
 import udemy.Controllers.ProjectController;
 import udemy.auth.PLNTAuthenticator;
 import udemy.persistance.*;
@@ -57,7 +58,10 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
 
 
         final ProjectDAO projectDAO = jdbi.onDemand(ProjectDAO.class);
+        final PaperDAO paperDAO = jdbi.onDemand(PaperDAO.class);
+        final PaperController paperController = new PaperController(paperDAO);
         final ProjectController projectController = new ProjectController(projectDAO);
+        environment.jersey().register(new PaperResource(paperController));
         environment.jersey().register(new ProjectResource(projectController));
         BackupService backupService = new BackupService();
 
