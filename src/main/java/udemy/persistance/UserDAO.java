@@ -85,8 +85,7 @@ public interface UserDAO {
     int getStudyId(
             @Bind("study") String study
     );
-
-}
+    
     @SqlQuery("SELECT * FROM project " +
             "WHERE id = (SELECT project_id FROM follow_project WHERE user_id = :id)" +
             "AND (SELECT last_login FROM \"User\" WHERE id = :id) <= " +
