@@ -56,11 +56,6 @@ public class ProjectResource {
                 .entity(ProjectsOfClient)
                 .build();
     }
-    @POST
-    @Path("/upload/test")
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response postTest(Project project) {
-        projectController.uploadProject(project);
-        return Response.status(200).build();
-    }
+
+
 }
