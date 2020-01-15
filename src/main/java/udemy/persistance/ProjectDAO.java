@@ -1,15 +1,26 @@
 package udemy.persistance;
 
+import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import udemy.core.models.Project;
+import udemy.Mapper.ProjectMapper;
 
+import java.util.List;
 
+@RegisterRowMapper(ProjectMapper.class)
 public interface ProjectDAO {
 
     @SqlQuery("SELECT pdf_location FROM paper WHERE id = :projectId")
     String getProjectFile(@Bind("projectId") int id);
+
+    @SqlQuery("select project.id, title, summary, created_on, client_id, study.name as study_name, category.name as category_name\n" +
+            "from project\n" +
+            "INNER JOIN category ON project.category_id = category.id\n" +
+            "INNER JOIN study ON project.study_id = study.id \n" +
+            "WHERE project.id = :id")
+    Project getProject(@Bind("id") int id);
 
     @SqlUpdate("INSERT INTO project(id, title, summary, client_id, study_id, category_id) VALUES(:id, :title, :summary, :client_id, :study_id, :category_id)")
     void uploadProject(@Bind("id")int id,
@@ -27,4 +38,11 @@ public interface ProjectDAO {
 
     @SqlQuery("SELECT id FROM project ORDER BY id DESC limit 1")
     int getNewProjectId();
+
+    @SqlQuery("select project.id, title, summary, created_on, client_id, study.name as study_name, category.name as category_name\n" +
+            "from project\n" +
+            "INNER JOIN category ON project.category_id = category.id\n" +
+            "INNER JOIN study ON project.study_id = study.id \n" +
+            "WHERE client_id = :client_id")
+    List<Project> getAllProjectsOfClient(@Bind("client_id")int client_id);
 }

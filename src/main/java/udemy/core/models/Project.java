@@ -1,43 +1,39 @@
 package udemy.core.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 
 public class Project {
 
     @NotNull
     @JsonProperty
-    public int projectId;
+    public int id;
     @NotNull
     @JsonProperty
     public String title;
     @NotNull
     @JsonProperty
-    public String description;
+    public String summary;
     @NotNull
+    @JsonProperty
+    public Timestamp createdOn;
+    @NotNull
+    @JsonProperty
+    public int client;
     @JsonProperty
     public String study;
     @JsonProperty
     public String category;
-    @JsonProperty
-    public String createdOn;
-    @NotNull
-    @JsonProperty
-    public int clientId;
 
-    public Project(){
-
-    }
-
-    public Project(int projectId, String title, String description, String study, String category,
-                   String createdOn, int clientId) {
-        this.projectId = projectId;
+    public Project(int projectId, String title, String summary, Timestamp createdOn , int client, String study,
+                   String category) {
+        this.id = projectId;
         this.title = title;
-        this.description = description;
+        this.summary = summary;
+        this.createdOn = createdOn;
+        this.client = client;
         this.study = study;
         this.category = category;
-        this.createdOn = createdOn;
-        this.clientId = clientId;
     }
 }
