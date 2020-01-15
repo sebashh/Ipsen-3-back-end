@@ -5,6 +5,8 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import udemy.core.models.Project;
 
+import java.util.List;
+
 
 public interface ProjectDAO {
 
@@ -30,4 +32,7 @@ public interface ProjectDAO {
 
 //    @SqlQuery("SELECT * FROM project WHERE title = :title")
 //    int getAll(@Bind("title")String title);
+
+    @SqlQuery("SELECT * FROM project INNER JOIN follow_project ON project.id = follow_project.project_id AND follow_project.user_id = :id")
+    List<Project> getUserFollowedProjects(@Bind("id")int id);
 }

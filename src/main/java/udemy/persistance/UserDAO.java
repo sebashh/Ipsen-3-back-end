@@ -6,10 +6,13 @@ import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import udemy.Mapper.LoginMapper;
+import udemy.Mapper.ProjectMapper;
 import udemy.User;
 import udemy.core.models.LoginModel;
+import udemy.core.models.Project;
 import udemy.core.models.UserModel;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,6 +22,7 @@ import java.util.List;
  * This secures the database against certain SQL injections
  */
 @RegisterRowMapper(LoginMapper.class)
+@RegisterRowMapper(ProjectMapper.class)
 public interface UserDAO {
 
     @SqlQuery("SELECT * FROM person")
@@ -50,5 +54,12 @@ public interface UserDAO {
     @SqlQuery("SELECT * FROM person WHERE password = :password")
     LoginModel getUserPassword(@Bind("password") String password);
 
-}
+    @SqlQuery("SELECT * FROM project " +
+            "WHERE id = (SELECT project_id FROM follow_project WHERE user_id = :id)" +
+            "AND (SELECT last_login FROM \"User\" WHERE id = :id) <= " +
+            "(SELECT MAX(upload_date) FROM paper WHERE project_id IN (SELECT project_id FROM follow_project WHERE user_id = :id))")
+    List<Project> getNewNotifiactions(@Bind("id")int id);
 
+    @SqlUpdate("UPDATE \"User\" SET last_login = :date WHERE id = :id")
+    void updateLastLogin(@Bind("id")int id, @Bind("date") Date date);
+}

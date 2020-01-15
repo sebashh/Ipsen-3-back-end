@@ -1,8 +1,10 @@
 package udemy;
 
+import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 import udemy.Controllers.AuthenticationController;
 import udemy.Controllers.PaperController;
 import udemy.Controllers.ProjectController;
+import udemy.Controllers.UserController;
 import udemy.auth.PlntAuthenticator;
 import udemy.auth.PlntAuthorizer;
 import udemy.core.models.LoginModel;
@@ -48,20 +50,21 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
                     final Environment environment) {
         final JdbiFactory factory = new JdbiFactory();
         final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
-
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
         environment.jersey().register(RolesAllowedDynamicFeature.class);
         environment.jersey().register(new JsonProcessingExceptionMapper(true));
         environment.jersey().register(CorsFilter.class);
 
 
+        final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
         final ProjectDAO projectDAO = jdbi.onDemand(ProjectDAO.class);
         final ProjectController projectController = new ProjectController(projectDAO);
         environment.jersey().register(new ProjectResource(projectController));
         final PaperDAO paperDAO = jdbi.onDemand(PaperDAO.class);
+
         final PaperController paperController = new PaperController(paperDAO);
+        final UserController userController = new UserController(userDAO);
         environment.jersey().register(new PaperResource(paperController));
-        final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
         final AuthenticationController authenticationController = new AuthenticationController(userDAO);
         PlntAuthenticator plntAuthenticator = new PlntAuthenticator(authenticationController);
         environment.jersey().register(new AuthenticationResource(authenticationController, plntAuthenticator));
@@ -71,6 +74,9 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
                 .setAuthorizer(new PlntAuthorizer())
                 .setRealm("")
                 .buildAuthFilter()));
+        environment.jersey().register(new ProjectResource(projectController));
+        environment.jersey().register(new UserResource(userController));
+        BackupService backupService = new BackupService();
 
     }
 

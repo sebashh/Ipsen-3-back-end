@@ -3,6 +3,8 @@ package udemy.Controllers;
 import udemy.core.models.Project;
 import udemy.persistance.ProjectDAO;
 
+import java.util.List;
+
 
 public class ProjectController {
     private ProjectDAO projectDAO;
@@ -18,5 +20,9 @@ public class ProjectController {
         int project_id = projectDAO.getNewProjectId() + 1;
         projectDAO.uploadProject(project_id, project.title, project.description, project.clientId, study_id, category_id);
 
+    }
+
+    public List<Project> getUserProjects(int id) {
+        return projectDAO.getUserFollowedProjects(id);
     }
 }
