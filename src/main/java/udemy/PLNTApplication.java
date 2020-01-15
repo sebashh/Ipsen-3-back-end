@@ -1,6 +1,9 @@
 package udemy;
 
 import udemy.Controllers.ProjectController;
+import udemy.Controllers.ClientController;
+import udemy.Controllers.StudentController;
+import udemy.Controllers.TeacherController;
 import udemy.auth.PLNTAuthenticator;
 import udemy.persistance.*;
 import udemy.resources.*;
@@ -55,10 +58,16 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         environment.jersey().register(new JsonProcessingExceptionMapper(true));
         environment.jersey().register(CorsFilter.class);
 
-
         final ProjectDAO projectDAO = jdbi.onDemand(ProjectDAO.class);
         final ProjectController projectController = new ProjectController(projectDAO);
         environment.jersey().register(new ProjectResource(projectController));
+
+        final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
+        final ClientController clientController = new ClientController(userDAO);
+        final StudentController studentController = new StudentController(userDAO);
+        final TeacherController teacherController = new TeacherController(userDAO);
+        environment.jersey().register(new UserRecourse(clientController, studentController, teacherController));
+
         BackupService backupService = new BackupService();
 
     }
