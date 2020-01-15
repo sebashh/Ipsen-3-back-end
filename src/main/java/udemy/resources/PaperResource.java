@@ -50,4 +50,10 @@ public class PaperResource {
         return responseBuilder.build();
     }
 
+    @GET
+    @Path("/papers")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Paper> getPapers() {
+        return paperController.retrievePaperData();
+    }
 }

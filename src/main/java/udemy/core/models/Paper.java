@@ -7,87 +7,49 @@ import javax.validation.constraints.NotNull;
 public class Paper {
 
     @JsonProperty
-    private int projectId;
+    public int projectId;
 
     @NotNull
     @JsonProperty
-    private String title;
+    public String title;
 
     @NotNull
     @JsonProperty
-    private String author;
+    public String author;
 
     @NotNull
     @JsonProperty
-    private int uploadedBy;
+    public int uploadedBy;
 
     @JsonProperty
-    private String uploadDate;
+    public String uploadDate;
 
     @NotNull
     @JsonProperty
-    private String paperFile;
+    public String paperFile;
+
+    @JsonProperty
+    public int id;
 
 
-    public Paper (int projectId, String title, String author, int uploadedBy, String uploadDate, String paperFile){
+    public Paper(int projectId, String title, String author, int uploadedBy, String uploadDate, String paperFile, int id) {
         this.projectId = projectId;
         this.title = title;
         this.author = author;
         this.paperFile = paperFile;
         this.uploadedBy = uploadedBy;
         this.uploadDate = uploadDate;
+        this.id = id;
     }
 
-    public Paper (){
+    public Paper() {
 
     }
 
-    public int getUploadedBy() {
-        return uploadedBy;
-    }
-
-    public String getUploadDate() {
-        return uploadDate;
-    }
-
-    public void setUploadDate(String uploadDate) {
-        this.uploadDate = uploadDate;
-    }
-
-    public void setUploadedBy(int uploadedBy) {
-        this.uploadedBy = uploadedBy;
-    }
-
-
-    public int getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
+    public Paper(String title, String author, String paperFile, int id) {
         this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public String getPaperFile() {
-        return paperFile;
-    }
-
-    public void setPaperFile(String paperFile) {
         this.paperFile = paperFile;
+        this.id = id;
     }
 }
