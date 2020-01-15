@@ -1,6 +1,7 @@
 package udemy;
 
 import udemy.Controllers.AuthenticationController;
+import udemy.Controllers.PaperController;
 import udemy.Controllers.ProjectController;
 import udemy.auth.PlntAuthenticator;
 import udemy.auth.PlntAuthorizer;
@@ -62,6 +63,9 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         final ProjectDAO projectDAO = jdbi.onDemand(ProjectDAO.class);
         final ProjectController projectController = new ProjectController(projectDAO);
         environment.jersey().register(new ProjectResource(projectController));
+        final PaperDAO paperDAO = jdbi.onDemand(PaperDAO.class);
+        final PaperController paperController = new PaperController(paperDAO);
+        environment.jersey().register(new PaperResource(paperController));
         final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
         final AuthenticationController authenticationController = new AuthenticationController(userDAO);
         PlntAuthenticator plntAuthenticator = new PlntAuthenticator(authenticationController);
