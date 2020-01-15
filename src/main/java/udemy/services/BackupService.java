@@ -15,7 +15,7 @@ public class BackupService {
     private String database = "Ipsen3";
     //private String database = "PLNT";
     //private String path ="C:\\Users\\Jaime\\Desktop\\backups\\";
-    private String path = System.getProperty("user.home") + "\\Desktop\\backups\\";
+    private String path = System.getProperty("user.home") + "\\Desktop\\";
     private LocalDateTime currentDateTime;
     private String user;
     private String password;
