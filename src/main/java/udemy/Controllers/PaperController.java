@@ -23,9 +23,9 @@ public class PaperController {
 
 
     public void uploadFile(Paper paper) {
-        byte[] decoder = Base64.getDecoder().decode(paper.getPaperFile().split(",")[1]);
+        byte[] decoder = Base64.getDecoder().decode(paper.paperFile.split(",")[1]);
         FileOutputStream fos = null;
-        String filePath = (paper.getTitle().substring(0, checkStringLength(paper.getTitle())? requiredStringLength : paper.getTitle().length())) + "_" + getCurrentDateTime();
+        String filePath = (paper.title.substring(0, checkStringLength(paper.title)? requiredStringLength : paper.title.length())) + "_" + getCurrentDateTime();
         uploadFilePathToDatabase(paper, filePath);
         try {
             fos = new FileOutputStream(path + filePath + ".pdf");
@@ -44,7 +44,7 @@ public class PaperController {
     }
 
     private void uploadFilePathToDatabase(Paper paper, String filePath) {
-        paperDAO.uploadPaper(paper.getProjectId(), paper.getTitle(), paper.getAuthor(), paper.getUploadedBy(), filePath);
+        paperDAO.uploadPaper(paper.projectId, paper.title, paper.author, paper.uploadedBy, filePath);
     }
 
     public Response confirmFileUpload(Paper paper) {
@@ -65,7 +65,7 @@ public class PaperController {
     }
 
     private boolean checkFileType(Paper paper) {
-        return paper.getPaperFile().split(",")[0].contains(requiredFileType);
+        return paper.paperFile.split(",")[0].contains(requiredFileType);
     }
 
 

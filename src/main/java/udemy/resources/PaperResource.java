@@ -22,8 +22,8 @@ public class PaperResource {
     @Path("/upload")
     @Produces(MediaType.APPLICATION_JSON)
     public Response uploadPaper(Paper paper){
-        System.out.println("testing: " + paper.getTitle());
-        System.out.println("date: " + paper.getUploadDate());
+        System.out.println("testing: " + paper.title);
+        System.out.println("date: " + paper.uploadDate);
         return paperController.confirmFileUpload(paper);
     }
 
