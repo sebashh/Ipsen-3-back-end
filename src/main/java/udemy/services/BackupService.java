@@ -63,7 +63,7 @@ public class BackupService {
         System.out.println("backup started");
         runtime = Runtime.getRuntime();
         processBuilder = new ProcessBuilder(
-                "C:\\Program Files\\PostgreSQL\\10\\bin\\pg_dump.exe",
+                "C:\\Program Files\\PostgreSQL\\12\\bin\\pg_dump.exe",
                 "-v","-h",host,"-f", outputFile, "-U", user, database);
         processBuilder.environment().put("PGPASSWORD", password);
         processBuilder.redirectErrorStream(true);
