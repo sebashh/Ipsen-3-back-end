@@ -9,6 +9,7 @@ import java.util.Base64;
 
 import javax.ws.rs.core.Response;
 import java.io.*;
+import java.util.List;
 
 public class PaperController {
 
@@ -69,5 +70,8 @@ public class PaperController {
     }
 
 
-
+    public List<Paper> getPapersOfProject(int id) {
+        List<Paper> papers = paperDAO.getProjectPapers(id);
+        return papers;
+    }
 }

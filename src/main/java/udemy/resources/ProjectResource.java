@@ -37,6 +37,4 @@ public class ProjectResource {
         projectController.uploadProject(project);
         return Response.status(200).build();
     }
-
-
 }
