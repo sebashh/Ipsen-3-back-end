@@ -29,9 +29,6 @@ import udemy.services.CorsFilter;
  */
 public class PLNTApplication extends Application<PLNTConfiguration> {
 
-
-
-
     public static void main(final String[] args) throws Exception {
         new PLNTApplication().run("server", "config.yml");
     }
@@ -52,12 +49,10 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         final JdbiFactory factory = new JdbiFactory();
         final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
 
-
-        environment.jersey().register(CorsFilter.class);
-
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
         environment.jersey().register(RolesAllowedDynamicFeature.class);
         environment.jersey().register(new JsonProcessingExceptionMapper(true));
+        environment.jersey().register(CorsFilter.class);
 
 
         final ProjectDAO projectDAO = jdbi.onDemand(ProjectDAO.class);
@@ -70,11 +65,11 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         final AuthenticationController authenticationController = new AuthenticationController(userDAO);
         PlntAuthenticator plntAuthenticator = new PlntAuthenticator(authenticationController);
         environment.jersey().register(new AuthenticationResource(authenticationController, plntAuthenticator));
-        BackupService backupService = new BackupService();
+//        BackupService backupService = new BackupService();
         environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>()
                 .setAuthenticator(plntAuthenticator)
                 .setAuthorizer(new PlntAuthorizer())
-                .setRealm("Het ziekenhuis")
+                .setRealm("")
                 .buildAuthFilter()));
 
     }
