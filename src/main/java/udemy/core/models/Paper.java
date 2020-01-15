@@ -7,32 +7,32 @@ import javax.validation.constraints.NotNull;
 public class Paper {
 
     @JsonProperty
-    public  int projectId;
+    public int projectId;
 
     @NotNull
     @JsonProperty
-    public  String title;
+    public String title;
 
     @NotNull
     @JsonProperty
-    public  String author;
+    public String author;
 
     @NotNull
     @JsonProperty
-    public  int uploadedBy;
+    public int uploadedBy;
 
     @JsonProperty
     public String uploadDate;
 
     @NotNull
     @JsonProperty
-    public  String paperFile;
+    public String paperFile;
 
     @JsonProperty
     public int id;
 
 
-    public Paper (int projectId, String title, String author, int uploadedBy, String uploadDate, String paperFile, int id){
+    public Paper(int projectId, String title, String author, int uploadedBy, String uploadDate, String paperFile, int id) {
         this.projectId = projectId;
         this.title = title;
         this.author = author;
@@ -42,8 +42,14 @@ public class Paper {
         this.id = id;
     }
 
-    public Paper (){
+    public Paper() {
 
     }
 
+    public Paper(String title, String author, String paperFile, int id) {
+        this.title = title;
+        this.author = author;
+        this.paperFile = paperFile;
+        this.id = id;
+    }
 }
