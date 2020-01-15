@@ -11,10 +11,10 @@ database:
   user: postgres
 
   # the password
-  password: fertdert
+  password: postgres
 
   # the JDBC URL
-  url: jdbc:postgresql://localhost:5434/IPSEN3
+  url: jdbc:postgresql://localhost:5432/plnt
 
   # any properties specific to your JDBC driver:
   properties:
