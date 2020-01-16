@@ -6,10 +6,17 @@ import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import udemy.Mapper.LoginMapper;
+import udemy.Mapper.ProjectMapper;
 import udemy.User;
 import udemy.core.models.LoginModel;
+import udemy.core.models.Project;
 import udemy.core.models.UserModel;
 
+import java.util.Date;
+import javassist.bytecode.ByteArray;
+import org.jdbi.v3.sqlobject.customizer.Bind;
+import org.jdbi.v3.sqlobject.statement.SqlQuery;
+import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import java.util.List;
 
 /**
@@ -19,6 +26,7 @@ import java.util.List;
  * This secures the database against certain SQL injections
  */
 @RegisterRowMapper(LoginMapper.class)
+@RegisterRowMapper(ProjectMapper.class)
 public interface UserDAO {
 
     @SqlQuery("SELECT * FROM person")
@@ -50,5 +58,40 @@ public interface UserDAO {
     @SqlQuery("SELECT * FROM person WHERE password = :password")
     LoginModel getUserPassword(@Bind("password") String password);
 
-}
+    @SqlUpdate("select createClient(:picture_company, :name_company, :description_company, :email_user, :password_user)")
+    void uploadClient(
+            @Bind("picture_company") ByteArray picture_company,
+            @Bind("name_company")String name_company,
+            @Bind("description_company")String description_company,
+            @Bind("email_user") String email_user,
+            @Bind("password_user") String password_user
+    );
 
+    @SqlUpdate("select createStudent(:id_study, :email_user, :password_user)")
+    void uploadStudent(
+            @Bind("id_study") int id_study,
+            @Bind("email_user") String email_user,
+            @Bind("password_user") String password_user
+    );
+
+    @SqlUpdate("select createTeacher(:id_study, :email_user, :password_user)")
+    void uploadTeacher(
+            @Bind("id_study") int id_study,
+            @Bind("email_user") String email_user,
+            @Bind("password_user") String password_user
+    );
+
+    @SqlQuery("select id from study where name = :study")
+    int getStudyId(
+            @Bind("study") String study
+    );
+    
+    @SqlQuery("SELECT * FROM project " +
+            "WHERE id = (SELECT project_id FROM follow_project WHERE user_id = :id)" +
+            "AND (SELECT last_login FROM \"User\" WHERE id = :id) <= " +
+            "(SELECT MAX(upload_date) FROM paper WHERE project_id IN (SELECT project_id FROM follow_project WHERE user_id = :id))")
+    List<Project> getNewNotifiactions(@Bind("id")int id);
+
+    @SqlUpdate("UPDATE \"User\" SET last_login = :date WHERE id = :id")
+    void updateLastLogin(@Bind("id")int id, @Bind("date") Date date);
+}

@@ -24,5 +24,7 @@ public class ProjectController {
         return projectDAO.getAllProjectsOfClient(client_id);
     }
 
-
+    public List<Project> getUserProjects(int id) {
+        return projectDAO.getUserFollowedProjects(id);
+    }
 }
