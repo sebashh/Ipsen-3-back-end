@@ -20,11 +20,7 @@ public class AuthenticationController {
 
     public boolean passwordValidator(String passCredential, String password) {
         BCrypt.Result cryptResult = BCrypt.verifyer().verify(passCredential.toCharArray(), password);
-        if (cryptResult.verified) {
-            return true;
-        } else {
-            return false;
-        }
+        return cryptResult.verified;
     }
 
 

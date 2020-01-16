@@ -8,6 +8,7 @@ import udemy.Controllers.UserController;
 import udemy.auth.PlntAuthenticator;
 import udemy.auth.PlntAuthorizer;
 import udemy.core.models.LoginModel;
+import udemy.Controllers.StatisticsController;
 import udemy.persistance.*;
 import udemy.resources.*;
 import udemy.services.BackupService;
@@ -62,7 +63,11 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         environment.jersey().register(new ProjectResource(projectController));
         final PaperDAO paperDAO = jdbi.onDemand(PaperDAO.class);
 
+        final StatisticsDAO statisticsDAO = jdbi.onDemand(StatisticsDAO.class);
+        final StatisticsController statisticsController = new StatisticsController(statisticsDAO);
         final PaperController paperController = new PaperController(paperDAO);
+        environment.jersey().register(new StatisticsResource(statisticsController));
+
         final UserController userController = new UserController(userDAO);
         environment.jersey().register(new PaperResource(paperController));
         final AuthenticationController authenticationController = new AuthenticationController(userDAO);
@@ -76,7 +81,6 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
                 .buildAuthFilter()));
         environment.jersey().register(new ProjectResource(projectController));
         environment.jersey().register(new UserResource(userController));
-        BackupService backupService = new BackupService();
 
     }
 
