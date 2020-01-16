@@ -7,6 +7,7 @@ import udemy.core.models.Project;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/ipsen3projects")
 public class ProjectResource {
@@ -36,5 +37,29 @@ public class ProjectResource {
     public Response postTest(Project project) {
         projectController.uploadProject(project);
         return Response.status(200).build();
+    }
+
+    @GET
+    @Path("/project={id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProject(@PathParam("id") int id)
+    {
+        Project project = projectController.getProject(id);
+        return Response
+                .status(200)
+                .entity(project)
+                .build();
+    }
+
+    @GET
+    @Path("/projects={id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllProjectsOfClient(@PathParam("id") int id){
+
+        List<Project> ProjectsOfClient = projectController.getAllProjectsOfClient(id);
+        return Response
+                .status(200)
+                .entity(ProjectsOfClient)
+                .build();
     }
 }

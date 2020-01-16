@@ -19,6 +19,15 @@ public class ProjectController {
 
     }
 
+    public Project getProject(int id){
+        System.out.println(id);
+        return projectDAO.getProject(id);
+    }
+
+    public List<Project> getAllProjectsOfClient(int client_id){
+        return projectDAO.getAllProjectsOfClient(client_id);
+    }
+
     public List<Project> getUserProjects(int id) {
         return projectDAO.getUserFollowedProjects(id);
     }
