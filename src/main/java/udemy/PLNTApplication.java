@@ -68,7 +68,7 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         final PaperController paperController = new PaperController(paperDAO);
         environment.jersey().register(new StatisticsResource(statisticsController));
 
-        final PaperController paperController = new PaperController(paperDAO);
+//        final PaperController paperController = new PaperController(paperDAO);
         final UserController userController = new UserController(userDAO);
         environment.jersey().register(new PaperResource(paperController));
         final AuthenticationController authenticationController = new AuthenticationController(userDAO);
