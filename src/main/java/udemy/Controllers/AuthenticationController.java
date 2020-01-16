@@ -23,7 +23,6 @@ public class AuthenticationController {
         return cryptResult.verified;
     }
 
-
     public User getUserByEmail(String email) {
         return userDAO.getUserByEmail(email);
     }
