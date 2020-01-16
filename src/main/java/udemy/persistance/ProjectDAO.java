@@ -19,13 +19,6 @@ public interface ProjectDAO {
             "WHERE project.id = :id")
     Project getProject(@Bind("id") int id);
 
-    @SqlQuery("select project.id, title, summary, created_on, client_id, study.name as study_name, category.name as category_name\n" +
-            "from project\n" +
-            "INNER JOIN category ON project.category_id = category.id\n" +
-            "INNER JOIN study ON project.study_id = study.id \n" +
-            "WHERE project.id = :id")
-    Project getProject(@Bind("id") int id);
-
     @SqlUpdate("INSERT INTO project(id, title, summary, client_id, study_id, category_id) VALUES(:id, :title, :summary, :client_id, :study_id, :category_id)")
     void uploadProject(@Bind("id")int id,
                        @Bind("title")String title,
