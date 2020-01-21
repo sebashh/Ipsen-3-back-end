@@ -1,8 +1,12 @@
 package udemy.Controllers;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import io.dropwizard.auth.AuthenticationException;
+import io.dropwizard.auth.basic.BasicCredentials;
 import udemy.User;
 import udemy.persistance.UserDAO;
+
+import java.util.Optional;
 
 public class AuthenticationController {
 
@@ -24,7 +28,36 @@ public class AuthenticationController {
     }
 
 
+    public int getUserIdByEmail(String email) {
+        return userDAO.getUserIdByEmail(email);
+    }
+
+
     public User getUserByEmail(String email) {
-        return userDAO.getUserByEmail(email);
+        User user = userDAO.getUserByEmail(email);
+        System.out.println("user: " + user);
+        return user;
+    }
+
+    public String getUserRole(int userId) {
+        return userDAO.getUserRole(userId);
+    }
+
+    public String getPaswordByEmail(String username) {
+        return userDAO.getPassword(username);
+    }
+
+    public boolean verifyPassword(BasicCredentials basicCredentials) throws AuthenticationException {
+        try {
+            String storedPassword = getPaswordByEmail(basicCredentials.getUsername());
+            if (storedPassword == null) {
+                return false;
+            } else {
+                return passwordValidator(basicCredentials.getPassword(), storedPassword);
+            }
+        }
+        catch (Exception e) {
+            throw new AuthenticationException(e);
+        }
     }
 }

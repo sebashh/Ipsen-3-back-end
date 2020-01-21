@@ -18,15 +18,12 @@ public class PlntAuthenticator implements Authenticator<BasicCredentials, User> 
     @Override
     public final Optional<User> authenticate(BasicCredentials basicCredentials) throws AuthenticationException {
 
-        Optional<User> result;
-
         try {
-            result = Optional.of(authController.getUserByEmail(basicCredentials.getUsername()));
-            if (!result.isPresent()) {
-                return result;
-            } else if (authController.passwordValidator(basicCredentials.getPassword(), result.get().getPassword()) == true) {
-                return result;
-            } else {
+            String storedPassword = authController.getPaswordByEmail(basicCredentials.getUsername());
+            System.out.println("result: " + storedPassword);
+            if (storedPassword == null) {
+                return Optional.empty();
+            }else {
                 return Optional.empty();
             }
         }

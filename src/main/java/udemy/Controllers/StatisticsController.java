@@ -35,7 +35,6 @@ public class StatisticsController {
 
     public ArrayList<Project> getTopPopularProjects(){
         return getProjectVariables(statisticsDAO.getTopProjects());
-
     }
 
 }

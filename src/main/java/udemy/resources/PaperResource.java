@@ -3,6 +3,7 @@ package udemy.resources;
 import udemy.Controllers.PaperController;
 import udemy.core.models.Paper;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -21,6 +22,7 @@ public class PaperResource {
 
     @POST
     @Path("/upload")
+    @RolesAllowed("admin")
     @Produces(MediaType.APPLICATION_JSON)
     public Response uploadPaper(Paper paper){
         return paperController.confirmFileUpload(paper);
@@ -28,6 +30,7 @@ public class PaperResource {
 
     @GET
     @Path("/project={id}")
+    @RolesAllowed("admin")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPapersOfProject(@PathParam("id")int id){
         List<Paper> papers = paperController.getPapersOfProject(id);

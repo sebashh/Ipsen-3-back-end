@@ -52,8 +52,17 @@ public interface UserDAO {
     @SqlQuery("SELECT EXISTS(SELECT * FROM person WHERE username =:username)")
     Boolean checkUserExistence(@Bind("email") String email);
 
-    @SqlQuery("SELECT email,password,userrole FROM person WHERE email = :email")
+    @SqlQuery("SELECT email,password,user_role FROM \"User\" WHERE email = :email")
     User getUserByEmail(@Bind("email") String email);
+
+    @SqlQuery("SELECT password FROM \"User\" WHERE email = :email")
+    String getPassword(@Bind("email") String email);
+
+    @SqlQuery("SELECT whatID(:email)")
+    int getUserIdByEmail(@Bind("email") String email);
+
+    @SqlQuery("SELECT whatUser(:id)")
+    String getUserRole(@Bind("id") int id);
 
     @SqlQuery("SELECT * FROM person WHERE password = :password")
     LoginModel getUserPassword(@Bind("password") String password);
@@ -85,7 +94,7 @@ public interface UserDAO {
     int getStudyId(
             @Bind("study") String study
     );
-    
+
     @SqlQuery("SELECT * FROM project " +
             "WHERE id = (SELECT project_id FROM follow_project WHERE user_id = :id)" +
             "AND (SELECT last_login FROM \"User\" WHERE id = :id) <= " +
