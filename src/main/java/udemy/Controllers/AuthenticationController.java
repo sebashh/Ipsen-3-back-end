@@ -50,14 +50,14 @@ public class AuthenticationController {
     public boolean verifyPassword(BasicCredentials basicCredentials) throws AuthenticationException {
         try {
             String storedPassword = getPaswordByEmail(basicCredentials.getUsername());
-            if (storedPassword == null) {
-                return false;
+            if(passwordValidator(basicCredentials.getPassword(), storedPassword) == true) {
+                return true;
             } else {
-                return passwordValidator(basicCredentials.getPassword(), storedPassword);
+                return false;
             }
         }
-        catch (Exception e) {
-            throw new AuthenticationException(e);
+        catch(Exception e){
+                throw new AuthenticationException(e);
+            }
         }
     }
-}

@@ -29,12 +29,15 @@ import javax.ws.rs.core.Response;
         public Response authenticateUser(LoginModel loginModel) {
             try {
                 BasicCredentials credentials = new BasicCredentials(loginModel.getEmail(), loginModel.getPassword());
-//                authenticationController.verifyPassword(new BasicCredentials(loginModel.getEmail(), loginModel.getPassword()))
-                if(true) {
+                plntAuthenticator.authenticate(credentials);
+//                authenticationController.verifyPassword(new BasicCredentials(loginModel.getEmail(), loginModel.getPassword()));
+//                authenticationController.verifyPassword(credentials);
+                if(authenticationController.verifyPassword(credentials) == true) {
                     int userId = authenticationController.getUserIdByEmail(loginModel.getEmail());
                     String userRole = authenticationController.getUserRole(userId);
                     AuthModel model = JWTController.generateAuthModel(Integer.toString(userId), userRole);
 
+                    System.out.println("wachtwoord correct");
                     return Response.ok(200)
                             .entity(model)
                             .build();
