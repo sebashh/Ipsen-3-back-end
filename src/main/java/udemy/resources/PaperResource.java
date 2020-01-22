@@ -22,15 +22,26 @@ public class PaperResource {
 
     @POST
     @Path("/upload")
-    @RolesAllowed("admin")
+    @RolesAllowed({"teacher"})
     @Produces(MediaType.APPLICATION_JSON)
     public Response uploadPaper(Paper paper){
         return paperController.confirmFileUpload(paper);
     }
 
     @GET
+    @Path("/project={id}/amount")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPaperAmountOfProject(@PathParam("id")int id){
+        int amount = paperController.getPaperAmount(id);
+        return Response
+                .status(200)
+                .entity(amount)
+                .build();
+    }
+
+
+    @GET
     @Path("/project={id}")
-    @RolesAllowed("admin")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPapersOfProject(@PathParam("id")int id){
         List<Paper> papers = paperController.getPapersOfProject(id);
