@@ -33,4 +33,6 @@ public class UserResource {
                 .entity(notifications)
                 .build();
     }
+
+
 }

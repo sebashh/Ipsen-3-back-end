@@ -20,12 +20,3 @@ public class ProjectMapper implements RowMapper<Project> {
     }
 
 }
-
-//this.projectId = projectId;
-//        this.title = title;
-//        this.description = description;
-//        this.study = study;
-//        this.category = category;
-//        this.createdOn = createdOn;
-//        this.clientId = clientId;
-//    }

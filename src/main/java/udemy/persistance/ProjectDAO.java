@@ -41,6 +41,7 @@ public interface ProjectDAO {
 
     @SqlQuery("SELECT * FROM project INNER JOIN follow_project ON project.id = follow_project.project_id AND follow_project.user_id = :id")
     List<Project> getUserFollowedProjects(@Bind("id")int id);
+
     @SqlQuery("select project.id, title, summary, created_on, client_id, study.name as study_name, category.name as category_name\n" +
             "from project\n" +
             "INNER JOIN category ON project.category_id = category.id\n" +

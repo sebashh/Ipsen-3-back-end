@@ -1,14 +1,10 @@
 package udemy;
 
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
-import udemy.Controllers.AuthenticationController;
-import udemy.Controllers.PaperController;
-import udemy.Controllers.ProjectController;
-import udemy.Controllers.UserController;
-import udemy.auth.PlntAuthenticator;
+import udemy.Controllers.*;
+//import udemy.auth.PlntAuthenticator;
 import udemy.auth.PlntAuthorizer;
 import udemy.core.models.LoginModel;
-import udemy.Controllers.StatisticsController;
 import udemy.persistance.*;
 import udemy.resources.*;
 import udemy.services.BackupService;
@@ -62,7 +58,10 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         final ProjectController projectController = new ProjectController(projectDAO);
         environment.jersey().register(new ProjectResource(projectController));
         final PaperDAO paperDAO = jdbi.onDemand(PaperDAO.class);
-
+        final StudentDAO studentDAO = jdbi.onDemand(StudentDAO.class);
+        final StudyDAO studyDAO = jdbi.onDemand(StudyDAO.class);
+        final StudentController studentController = new StudentController(userDAO,studentDAO,studyDAO);
+        environment.jersey().register(new StudentResource(studentController));
         final StatisticsDAO statisticsDAO = jdbi.onDemand(StatisticsDAO.class);
         final StatisticsController statisticsController = new StatisticsController(statisticsDAO);
         final PaperController paperController = new PaperController(paperDAO);
@@ -72,14 +71,14 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         final UserController userController = new UserController(userDAO);
         environment.jersey().register(new PaperResource(paperController));
         final AuthenticationController authenticationController = new AuthenticationController(userDAO);
-        PlntAuthenticator plntAuthenticator = new PlntAuthenticator(authenticationController);
-        environment.jersey().register(new AuthenticationResource(authenticationController, plntAuthenticator));
-//        BackupService backupService = new BackupService();
-        environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>()
-                .setAuthenticator(plntAuthenticator)
-                .setAuthorizer(new PlntAuthorizer())
-                .setRealm("")
-                .buildAuthFilter()));
+//        PlntAuthenticator plntAuthenticator = new PlntAuthenticator(authenticationController);
+//        environment.jersey().register(new AuthenticationResource(authenticationController, plntAuthenticator));
+////        BackupService backupService = new BackupService();
+//        environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>()
+//                .setAuthenticator(plntAuthenticator)
+//                .setAuthorizer(new PlntAuthorizer())
+//                .setRealm("")
+//                .buildAuthFilter()));
         environment.jersey().register(new ProjectResource(projectController));
         environment.jersey().register(new UserResource(userController));
         BackupService backupService = new BackupService();
