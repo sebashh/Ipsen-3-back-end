@@ -20,7 +20,6 @@ public class AccountSecurityContext implements SecurityContext {
 
     @Override
     public boolean isUserInRole(String s) {
-        System.out.println(s);
         return user.hasRole(s);
     }
 

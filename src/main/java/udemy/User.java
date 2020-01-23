@@ -12,21 +12,15 @@ public class User implements Principal {
     private String email;
     @JsonProperty
     private String password;
-    @JsonProperty
-    private String userrole;
 
-    public User(String email, String password, String userrole) {
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
-        this.userrole = userrole;
     }
 
     public User() {
     }
 
-    public void setUserRole(String userrole) {
-        this.userrole = userrole;
-    }
 
     public String getPassword() {
         return password;
@@ -48,9 +42,5 @@ public class User implements Principal {
     @Override
     public String getName() {
         return null;
-    }
-
-    public String getUserrole() {
-        return userrole;
     }
 }

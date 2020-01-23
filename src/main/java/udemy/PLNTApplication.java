@@ -5,7 +5,6 @@ import udemy.Controllers.*;
 import udemy.auth.AccountAuthorizationFilter;
 import udemy.auth.AuthUser;
 import udemy.auth.PlntAuthenticator;
-import udemy.auth.PlntAuthorizer;
 import udemy.core.models.LoginModel;
 import udemy.persistance.*;
 import udemy.resources.*;

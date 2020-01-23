@@ -5,7 +5,7 @@ import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
-import udemy.Mapper.LoginMapper;
+//import udemy.Mapper.LoginMapper;
 import udemy.Mapper.ProjectMapper;
 import udemy.User;
 import udemy.core.models.LoginModel;
@@ -25,7 +25,7 @@ import java.util.List;
  * With the @bind command certain values can be inserted into the SQL queries
  * This secures the database against certain SQL injections
  */
-@RegisterRowMapper(LoginMapper.class)
+//@RegisterRowMapper(LoginMapper.class)
 @RegisterRowMapper(ProjectMapper.class)
 public interface UserDAO {
 

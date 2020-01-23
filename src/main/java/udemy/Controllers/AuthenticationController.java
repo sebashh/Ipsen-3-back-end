@@ -6,8 +6,6 @@ import io.dropwizard.auth.basic.BasicCredentials;
 import udemy.User;
 import udemy.persistance.UserDAO;
 
-import java.util.Optional;
-
 public class AuthenticationController {
 
     private final UserDAO userDAO;
