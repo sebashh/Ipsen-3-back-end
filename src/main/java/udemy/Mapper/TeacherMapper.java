@@ -7,10 +7,10 @@ import udemy.core.models.ExtendThisUser;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class StudentMapper implements RowMapper<ExtendThisUser> {
+public class TeacherMapper implements RowMapper<ExtendThisUser> {
+
     @Override
     public ExtendThisUser map(ResultSet rs, StatementContext ctx) throws SQLException {
         return new ExtendThisUser(rs.getInt("id"),rs.getString("email"),rs.getString("password"), rs.getString("last_login"));
     }
-
 }

@@ -1,8 +1,8 @@
 package udemy.Controllers;
 
 //import udemy.core.models.Student;
+import udemy.core.models.ExtendThisUser;
 import udemy.core.models.Student;
-import udemy.core.models.StudentUser;
 import udemy.core.models.User;
 import udemy.persistance.StudentDAO;
 import udemy.persistance.StudyDAO;
@@ -33,7 +33,7 @@ public class StudentController {
 
     public List<Student> getStudentInfo(){
         List<Student> students = new ArrayList<>();
-        List<StudentUser> users = studentDAO.getAllStudents();
+        List<ExtendThisUser> users = studentDAO.getAllStudents();
 
         for(int i = 0; i < users.size(); i++){
             Student student = new Student(users.get(i), studyDAO.getStudyOfClient(users.get(i).id));

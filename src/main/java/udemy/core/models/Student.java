@@ -2,7 +2,7 @@ package udemy.core.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Student extends StudentUser {
+public class Student extends ExtendThisUser {
     @JsonProperty
     public String study;
 
@@ -14,11 +14,11 @@ public class Student extends StudentUser {
         this.study = study;
     }
 
-    public Student(StudentUser studentUser, String study){
-        this.id = studentUser.id;
-        this.email = studentUser.email;
-        this.password = studentUser.password;
-        this.lastLogin = studentUser.lastLogin;
+    public Student(ExtendThisUser extendThisUser, String study){
+        this.id = extendThisUser.id;
+        this.email = extendThisUser.email;
+        this.password = extendThisUser.password;
+        this.lastLogin = extendThisUser.lastLogin;
         this.study = study;
     }
 
