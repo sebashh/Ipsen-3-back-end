@@ -26,4 +26,7 @@ public interface PaperDAO {
     @RolesAllowed("admin")
     @SqlQuery ("SELECT * FROM paper WHERE project_id=:id")
     List<Paper> getProjectPapers(@Bind("id")int id);
+
+    @SqlQuery ("SELECT COUNT(*) FROM paper WHERE project_id=:id")
+    int getPaperAmount(@Bind("id")int id);
 }

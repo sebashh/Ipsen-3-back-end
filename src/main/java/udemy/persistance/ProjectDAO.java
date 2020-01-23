@@ -51,4 +51,16 @@ public interface ProjectDAO {
             "INNER JOIN study ON project.study_id = study.id \n" +
             "WHERE client_id = :client_id")
     List<Project> getAllProjectsOfClient(@Bind("client_id")int client_id);
+
+    @SqlQuery("select COUNT(*) FROM follow_project WHERE project_id=:id")
+    int getFollowAmount(@Bind("id")int id);
+
+    @SqlUpdate("INSERT INTO follow_project(project_id, user_id) VALUES(:projectId, :userId)")
+    void followProject(@Bind("projectId")int project_id, @Bind("userId")int user_id);
+
+    @SqlUpdate("DELETE FROM follow_project WHERE project_id = :projectId AND user_id = :userId")
+    void unFollowProject(@Bind("projectId")int project_id, @Bind("userId")int user_id);
+
+    @SqlQuery("SELECT EXISTS(SELECT 1 FROM follow_project WHERE project_id = :projectId AND user_id = :userId)")
+    boolean isFollowing(@Bind("projectId")int project_id, @Bind("userId")int user_id);
 }
