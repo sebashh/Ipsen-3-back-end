@@ -5,6 +5,7 @@ import udemy.Controllers.*;
 import udemy.auth.AccountAuthorizationFilter;
 import udemy.auth.AuthUser;
 import udemy.auth.PlntAuthenticator;
+import udemy.core.models.Category;
 import udemy.core.models.LoginModel;
 import udemy.persistance.*;
 import udemy.resources.*;
@@ -58,10 +59,12 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
         final ProjectDAO projectDAO = jdbi.onDemand(ProjectDAO.class);
         final PaperDAO paperDAO = jdbi.onDemand(PaperDAO.class);
+        final CategoryDAO categoryDAO = jdbi.onDemand(CategoryDAO.class);
         final StatisticsDAO statisticsDAO = jdbi.onDemand(StatisticsDAO.class);
 
         //generating Controller
         final JWTController jwtController = new JWTController();
+        final CategoryController categoryController = new CategoryController(categoryDAO);
         final ProjectController projectController = new ProjectController(projectDAO);
         final AuthenticationController authenticationController = new AuthenticationController(userDAO);
         final UserController userController = new UserController(userDAO);
@@ -69,6 +72,7 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         final PaperController paperController = new PaperController(paperDAO);
 
 
+        environment.jersey().register(new CategoryResource(categoryController));
         environment.jersey().register(new StatisticsResource(statisticsController));
         environment.jersey().register(new ProjectResource(projectController));
         environment.jersey().register(new PaperResource(paperController));
@@ -81,13 +85,7 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         environment.jersey().register(AccountAuthorizationFilter.class);
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(AuthUser.class));
         environment.jersey().register(RolesAllowedDynamicFeature.class);
-
-
-
         environment.jersey().register(new ProjectResource(projectController));
         environment.jersey().register(new UserResource(userController));
-
-
     }
-
 }
