@@ -53,26 +53,26 @@ public class BackupService {
 
 
     private void createBackup() throws IOException {
-        currentDateTime = LocalDateTime.now();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        String outputFile = path + "PLNT" + dateTimeFormatter.format(currentDateTime) + ".sql";
-        Runtime runtime = Runtime.getRuntime();
-        Process process;
-        ProcessBuilder processBuilder;
-
-        System.out.println("backup started");
-        runtime = Runtime.getRuntime();
-        processBuilder = new ProcessBuilder(
-                "C:\\Program Files\\PostgreSQL\\10\\bin\\pg_dump.exe",
-                "-v","-h",host,"-f", outputFile, "-U", user, database);
-        processBuilder.environment().put("PGPASSWORD", password);
-        processBuilder.redirectErrorStream(true);
-        process = processBuilder.start();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        String line = reader.readLine();
-        while (line !=null){
-            line = reader.readLine();
-        }
-        System.out.println("backup completed");
+//        currentDateTime = LocalDateTime.now();
+//        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+//        String outputFile = path + "PLNT" + dateTimeFormatter.format(currentDateTime) + ".sql";
+//        Runtime runtime = Runtime.getRuntime();
+//        Process process;
+//        ProcessBuilder processBuilder;
+//
+//        System.out.println("backup started");
+//        runtime = Runtime.getRuntime();
+//        processBuilder = new ProcessBuilder(
+//                "C:\\Program Files\\PostgreSQL\\12\\bin\\pg_dump.exe",
+//                "-v","-h",host,"-f", outputFile, "-U", user, database);
+//        processBuilder.environment().put("PGPASSWORD", password);
+//        processBuilder.redirectErrorStream(true);
+//        process = processBuilder.start();
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//        String line = reader.readLine();
+//        while (line !=null){
+//            line = reader.readLine();
+//        }
+//        System.out.println("backup completed");
     }
 }
