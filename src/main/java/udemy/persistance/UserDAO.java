@@ -29,28 +29,6 @@ import java.util.List;
 @RegisterRowMapper(ProjectMapper.class)
 public interface UserDAO {
 
-    @SqlQuery("SELECT * FROM person")
-    List<UserModel> getAllUsers();
-
-    @SqlQuery("SELECT exists(SELECT 1 FROM person)")
-    boolean anyUserExists();
-
-    @SqlQuery("SELECT * FROM person WHERE user_id = :id")
-    UserModel getUserById(@Bind("id") int id);
-
-    @SqlQuery("SELECT * FROM person WHERE username = :username AND pass = :password")
-    UserModel getUserByLogin(@Bind("username")String username, @Bind("password") String password);
-
-    @SqlQuery("SELECT user_id FROM person ORDER BY user_id DESC limit 1")
-    int getLastUserId();
-
-    @SqlUpdate("INSERT INTO person(user_id,username,pass,student,teacher, admin) SELECT :id, :username, :password, :student, :teacher , :admin " +
-            "WHERE NOT EXISTS (SELECT username FROM person WHERE username = :username)")
-    void registerUser(@Bind("id")int id, @Bind("username")String username, @Bind("password")String password,
-                      @Bind("student")boolean student, @Bind("teacher")boolean teacher, @Bind("admin")boolean admin);
-
-    @SqlQuery("SELECT EXISTS(SELECT * FROM person WHERE username =:username)")
-    Boolean checkUserExistence(@Bind("email") String email);
 
     @SqlQuery("SELECT email,password,user_role FROM \"User\" WHERE email = :email")
     User getUserByEmail(@Bind("email") String email);
@@ -63,9 +41,6 @@ public interface UserDAO {
 
     @SqlQuery("SELECT whatUser(:id)")
     String getUserRole(@Bind("id") int id);
-
-    @SqlQuery("SELECT * FROM person WHERE password = :password")
-    LoginModel getUserPassword(@Bind("password") String password);
 
     @SqlUpdate("select createClient(:picture_company, :name_company, :description_company, :email_user, :password_user)")
     void uploadClient(
