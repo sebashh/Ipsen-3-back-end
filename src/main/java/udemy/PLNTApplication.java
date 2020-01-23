@@ -1,14 +1,10 @@
 package udemy;
 
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
-import udemy.Controllers.AuthenticationController;
-import udemy.Controllers.PaperController;
-import udemy.Controllers.ProjectController;
-import udemy.Controllers.UserController;
+import udemy.Controllers.*;
 import udemy.auth.PlntAuthenticator;
 import udemy.auth.PlntAuthorizer;
 import udemy.core.models.LoginModel;
-import udemy.Controllers.StatisticsController;
 import udemy.persistance.*;
 import udemy.resources.*;
 import udemy.services.BackupService;
@@ -57,11 +53,21 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         environment.jersey().register(CorsFilter.class);
 
 
+        final CategoryDAO categoryDAO = jdbi.onDemand(CategoryDAO.class);
+        final InterestsDAO interestsDAO = jdbi.onDemand(InterestsDAO.class);
+        final StudyDAO studyDAO = jdbi.onDemand(StudyDAO.class);
         final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
         final ProjectDAO projectDAO = jdbi.onDemand(ProjectDAO.class);
         final ProjectController projectController = new ProjectController(projectDAO);
+        final InterestsController interestsController = new InterestsController(interestsDAO);
         environment.jersey().register(new ProjectResource(projectController));
+        environment.jersey().register(new InterestResource(interestsController));
         final PaperDAO paperDAO = jdbi.onDemand(PaperDAO.class);
+        final StudentController studentController = new StudentController(userDAO);
+        final TeacherController teacherController = new TeacherController(userDAO);
+        final ClientController clientController = new ClientController(userDAO);
+        final CategoryController categoryController = new CategoryController(categoryDAO);
+        final StudyController studyController = new StudyController(studyDAO);
 
         final StatisticsDAO statisticsDAO = jdbi.onDemand(StatisticsDAO.class);
         final StatisticsController statisticsController = new StatisticsController(statisticsDAO);
@@ -81,7 +87,9 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
                 .setRealm("")
                 .buildAuthFilter()));
         environment.jersey().register(new ProjectResource(projectController));
-        environment.jersey().register(new UserResource(userController));
+        environment.jersey().register(new CategoryResource(categoryController));
+        environment.jersey().register(new StudyResource(studyController));
+        environment.jersey().register(new UserRecourse(clientController, studentController, teacherController));
         BackupService backupService = new BackupService();
 
     }
