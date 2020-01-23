@@ -5,10 +5,7 @@ import udemy.Controllers.UserController;
 import udemy.core.models.Notification;
 import udemy.core.models.Project;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -32,6 +29,12 @@ public class UserResource {
                 .status(200)
                 .entity(notifications)
                 .build();
+    }
+
+    @DELETE
+    @Path("/delete")
+    public void delete(@PathParam("id") int id) {
+        controller.deleteUser(id);
     }
 
 

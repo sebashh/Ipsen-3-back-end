@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 
-public class StudentUser {
+public class ExtendThisUser {
     @NotNull
     @JsonProperty("id")
     public int id;
@@ -18,12 +18,12 @@ public class StudentUser {
     public String lastLogin;
 //
 
-    StudentUser(){}
+    ExtendThisUser(){}
 
-    public StudentUser(int id, String email, String password, String lastLogin){
+    public ExtendThisUser(int id, String email, String password, String lastLogin){
         this.id = id;
         this.email = email;
         this.password = password;
-        this.lastLogin = lastLogin;
+        this.lastLogin = lastLogin.substring(0, 10);
     }
 }

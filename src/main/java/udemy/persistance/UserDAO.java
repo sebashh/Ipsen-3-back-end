@@ -94,4 +94,7 @@ public interface UserDAO {
 
     @SqlUpdate("UPDATE \"User\" SET last_login = :date WHERE id = :id")
     void updateLastLogin(@Bind("id")int id, @Bind("date") Date date);
+
+    @SqlUpdate("delete from \"User\" where id= :user_id")
+    void deleteUser(@Bind("user_id")int user_id);
 }

@@ -26,4 +26,8 @@ public class UserController {
         UpdateLastLogin(id);
         return null;
     }
+
+    public void deleteUser(int id){
+        userDAO.deleteUser(id);
+    }
 }
