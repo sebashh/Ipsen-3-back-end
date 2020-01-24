@@ -11,7 +11,7 @@ public class StudyMapper implements RowMapper<Study> {
 
     @Override
     public Study map(ResultSet resultSet, StatementContext statementContext) throws SQLException{
-        return new Study(resultSet.getString("name"));
+        return new Study(resultSet.getString("name"), resultSet.getInt("id"));
     }
 
 }
