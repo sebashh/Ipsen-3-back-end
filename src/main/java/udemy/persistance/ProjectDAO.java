@@ -54,4 +54,7 @@ public interface ProjectDAO {
             "INNER JOIN category ON project.category_id = category.id\n" +
             "INNER JOIN study ON project.study_id = study.id")
     List<Project> getAllProjects();
+
+    @SqlUpdate("delete from project where id= :project_id")
+    void deleteProject(@Bind("project_id")int project_id);
 }

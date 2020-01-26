@@ -20,8 +20,6 @@ public class ProjectResource {
     }
 
 
-
-
     @GET
     @Path("/test")
     @Produces(MediaType.TEXT_PLAIN)
@@ -70,5 +68,10 @@ public class ProjectResource {
                 .build();
     }
 
+    @DELETE
+    @Path("/delete={id}")
+    public void delete(@PathParam("id") int id) {
+        projectController.deleteProject(id);
+    }
 
 }

@@ -31,4 +31,8 @@ public class ProjectController {
     public List<Project> getUserProjects(int id) {
         return projectDAO.getUserFollowedProjects(id);
     }
+
+    public void deleteProject(int id){
+        projectDAO.deleteProject(id);
+    }
 }
