@@ -16,7 +16,7 @@ public class ProjectMapper implements RowMapper<Project> {
     @Override
     public Project map(ResultSet resultSet, StatementContext statementContext) throws SQLException{
         return new Project(resultSet.getInt("id"),resultSet.getString("title"), resultSet.getString("summary")
-                , resultSet.getTimestamp("created_on"), resultSet.getInt("client_id"),resultSet.getString("study_name"), resultSet.getString("category_name"));
+                , resultSet.getString("created_on"), resultSet.getInt("client_id"),resultSet.getString("study_name"), resultSet.getString("category_name"));
     }
 
 }

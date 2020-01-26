@@ -58,5 +58,17 @@ public class ProjectResource {
                 .build();
     }
 
+    @GET
+    @Path("/projects=all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllProjects(){
+
+        List<Project> AllProjects = projectController.getAllProjects();
+        return Response
+                .status(200)
+                .entity(AllProjects)
+                .build();
+    }
+
 
 }

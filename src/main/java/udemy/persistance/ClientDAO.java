@@ -13,4 +13,6 @@ public interface ClientDAO {
     @SqlQuery("select * from \"User\" inner join client on id = client.user_id")
     List<Client> getAllClients();
 
+
+
 }

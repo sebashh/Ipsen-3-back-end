@@ -48,4 +48,10 @@ public interface ProjectDAO {
             "INNER JOIN study ON project.study_id = study.id \n" +
             "WHERE client_id = :client_id")
     List<Project> getAllProjectsOfClient(@Bind("client_id")int client_id);
+
+    @SqlQuery("select project.id, title, summary, created_on, client_id, study.name as study_name, category.name as category_name\n" +
+            "from project\n" +
+            "INNER JOIN category ON project.category_id = category.id\n" +
+            "INNER JOIN study ON project.study_id = study.id")
+    List<Project> getAllProjects();
 }

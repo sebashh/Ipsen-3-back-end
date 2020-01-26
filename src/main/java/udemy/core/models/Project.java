@@ -17,7 +17,7 @@ public class Project {
     public String summary;
     @NotNull
     @JsonProperty
-    public Timestamp createdOn;
+    public String createdOn;
     @NotNull
     @JsonProperty
     public int client;
@@ -26,12 +26,12 @@ public class Project {
     @JsonProperty
     public String category;
 
-    public Project(int projectId, String title, String summary, Timestamp createdOn , int client, String study,
+    public Project(int projectId, String title, String summary, String createdOn , int client, String study,
                    String category) {
         this.id = projectId;
         this.title = title;
         this.summary = summary;
-        this.createdOn = createdOn;
+        this.createdOn = createdOn.substring(0, 10);
         this.client = client;
         this.study = study;
         this.category = category;
