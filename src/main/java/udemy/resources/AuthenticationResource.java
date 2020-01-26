@@ -35,8 +35,6 @@ import javax.ws.rs.core.Response;
                 int userId = authenticationController.getUserIdByEmail(loginModel.getEmail());
                 String userRole = authenticationController.getUserRole(userId);
                 AuthModel model = JWTController.generateAuthModel(Integer.toString(userId), userRole);
-
-                System.out.println("wachtwoord correct");
                 return Response.ok(200)
                         .entity(model)
                         .build();

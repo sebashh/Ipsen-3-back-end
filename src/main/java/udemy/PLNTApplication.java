@@ -63,7 +63,7 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         final CategoryController categoryController = new CategoryController(categoryDAO);
         final ProjectController projectController = new ProjectController(projectDAO);
         final AuthenticationController authenticationController = new AuthenticationController(userDAO);
-        final UserController userController = new UserController(userDAO);
+        final UserController userController = new UserController(userDAO, authenticationController);
         final StatisticsController statisticsController = new StatisticsController(statisticsDAO);
         final PaperController paperController = new PaperController(paperDAO);
         final StudyController studyController = new StudyController(studyDAO);

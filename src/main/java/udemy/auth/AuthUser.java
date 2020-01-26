@@ -8,7 +8,6 @@ public class AuthUser implements Principal {
 
     public AuthUser(String name, String role)
     {
-        System.out.println("created user with role: "+ role);;
         this.name = name;
         this.role = role;
     }

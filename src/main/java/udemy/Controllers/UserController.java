@@ -12,9 +12,11 @@ public class UserController {
 
     private UserDAO userDAO;
     private ProjectController projectController;
+    private AuthenticationController authController;
 
-    public UserController(UserDAO userDAO){
+    public UserController(UserDAO userDAO, AuthenticationController authenticationController){
         this.userDAO = userDAO;
+        this.authController = authenticationController;
     }
 
     public void UpdateLastLogin(int id){
@@ -23,13 +25,13 @@ public class UserController {
 
     public List<Project> getNotifications(int id) {
         List<Project> userProjects = userDAO.getNewNotifiactions(id);
-        System.out.println(userProjects);
         UpdateLastLogin(id);
         return null;
     }
 
     public boolean uploadTeacher(User user) {
-        int userId = userDAO.uploadTeacher(user.study, user.email_user, user.password_user);
+        String encryptPassword = authController.getEncrPass(user.password_user);
+        int userId = userDAO.uploadTeacher(user.study, user.email_user, encryptPassword);
         if(userId != 0) {
             for (int category : user.categories) {
                 userDAO.uploadInterests(userId, category);
@@ -40,11 +42,13 @@ public class UserController {
     }
 
     public boolean uploadClient(User user) {
-        return userDAO.uploadClient(user.picture_company, user.name_company, user.description_company, user.email_user, user.password_user);
+        String encryptPassword = authController.getEncrPass(user.password_user);
+        return userDAO.uploadClient(user.picture_company, user.name_company, user.description_company, user.email_user, encryptPassword);
     }
 
     public boolean uploadStudent(User user) {
-        int userId = userDAO.uploadStudent(user.study, user.email_user, user.password_user);
+        String encryptPassword = authController.getEncrPass(user.password_user);
+        int userId = userDAO.uploadStudent(user.study, user.email_user, encryptPassword);
         if(userId != 0 && userId != -1) {
             for (int category : user.categories) {
                 userDAO.uploadInterests(userId, category);
