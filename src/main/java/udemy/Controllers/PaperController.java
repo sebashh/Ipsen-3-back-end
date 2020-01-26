@@ -78,4 +78,9 @@ public class PaperController {
             List<Paper> papers = paperDAO.getProjectPapers(id);
             return papers;
         }
+
+        public void deletePaper(int id){
+            paperDAO.deletePaper(id);
+        }
+
 }
