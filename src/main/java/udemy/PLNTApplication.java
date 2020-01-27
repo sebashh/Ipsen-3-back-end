@@ -2,8 +2,9 @@ package udemy;
 
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 import udemy.Controllers.*;
-//import udemy.auth.PlntAuthenticator;
-import udemy.auth.PlntAuthorizer;
+import udemy.auth.AccountAuthorizationFilter;
+import udemy.auth.AuthUser;
+import udemy.auth.PlntAuthenticator;
 import udemy.core.models.LoginModel;
 import udemy.persistance.*;
 import udemy.resources.*;
@@ -45,19 +46,25 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
     @Override
     public void run(final PLNTConfiguration configuration,
                     final Environment environment) {
+
+
         final JdbiFactory factory = new JdbiFactory();
         final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
-        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
-        environment.jersey().register(RolesAllowedDynamicFeature.class);
         environment.jersey().register(new JsonProcessingExceptionMapper(true));
         environment.jersey().register(CorsFilter.class);
 
 
+        //generating DOA
         final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
         final ProjectDAO projectDAO = jdbi.onDemand(ProjectDAO.class);
-        final ProjectController projectController = new ProjectController(projectDAO);
-        environment.jersey().register(new ProjectResource(projectController));
         final PaperDAO paperDAO = jdbi.onDemand(PaperDAO.class);
+        final StatisticsDAO statisticsDAO = jdbi.onDemand(StatisticsDAO.class);
+
+        //generating Controller
+        final JWTController jwtController = new JWTController();
+        final ProjectController projectController = new ProjectController(projectDAO);
+        final AuthenticationController authenticationController = new AuthenticationController(userDAO);
+        final UserController userController = new UserController(userDAO);
         final StudentDAO studentDAO = jdbi.onDemand(StudentDAO.class);
         final StudyDAO studyDAO = jdbi.onDemand(StudyDAO.class);
         final StudentController studentController = new StudentController(userDAO,studentDAO,studyDAO);
@@ -71,23 +78,26 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         environment.jersey().register(new ClientResource(clientController));
         final StatisticsController statisticsController = new StatisticsController(statisticsDAO);
         final PaperController paperController = new PaperController(paperDAO);
-        environment.jersey().register(new StatisticsResource(statisticsController));
 
-//        final PaperController paperController = new PaperController(paperDAO);
-        final UserController userController = new UserController(userDAO);
+
+        environment.jersey().register(new StatisticsResource(statisticsController));
+        environment.jersey().register(new ProjectResource(projectController));
         environment.jersey().register(new PaperResource(paperController));
-        final AuthenticationController authenticationController = new AuthenticationController(userDAO);
-//        PlntAuthenticator plntAuthenticator = new PlntAuthenticator(authenticationController);
-//        environment.jersey().register(new AuthenticationResource(authenticationController, plntAuthenticator));
-////        BackupService backupService = new BackupService();
-//        environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>()
-//                .setAuthenticator(plntAuthenticator)
-//                .setAuthorizer(new PlntAuthorizer())
-//                .setRealm("")
-//                .buildAuthFilter()));
+        PlntAuthenticator plntAuthenticator = new PlntAuthenticator(authenticationController);
+        environment.jersey().register(new AuthenticationResource(authenticationController, plntAuthenticator));
+//        BackupService backupService = new BackupService();
+
+        //authentication
+        environment.jersey().register(new AuthDynamicFeature(AccountAuthorizationFilter.class));
+        environment.jersey().register(AccountAuthorizationFilter.class);
+        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(AuthUser.class));
+        environment.jersey().register(RolesAllowedDynamicFeature.class);
+
+
+
         environment.jersey().register(new ProjectResource(projectController));
         environment.jersey().register(new UserResource(userController));
-        BackupService backupService = new BackupService();
+
 
     }
 

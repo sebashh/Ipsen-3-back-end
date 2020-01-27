@@ -8,13 +8,13 @@ database:
   driverClass: org.postgresql.Driver
 
   # the username
-  user: Ipsen3
+  user: postgres
 
   # the password
-  password: Ipsen3
+  password: postgres
 
   # the JDBC URL
-  url: jdbc:postgresql://localhost/Ipsen3
+  url: jdbc:postgresql://localhost:5432/plnt
 
   # any properties specific to your JDBC driver:
   properties:

@@ -1,15 +1,18 @@
 package udemy.resources;
 
 
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import io.dropwizard.auth.Auth;
 import udemy.Controllers.ProjectController;
+import udemy.auth.AuthUser;
 import udemy.core.models.Project;
+import udemy.core.models.User;
 
-import javax.print.attribute.standard.Media;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Optional;
 
 @Path("/ipsen3projects")
 public class ProjectResource {
@@ -33,6 +36,47 @@ public class ProjectResource {
 
 
     @GET
+    @Path("/upload/test")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response postTest(Project project) {
+        projectController.uploadProject(project);
+        return Response.status(200).build();
+    }
+
+    @GET
+    @RolesAllowed({"teacher", "student"})
+    @Path("/project={id}/follow")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response followProject(@PathParam("id") int projectId, @Auth Optional<AuthUser> user) {
+        projectController.followProject(projectId, Integer.parseInt(user.get().getName()));
+        return Response
+                .status(200)
+                .build();
+    }
+
+    @GET
+    @RolesAllowed({"teacher", "student"})
+    @Path("/project={id}/isFollowing")
+    public Response isFollowingProject(@PathParam("id") int projectId, @Auth Optional<AuthUser> user){
+        boolean following = projectController.isFollowing(projectId, Integer.parseInt(user.get().getName()));
+        return Response
+                .status(200)
+                .entity(following)
+                .build();
+    }
+
+    @GET
+    @RolesAllowed({"teacher", "student"})
+    @Path("/project={id}/unfollow")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response unFollowProject(@PathParam("id") int projectId, @Auth Optional<AuthUser> user) {
+        projectController.unFollowProject(projectId, Integer.parseInt(user.get().getName()));
+        return Response
+                .status(200)
+                .build();
+    }
+
+    @GET
     @Path("/project={id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getProject(@PathParam("id") int id)
@@ -48,7 +92,6 @@ public class ProjectResource {
     @Path("/projects={id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllProjectsOfClient(@PathParam("id") int id){
-
         List<Project> ProjectsOfClient = projectController.getAllProjectsOfClient(id);
         return Response
                 .status(200)
@@ -56,6 +99,16 @@ public class ProjectResource {
                 .build();
     }
 
+    @GET
+    @Path("/project={id}/follow/amount")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFollowAmount(@PathParam("id") int id){
+        int amount = projectController.getFollowAmount(id);
+        return Response
+                .status(200)
+                .entity(amount)
+                .build();
+    }
     @GET
     @Path("/projects=all")
     @Produces(MediaType.APPLICATION_JSON)

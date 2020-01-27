@@ -4,13 +4,16 @@ import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
-import udemy.core.models.Project;
 import udemy.Mapper.ProjectMapper;
+import udemy.core.models.Project;
 
 import java.util.List;
 
 @RegisterRowMapper(ProjectMapper.class)
 public interface ProjectDAO {
+
+    @SqlQuery("SELECT pdf_location FROM paper WHERE id = :projectId")
+    String getProjectFile(@Bind("projectId") int id);
 
     @SqlQuery("select project.id, title, summary, created_on, client_id, study.name as study_name, category.name as category_name\n" +
             "from project\n" +
@@ -42,7 +45,7 @@ public interface ProjectDAO {
     @SqlQuery("SELECT * FROM project INNER JOIN follow_project ON project.id = follow_project.project_id AND follow_project.user_id = :id")
     List<Project> getUserFollowedProjects(@Bind("id")int id);
 
-    @SqlQuery("select project.id, title, summary, created_on, client_id, study.name as study_name, category.name as category_name\n" +
+    @SqlQuery("select project.id, title, summary, created_on, client_id, study.name as study_id, category.name as category_id\n" +
             "from project\n" +
             "INNER JOIN category ON project.category_id = category.id\n" +
             "INNER JOIN study ON project.study_id = study.id \n" +
@@ -57,4 +60,16 @@ public interface ProjectDAO {
 
     @SqlUpdate("delete from project where id= :project_id")
     void deleteProject(@Bind("project_id")int project_id);
+
+    @SqlQuery("select COUNT(*) FROM follow_project WHERE project_id=:id")
+    int getFollowAmount(@Bind("id")int id);
+
+    @SqlUpdate("INSERT INTO follow_project(project_id, user_id) VALUES(:projectId, :userId)")
+    void followProject(@Bind("projectId")int project_id, @Bind("userId")int user_id);
+
+    @SqlUpdate("DELETE FROM follow_project WHERE project_id = :projectId AND user_id = :userId")
+    void unFollowProject(@Bind("projectId")int project_id, @Bind("userId")int user_id);
+
+    @SqlQuery("SELECT EXISTS(SELECT 1 FROM follow_project WHERE project_id = :projectId AND user_id = :userId)")
+    boolean isFollowing(@Bind("projectId")int project_id, @Bind("userId")int user_id);
 }

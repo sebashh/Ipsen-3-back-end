@@ -15,7 +15,7 @@ import java.util.List;
 public class PaperController {
 
     private PaperDAO paperDAO;
-    private String path = System.getProperty("user.home") + "\\Desktop\\";
+    private String path = getClass().getClassLoader().getResource("PDF/").getPath();
     private String requiredFileType = "application/pdf";
     private int requiredStringLength = 8;
 
@@ -30,10 +30,10 @@ public class PaperController {
         public void uploadFile (Paper paper){
             byte[] decoder = Base64.getDecoder().decode(paper.paperFile.split(",")[1]);
             FileOutputStream fos = null;
-            String filePath = (paper.title.substring(0, checkStringLength(paper.title) ? requiredStringLength : paper.title.length())) + "_" + getCurrentDateTime();
+            String filePath = (paper.title.substring(0, checkStringLength(paper.title) ? requiredStringLength : paper.title.length())) + "_" + getCurrentDateTime() + ".pdf";
             uploadFilePathToDatabase(paper, filePath);
             try {
-                fos = new FileOutputStream(path + filePath + ".pdf");
+                fos = new FileOutputStream(path + filePath);
                 fos.write(decoder);
                 fos.close();
                 System.out.println("file saved to desktop");
@@ -85,5 +85,9 @@ public class PaperController {
 
     public void updatePaper(Paper paper) {
         System.out.println(paper.title);
+    }
+
+    public int getPaperAmount(int id) {
+        return paperDAO.getPaperAmount(id);
     }
 }
