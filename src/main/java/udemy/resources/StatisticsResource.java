@@ -1,7 +1,9 @@
 package udemy.resources;
 
+import io.dropwizard.auth.Auth;
 import udemy.Controllers.StatisticsController;
 import udemy.ENUM.Roles;
+import udemy.auth.AuthUser;
 import udemy.core.models.DateStatistic;
 import udemy.core.models.Project;
 import udemy.core.models.Statistics;
@@ -15,6 +17,7 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Path("/statistics")
 public class StatisticsResource {
@@ -41,10 +44,11 @@ public class StatisticsResource {
 
 
     @GET
-    @Path("/student={studentName}")
+    @Path("/student")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getRecentUserStatistics(@PathParam("studentName") String studentName){
-        ArrayList<Integer> recentStatistics = statisticsController.getRecentUserStatistics(studentName);
+    public Response getRecentUserStatistics(@Auth Optional<AuthUser> user){
+        int userId = Integer.parseInt(user.get().getName());
+        ArrayList<Integer> recentStatistics = statisticsController.getRecentUserStatistics(userId);
         return Response
                 .status(200)
                 .entity(recentStatistics)
@@ -52,10 +56,11 @@ public class StatisticsResource {
     }
 
     @GET
-    @Path("/teacher={teacherName}")
+    @Path("/teacher")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getRecentTeacherStatistics(@PathParam("teacherName") String teacherName){
-        ArrayList<Integer> recentStatistics = statisticsController.getRecentTeacherStatistics(teacherName);
+    public Response getRecentTeacherStatistics(@Auth Optional<AuthUser> user){
+        int userId = Integer.parseInt(user.get().getName());
+        ArrayList<Integer> recentStatistics = statisticsController.getRecentTeacherStatistics(userId);
         return Response
                 .status(200)
                 .entity(recentStatistics)
@@ -63,10 +68,11 @@ public class StatisticsResource {
     }
 
     @GET
-    @Path("/client={clientName}")
+    @Path("/client")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getRecentClientStatistics(@PathParam("clientName") String clientName){
-        ArrayList<Integer> recentStatistics = statisticsController.getRecentClientStatistics(clientName);
+    public Response getRecentClientStatistics(@Auth Optional<AuthUser> user){
+        int userId = Integer.parseInt(user.get().getName());
+        ArrayList<Integer> recentStatistics = statisticsController.getRecentClientStatistics(userId);
         return Response
                 .status(200)
                 .entity(recentStatistics)

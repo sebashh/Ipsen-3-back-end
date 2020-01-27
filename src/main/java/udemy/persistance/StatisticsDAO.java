@@ -42,42 +42,42 @@ public interface StatisticsDAO {
 
     @SqlQuery("SELECT COUNT(*) FROM Project WHERE category_id IN " +
             "(SELECT category_id FROM interests WHERE user_id = " +
-            "(SELECT \"id\" FROM \"User\" WHERE email = :name))" +
-            " AND created_on > (SELECT last_login FROM \"User\" WHERE email = :name)")
-    int getRecentProjectsAmount(@Bind("name") String studentName);
+            "(SELECT \"id\" FROM \"User\" WHERE \"id\" = :userId))" +
+            " AND created_on > (SELECT last_login FROM \"User\" WHERE \"id\" = :userId)")
+    int getRecentProjectsAmount(@Bind("userId") int userId);
 
 
     @SqlQuery("SELECT COUNT(*) FROM Paper WHERE project_id IN " +
                 "(SELECT id FROM Project WHERE category_id IN" +
                     "(SELECT category_id FROM interests WHERE user_id =" +
-                        "(SELECT \"id\" FROM \"User\" WHERE email = :name)))" +
-                "AND upload_date > (SELECT last_login FROM \"User\" WHERE email = :name)")
-    int getRecentPapersAmount(@Bind("name") String studentName);
+                        "(SELECT \"id\" FROM \"User\" WHERE \"id\" = :userId)))" +
+                "AND upload_date > (SELECT last_login FROM \"User\" WHERE \"id\" = :userId)")
+    int getRecentPapersAmount(@Bind("userId") int userId);
 
     @SqlQuery("SELECT COUNT(DISTINCT(Project.id)) FROM Project JOIN Paper ON Project.id = paper.project_id JOIN" +
             " \"User\" ON paper.uploaded_by = \"User\".id JOIN \"View\" ON Project.id = \"View\".project_id" +
-            " WHERE \"User\".email = :name")
-    int getRecentProjectViewed(@Bind("name") String teacherName);
+            " WHERE \"User\".id = :userId")
+    int getRecentProjectViewed(@Bind("userId") int userId);
 
     @SqlQuery("SELECT COUNT(*) FROM Project JOIN Paper ON Project.id = paper.project_id JOIN" +
             " \"User\" ON paper.uploaded_by = \"User\".id JOIN \"View\" ON Project.id = \"View\".project_id" +
-            "  WHERE \"User\".email = :name")
-    int getRecentTotalViews(@Bind("name") String teacherName);
+            "  WHERE \"User\".id = :userId")
+    int getRecentTotalViews(@Bind("userId") int userId);
 
     @SqlQuery("SELECT COUNT(*) FROM \"View\" JOIN Project ON \"View\".project_id = Project.id " +
             " JOIN Client ON Project.client_id = Client.user_id JOIN \"User\" ON Client.user_id = \"User\".id" +
-            " WHERE \"User\".email = :name")
-    int getRecentTotalViewsProject(@Bind("name") String clientName);
+            " WHERE \"User\".id = :userId")
+    int getRecentTotalViewsProject(@Bind("userId") int userId);
 
     @SqlQuery("SELECT COUNT(*) FROM Paper JOIN Project ON Paper.project_id = Project.id" +
             " JOIN Client ON Project.client_id = Client.user_id JOIN \"User\" ON Client.user_id = \"User\".id" +
-             " WHERE \"User\".email = :name")
-    int getRecentUploads(@Bind("name") String clientName);
+             " WHERE \"User\".id = :userId")
+    int getRecentUploads(@Bind("userId") int userId);
 
     @SqlQuery("SELECT COUNT(*) FROM Project JOIN Client ON Project.client_id = Client.user_id JOIN \"User\" " +
             " ON Client.user_id = \"User\".id" +
-            " WHERE \"User\".email = :name")
-    int getTotalProjectsClient(@Bind("name") String clientName);
+            " WHERE \"User\".id = :userId")
+    int getTotalProjectsClient(@Bind("userId") int userId);
 
     @SqlQuery("WITH projectdays AS (" +
             " SELECT date(date_trunc('day', created_on)) \"day\", count(id) \"total\"" +
