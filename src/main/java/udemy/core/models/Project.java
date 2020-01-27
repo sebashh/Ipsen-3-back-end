@@ -5,10 +5,8 @@ import javax.validation.constraints.NotNull;
 
 public class Project {
 
-    @NotNull
     @JsonProperty
     public int projectId;
-    @NotNull
     @JsonProperty
     public String title;
     @NotNull
@@ -16,12 +14,11 @@ public class Project {
     public String description;
     @NotNull
     @JsonProperty
-    public String study;
+    public int study;
     @JsonProperty
-    public String category;
+    public int category;
     @JsonProperty
     public String createdOn;
-    @NotNull
     @JsonProperty
     public int clientId;
 
@@ -29,7 +26,7 @@ public class Project {
 
     }
 
-    public Project(int projectId, String title, String description, String study, String category,
+    public Project(int projectId, String title, String description, int study, int category,
                    String createdOn, int clientId) {
         this.projectId = projectId;
         this.title = title;

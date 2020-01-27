@@ -18,9 +18,9 @@ public class ProjectController {
         this.projectDAO = projectDAO;
     }
 
-    public void uploadProject(Project project) {
+    public void uploadProject(Project project, int clientId) {
 
-        projectDAO.uploadProject(1, project.title, project.description, project.clientId, 1, 1);
+        projectDAO.uploadProject(project.title, project.description , clientId, project.study, project.category);
 
     }
 
@@ -78,11 +78,13 @@ public class ProjectController {
     }
 
     public boolean isProjectOwner(int id, int userId) {
+        System.out.println("project owner id: " + projectDAO.getProjectOwner(id));
         return userId == projectDAO.getProjectOwner(id);
 
     }
 
-    public boolean accessRequestResponse(boolean accepted, int teacherId, int userId, int projectId) {
+    public boolean accessRequestResponse(boolean accepted, int userId, int teacherId, int projectId) {
+        System.out.println("project user id: " + userId);
         if(isProjectOwner(projectId, userId)){
             if(accepted) projectDAO.acceptAcces(projectId, teacherId);
             else projectDAO.denieAcces(projectId, teacherId);
@@ -107,5 +109,9 @@ public class ProjectController {
             members.add(new AccessModel(userController.getUserEmail(teacher), teacher));
         }
         return members;
+    }
+
+    public List<Project> getAllProjects() {
+        return projectDAO.getAllProjects();
     }
 }

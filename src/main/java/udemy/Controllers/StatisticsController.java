@@ -26,10 +26,6 @@ public class StatisticsController {
     }
 
     private ArrayList<Project> getProjectVariables(ArrayList<Project> projects) {
-        for (Project project: projects){
-            project.category = statisticsDAO.getCategory(Integer.parseInt(project.category));
-            project.study = statisticsDAO.getStudy(Integer.parseInt(project.study));
-        }
         return projects;
     }
 

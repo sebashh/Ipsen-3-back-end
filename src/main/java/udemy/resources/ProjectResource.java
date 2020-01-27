@@ -26,14 +26,13 @@ public class ProjectResource {
 
 
 
-    @GET
-    @Path("/test")
+    @POST
+    @Path("/project/create")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response getTest(){
-        String output = "hello world uwu" ;
+    public Response getTest(Project project, @Auth Optional<AuthUser> user){
+        projectController.uploadProject(project, Integer.parseInt(user.get().getName()));
         return Response
                 .status(200)
-                .entity(output)
                 .build();
     }
 
@@ -56,6 +55,16 @@ public class ProjectResource {
         return Response
                 .status(200)
                 .entity(following)
+                .build();
+    }
+
+    @GET
+    @RolesAllowed({"teacher", "student", "client", "admin"})
+    @Path("/projects/all")
+    public Response getProject(){
+        return Response
+                .status(200)
+                .entity(projectController.getAllProjects())
                 .build();
     }
 
@@ -130,7 +139,7 @@ public class ProjectResource {
     }
 
     @GET
-    @Path("/clientProjects/top/user}")
+    @Path("/clientProjects/top/user")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getTopViewedClientProjects(@Auth Optional<AuthUser> user){
         int userId = Integer.parseInt(user.get().getName());
