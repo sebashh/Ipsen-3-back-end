@@ -1,8 +1,10 @@
 package udemy.resources;
 
 import udemy.Controllers.TeacherController;
+import udemy.core.models.Teacher;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -24,5 +26,11 @@ public class TeacherResource {
                 .status(200)
                 .entity(teacherController.getTeacherInfo())
                 .build();
+    }
+
+    @PUT
+    @Path("/teacherUpdate")
+    public void updateTeacher(Teacher teacher){
+        teacherController.updateTeacher(teacher);
     }
 }

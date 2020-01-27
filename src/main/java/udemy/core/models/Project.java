@@ -26,6 +26,8 @@ public class Project {
     @JsonProperty
     public String category;
 
+    public Project(){}
+
     public Project(int projectId, String title, String summary, String createdOn , int client, String study,
                    String category) {
         this.id = projectId;

@@ -62,4 +62,10 @@ public class PaperResource {
     public void delete(@PathParam("id") int id) {
         paperController.deletePaper(id);
     }
+
+    @PUT
+    @Path("/paperUpdate")
+    public void updatePaper(Paper paper){
+        paperController.updatePaper(paper);
+    }
 }

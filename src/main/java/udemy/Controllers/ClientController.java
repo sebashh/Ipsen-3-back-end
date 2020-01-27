@@ -28,4 +28,8 @@ public class ClientController {
     public List<Client> getClientInfo(){
         return clientDAO.getAllClients();
     }
+
+    public void updateClient(Client client) {
+        System.out.println(client.email);
+    }
 }

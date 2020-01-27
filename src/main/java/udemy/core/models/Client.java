@@ -9,6 +9,10 @@ public class Client extends ExtendThisUser{
     public String description;
     public byte[] picture;
 
+    public Client(){
+
+    }
+
     public Client(int id, String email, String password, String lastLogin, String company_name, String description, byte[] picture){
         this.id = id;
         this.email = email;

@@ -1,10 +1,9 @@
 package udemy.resources;
 
 import udemy.Controllers.StudentController;
+import udemy.core.models.Student;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -26,5 +25,9 @@ public class StudentResource {
                 .build();
     }
 
-
+    @PUT
+    @Path("/studentUpdate")
+    public void updateStudent(Student student){
+         studentController.updateStudent(student);
+    }
 }

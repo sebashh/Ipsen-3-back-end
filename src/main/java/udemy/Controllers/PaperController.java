@@ -83,4 +83,7 @@ public class PaperController {
             paperDAO.deletePaper(id);
         }
 
+    public void updatePaper(Paper paper) {
+        System.out.println(paper.title);
+    }
 }

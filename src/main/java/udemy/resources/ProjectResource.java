@@ -74,4 +74,10 @@ public class ProjectResource {
         projectController.deleteProject(id);
     }
 
+    @PUT
+    @Path("/projectUpdate")
+    public void updateTeacher(Project project){
+        projectController.updateProject(project);
+    }
+
 }

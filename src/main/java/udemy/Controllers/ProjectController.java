@@ -35,4 +35,8 @@ public class ProjectController {
     public void deleteProject(int id){
         projectDAO.deleteProject(id);
     }
+
+    public void updateProject(Project project) {
+        System.out.println(project.title);
+    }
 }

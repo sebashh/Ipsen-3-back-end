@@ -4,6 +4,7 @@ import udemy.Controllers.ClientController;
 import udemy.core.models.Client;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -25,5 +26,11 @@ public class ClientResource {
                 .status(200)
                 .entity(clientController.getClientInfo())
                 .build();
+    }
+
+    @PUT
+    @Path("/clientUpdate")
+    public void updateClient(Client client){
+        clientController.updateClient(client);
     }
 }

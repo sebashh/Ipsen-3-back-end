@@ -31,6 +31,10 @@ public class StudentController {
         userDAO.uploadStudent(id, user.email_user, user.password_user);
     }
 
+    public void updateStudent(Student student) {
+        studentDAO.updateStudent(student.id, student.email);
+    }
+
     public List<Student> getStudentInfo(){
         List<Student> students = new ArrayList<>();
         List<ExtendThisUser> users = studentDAO.getAllStudents();
@@ -41,4 +45,5 @@ public class StudentController {
         }
         return students;
     }
+
 }

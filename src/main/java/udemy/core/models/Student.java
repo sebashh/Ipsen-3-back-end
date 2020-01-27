@@ -6,6 +6,9 @@ public class Student extends ExtendThisUser {
     @JsonProperty
     public String study;
 
+    public Student(){
+
+    }
     public Student(int id, String email, String password, String lastLogin, String study){
         this.id = id;
         this.email = email;

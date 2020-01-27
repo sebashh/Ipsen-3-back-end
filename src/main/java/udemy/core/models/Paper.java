@@ -31,6 +31,7 @@ public class Paper {
     @JsonProperty
     public int id;
 
+    public Paper() {}
 
     public Paper(int projectId, String title, String author, int uploadedBy, String uploadDate, String paperFile, int id) {
         this.projectId = projectId;
@@ -42,9 +43,7 @@ public class Paper {
         this.id = id;
     }
 
-    public Paper() {
 
-    }
 
     public Paper(String title, String author, String paperFile, int id) {
         this.title = title;

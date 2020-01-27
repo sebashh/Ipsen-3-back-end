@@ -39,4 +39,8 @@ public class TeacherController {
         }
         return teachers;
     }
+
+    public void updateTeacher(Teacher teacher) {
+        System.out.println(teacher.email);
+    }
 }
