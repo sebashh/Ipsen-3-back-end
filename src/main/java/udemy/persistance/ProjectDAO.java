@@ -64,14 +64,15 @@ public interface ProjectDAO {
 
     @SqlQuery("SELECT Project.id, title, summary, created_on, client_id, study.name as study_id, category.name as category_id  FROM Project JOIN interests ON Project.category_id = interests.category_id JOIN \"User\" ON interests.user_id = \"User\".id" +
             " JOIN study ON Project.study_id = study.id JOIN category ON Project.category_id = category.id" +
-            " WHERE \"User\".id = :studentId AND Project.created_on > \"User\".last_login")
+            " WHERE \"User\".id = :studentId AND Project.created_on > \"User\".last_login " +
+            " ORDER BY last_login DESC LIMIT 3")
     List<Project> getCreatedProjectWithInterests(@Bind("studentId") int studentId);
 
 
     @SqlQuery("SELECT Project.id, Project.title, summary, created_on, client_id, study.name as study_id, category.name as category_id FROM Project JOIN Paper ON Project.id = Paper.project_id JOIN Client ON Client.user_id = " +
             " Project.client_id JOIN \"User\" ON Client.user_id = \"User\".id" +
             " JOIN study ON Project.study_id = study.id JOIN category ON Project.category_id = category.id" +
-            " WHERE \"User\".id = :clientId ORDER BY Paper.upload_date DESC ")
+            " WHERE \"User\".id = :clientId ORDER BY Paper.upload_date DESC LIMIT 3")
     List<Project> getRecentlyUpdatedProjects(@Bind("clientId") int clientId);
 
 
