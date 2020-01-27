@@ -62,4 +62,49 @@ public class ProjectResource {
                 .entity(ProjectsOfClient)
                 .build();
     }
+
+    @GET
+    @Path("/followed/user={id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response GetFollowedProjectsOfUser(@PathParam("id") int id){
+        List<Project> followedUserProjects = projectController.getUserProjects(id);
+        return Response
+                .status(200)
+                .entity(followedUserProjects)
+                .build();
+    }
+
+    @GET
+    @Path("/interested/user={id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCreatedProjectsWithInterests(@PathParam("id") int id){
+        List<Project> userInterestedProjects = projectController.getCreatedProjectWithInterest(id);
+        return Response
+                .status(200)
+                .entity(userInterestedProjects)
+                .build();
+    }
+
+    @GET
+    @Path("/clientProjects/user={id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getRecentlyUpdatedProjects(@PathParam("id") int id){
+        List<Project> recentlyUpdatedProjects = projectController.getRecentlyUpdatedProjects(id);
+        return Response
+                .status(200)
+                .entity(recentlyUpdatedProjects)
+                .build();
+    }
+
+    @GET
+    @Path("/clientProjects/top/user={id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTopViewedClientProjects(@PathParam("id") int id){
+        List<Project> topViewedClientProjects = projectController.getTopViewedClientProjects(id);
+        return Response
+                .status(200)
+                .entity(topViewedClientProjects)
+                .build();
+    }
+
 }
