@@ -95,4 +95,29 @@ public interface ProjectDAO {
 
     @SqlQuery("SELECT EXISTS(SELECT 1 FROM follow_project WHERE project_id = :projectId AND user_id = :userId)")
     boolean isFollowing(@Bind("projectId")int project_id, @Bind("userId")int user_id);
+
+    @SqlQuery("SELECT EXISTS(SELECT 1 FROM project_acces WHERE teacher_id = :userId AND project_id = :projectId AND in_progress = FALSE)")
+    boolean hasAccess(@Bind("projectId")int id, @Bind("userId")int userId);
+
+    @SqlQuery("SELECT EXISTS(SELECT 1 FROM project_acces WHERE teacher_id = :userId AND project_id = :projectId)")
+    boolean isInAccessTable(@Bind("projectId")int id, @Bind("userId")int userId);
+
+    @SqlUpdate("INSERT INTO project_acces(teacher_id, project_id, in_progress) VALUES(:userId, :id, TRUE)")
+    void requestAccess(@Bind("id")int id, @Bind("userId")int userId);
+
+    @SqlQuery("SELECT client_id FROM project WHERE id = projectId")
+    int getProjectOwner(@Bind("projectId")int id);
+
+    @SqlUpdate("UPDATE project_acces SET in_progress = FALSE WHERE teacher_id = :userId AND project_id = :projectId")
+    void acceptAcces(@Bind("projectId")int id, @Bind("userId")int userId);
+
+
+    @SqlUpdate("DELETE FROM project_acces WHERE teacher_id = :userId AND project_id = :projectId")
+    void denieAcces(@Bind("projectId")int id, @Bind("userId")int userId);
+
+    @SqlQuery("SELECT teacher_id FROM project_acces WHERE project_id = :projectId AND in_progress = TRUE")
+    int[] getAllAccess(@Bind("projectId")int id);
+
+    @SqlQuery("SELECT teacher_id FROM project_acces WHERE project_id = :projectId AND in_progress = FALSE")
+    int[] getAllRequests(int projectId);
 }

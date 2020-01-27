@@ -22,7 +22,7 @@ public class PaperResource {
 
     @POST
     @Path("/upload")
-    @RolesAllowed({"teacher"})
+    @RolesAllowed("teacher")
     @Produces(MediaType.APPLICATION_JSON)
     public Response uploadPaper(Paper paper){
         return paperController.confirmFileUpload(paper);

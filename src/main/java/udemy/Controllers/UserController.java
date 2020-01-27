@@ -57,4 +57,8 @@ public class UserController {
         }
         else return false;
     }
+
+    public String getUserEmail(int teacher) {
+        return userDAO.getEmailById(teacher);
+    }
 }

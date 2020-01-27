@@ -8,6 +8,7 @@ import udemy.core.models.Project;
 import udemy.core.models.User;
 
 import javax.annotation.security.RolesAllowed;
+import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -34,14 +35,6 @@ public class ProjectResource {
                 .status(200)
                 .entity(output)
                 .build();
-    }
-
-    @GET
-    @Path("/upload/test")
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response postTest(Project project) {
-        projectController.uploadProject(project);
-        return Response.status(200).build();
     }
 
     @GET
@@ -153,6 +146,62 @@ public class ProjectResource {
         return Response
                 .status(200)
                 .entity(amount)
+                .build();
+    }
+
+    @GET
+    @RolesAllowed("teacher")
+    @Path("/project={id}/access/request")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response requestAccess(@PathParam("id") int id, @Auth Optional<AuthUser> userId){
+        projectController.requestAccess(id, Integer.parseInt(userId.get().getName()));
+        return Response
+                .status(200)
+                .build();
+    }
+
+    @POST
+    @RolesAllowed("client")
+    @Path("/project={id}/access/teacher-id={userId}/response={accepted}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response accessRequestResponse(@PathParam("accepted")boolean accepted, @PathParam("userId") int teacherId, @PathParam("id") int id, @Auth Optional<AuthUser> userId){
+        projectController.accessRequestResponse(accepted, Integer.parseInt(userId.get().getName()), teacherId, id);
+        return Response
+                .status(200)
+                .build();
+    }
+
+    @GET
+    @RolesAllowed("teacher")
+    @Path("/project={id}/access/information")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getAccessInformation(@PathParam("id") int id, @Auth Optional<AuthUser> userId){
+        String info = projectController.getAccessInformation(id, Integer.parseInt(userId.get().getName()));
+        return Response
+                .status(200)
+                .entity(info)
+                .build();
+    }
+
+    @GET
+    @RolesAllowed("client")
+    @Path("/project={id}/access/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllAccessMembers(@PathParam("id") int projectId){
+        return Response
+                .status(200)
+                .entity(projectController.getAllAccessMembers(projectId))
+                .build();
+    }
+
+    @GET
+    @RolesAllowed("client")
+    @Path("/project={id}/access/requests/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllAccessRequests(@PathParam("id") int projectId){
+        return Response
+                .status(200)
+                .entity(projectController.getAllRequests(projectId))
                 .build();
     }
 }
