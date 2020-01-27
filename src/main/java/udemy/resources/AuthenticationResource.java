@@ -1,12 +1,9 @@
 package udemy.resources;
 
 import io.dropwizard.auth.basic.BasicCredentials;
-import org.eclipse.jetty.server.Authentication;
 import udemy.Controllers.AuthenticationController;
 import udemy.Controllers.JWTController;
-import udemy.User;
 import udemy.auth.AuthModel;
-import udemy.auth.AuthUser;
 import udemy.auth.PlntAuthenticator;
 import udemy.core.models.LoginModel;
 
@@ -16,13 +13,14 @@ import javax.ws.rs.core.Response;
 
 @Path("/authentication")
     public class AuthenticationResource {
-//        private PlntAuthenticator plntAuthenticator;
+        private PlntAuthenticator plntAuthenticator;
         private AuthenticationController authenticationController;
 
-//    public AuthenticationResource(AuthenticationController authenticationController, PlntAuthenticator plntAuthenticator) {
-//        this.authenticationController = authenticationController;
-//        this.plntAuthenticator = plntAuthenticator;
-//    }
+
+    public AuthenticationResource(AuthenticationController authenticationController, PlntAuthenticator plntAuthenticator) {
+        this.authenticationController = authenticationController;
+        this.plntAuthenticator = plntAuthenticator;
+    }
 //
 //        @POST
 //        @Path("/auth")

@@ -71,7 +71,6 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         environment.jersey().register(new StudentResource(studentController));
         final TeacherDAO teacherDAO = jdbi.onDemand(TeacherDAO.class);
         final TeacherController teacherController = new TeacherController(userDAO, teacherDAO, studyDAO);
-        final StatisticsDAO statisticsDAO = jdbi.onDemand(StatisticsDAO.class);
         environment.jersey().register(new TeacherResource(teacherController));
         final ClientDAO clientDAO = jdbi.onDemand(ClientDAO.class);
         final ClientController clientController = new ClientController(userDAO, clientDAO);
