@@ -86,5 +86,5 @@ public interface UserDAO {
     void updateLastLogin(@Bind("id")int id, @Bind("date") Date date);
 
     @SqlQuery("SELECT email FROM \"User\" WHERE id = :teacher")
-    String getEmailById(@Bind("id")int teacher);
+    String getEmailById(@Bind("teacher")int teacher);
 }

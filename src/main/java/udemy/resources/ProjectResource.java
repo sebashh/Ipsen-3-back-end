@@ -160,7 +160,7 @@ public class ProjectResource {
                 .build();
     }
 
-    @POST
+    @GET
     @RolesAllowed("client")
     @Path("/project={id}/access/teacher-id={userId}/response={accepted}")
     @Produces(MediaType.APPLICATION_JSON)

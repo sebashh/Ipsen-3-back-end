@@ -115,9 +115,9 @@ public interface ProjectDAO {
     @SqlUpdate("DELETE FROM project_acces WHERE teacher_id = :userId AND project_id = :projectId")
     void denieAcces(@Bind("projectId")int id, @Bind("userId")int userId);
 
-    @SqlQuery("SELECT teacher_id FROM project_acces WHERE project_id = :projectId AND in_progress = TRUE")
+    @SqlQuery("SELECT teacher_id FROM project_acces WHERE project_id = :projectId AND in_progress = FALSE")
     int[] getAllAccess(@Bind("projectId")int id);
 
-    @SqlQuery("SELECT teacher_id FROM project_acces WHERE project_id = :projectId AND in_progress = FALSE")
-    int[] getAllRequests(int projectId);
+    @SqlQuery("SELECT teacher_id FROM project_acces WHERE project_id = :projectId AND in_progress = TRUE")
+    int[] getAllRequests(@Bind("projectId")int projectId);
 }
