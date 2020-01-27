@@ -42,8 +42,16 @@ public interface ProjectDAO {
 //    @SqlQuery("SELECT * FROM project WHERE title = :title")
 //    int getAll(@Bind("title")String title);
 
+
     @SqlQuery("SELECT * FROM project INNER JOIN follow_project ON project.id = follow_project.project_id AND follow_project.user_id = :id")
     List<Project> getUserFollowedProjects(@Bind("id")int id);
+
+
+    @SqlQuery("SELECT Project.id, title, summary, created_on, client_id, study.name as study_id, category.name as category_id" +
+            " FROM Project INNER JOIN follow_project ON Project.id = follow_project.Project_id " +
+            " JOIN study ON Project.study_id = study.id JOIN category ON Project.category_id = category.id" +
+            " AND follow_project.user_id = :id ORDER BY Random() LIMIT 3")
+    List<Project> getUserFollowedProjectsRandom(@Bind("id")int id);
 
     @SqlQuery("select project.id, title, summary, created_on, client_id, study.name as study_id, category.name as category_id\n" +
             "from project\n" +
@@ -51,6 +59,30 @@ public interface ProjectDAO {
             "INNER JOIN study ON project.study_id = study.id \n" +
             "WHERE client_id = :client_id")
     List<Project> getAllProjectsOfClient(@Bind("client_id")int client_id);
+
+
+
+    @SqlQuery("SELECT Project.id, title, summary, created_on, client_id, study.name as study_id, category.name as category_id  FROM Project JOIN interests ON Project.category_id = interests.category_id JOIN \"User\" ON interests.user_id = \"User\".id" +
+            " JOIN study ON Project.study_id = study.id JOIN category ON Project.category_id = category.id" +
+            " WHERE \"User\".id = :studentId AND Project.created_on > \"User\".last_login")
+    List<Project> getCreatedProjectWithInterests(@Bind("studentId") int studentId);
+
+
+    @SqlQuery("SELECT Project.id, Project.title, summary, created_on, client_id, study.name as study_id, category.name as category_id FROM Project JOIN Paper ON Project.id = Paper.project_id JOIN Client ON Client.user_id = " +
+            " Project.client_id JOIN \"User\" ON Client.user_id = \"User\".id" +
+            " JOIN study ON Project.study_id = study.id JOIN category ON Project.category_id = category.id" +
+            " WHERE \"User\".id = :clientId ORDER BY Paper.upload_date DESC ")
+    List<Project> getRecentlyUpdatedProjects(@Bind("clientId") int clientId);
+
+
+
+    @SqlQuery("SELECT Project.id, Project.title, summary, created_on, client_id, study.name as study_id, category.name as category_id FROM Project JOIN \"View\" ON \"View\".project_id = Project.id" +
+            " JOIN Client ON Project.client_id = Client.user_id" +
+            " JOIN study ON Project.study_id = study.id JOIN category ON Project.category_id = category.id" +
+            " WHERE Client.user_id = :clientId" +
+            " GROUP BY Project.id, study.name, category.name" +
+            " ORDER BY COUNT(\"View\".*) DESC LIMIT 3")
+    List<Project> getTopViewedProjectsClient(@Bind("clientId") int clientId);
 
     @SqlQuery("select COUNT(*) FROM follow_project WHERE project_id=:id")
     int getFollowAmount(@Bind("id")int id);
