@@ -38,26 +38,26 @@ public class StatisticsController {
         return getProjectVariables(statisticsDAO.getTopProjects());
     }
 
-    public ArrayList<Integer> getRecentUserStatistics(String studentName) {
+    public ArrayList<Integer> getRecentUserStatistics(int studentId) {
         ArrayList<Integer> recentStudentStatistics = new ArrayList<>();
-        recentStudentStatistics.add(statisticsDAO.getRecentProjectsAmount(studentName));
-        recentStudentStatistics.add(statisticsDAO.getRecentPapersAmount(studentName));
+        recentStudentStatistics.add(statisticsDAO.getRecentProjectsAmount(studentId));
+        recentStudentStatistics.add(statisticsDAO.getRecentPapersAmount(studentId));
         return recentStudentStatistics;
     }
 
-    public ArrayList<Integer> getRecentTeacherStatistics(String teacherName) {
+    public ArrayList<Integer> getRecentTeacherStatistics(int teacherId) {
         ArrayList<Integer> recentTeacherStatistics = new ArrayList<>();
-        recentTeacherStatistics.add(statisticsDAO.getRecentProjectsAmount(teacherName));
-        recentTeacherStatistics.add(statisticsDAO.getRecentProjectViewed(teacherName));
-        recentTeacherStatistics.add(statisticsDAO.getRecentTotalViews(teacherName));
+        recentTeacherStatistics.add(statisticsDAO.getRecentProjectsAmount(teacherId));
+        recentTeacherStatistics.add(statisticsDAO.getRecentProjectViewed(teacherId));
+        recentTeacherStatistics.add(statisticsDAO.getRecentTotalViews(teacherId));
         return recentTeacherStatistics;
     }
 
-    public ArrayList<Integer> getRecentClientStatistics(String clientName){
+    public ArrayList<Integer> getRecentClientStatistics(int userId){
         ArrayList<Integer> recentClientStatistics = new ArrayList<>();
-        recentClientStatistics.add(statisticsDAO.getRecentTotalViewsProject(clientName));
-        recentClientStatistics.add(statisticsDAO.getRecentUploads(clientName));
-        recentClientStatistics.add(statisticsDAO.getTotalProjectsClient(clientName));
+        recentClientStatistics.add(statisticsDAO.getRecentTotalViewsProject(userId));
+        recentClientStatistics.add(statisticsDAO.getRecentUploads(userId));
+        recentClientStatistics.add(statisticsDAO.getTotalProjectsClient(userId));
         return recentClientStatistics;
     }
 

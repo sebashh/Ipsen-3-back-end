@@ -101,10 +101,11 @@ public class ProjectResource {
     }
 
     @GET
-    @Path("/followed/user={id}")
+    @Path("/followed/user")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response GetFollowedProjectsOfUser(@PathParam("id") int id){
-        List<Project> followedUserProjects = projectController.getUserProjects(id);
+    public Response GetFollowedProjectsOfUser(@Auth Optional<AuthUser> user){
+        int userId = Integer.parseInt(user.get().getName());
+        List<Project> followedUserProjects = projectController.getUserProjects(userId);
         return Response
                 .status(200)
                 .entity(followedUserProjects)
@@ -112,10 +113,11 @@ public class ProjectResource {
     }
 
     @GET
-    @Path("/interested/user={id}")
+    @Path("/interested/user")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCreatedProjectsWithInterests(@PathParam("id") int id){
-        List<Project> userInterestedProjects = projectController.getCreatedProjectWithInterest(id);
+    public Response getCreatedProjectsWithInterests(@Auth Optional<AuthUser> user){
+        int userId = Integer.parseInt(user.get().getName());
+        List<Project> userInterestedProjects = projectController.getCreatedProjectWithInterest(userId);
         return Response
                 .status(200)
                 .entity(userInterestedProjects)
@@ -123,10 +125,11 @@ public class ProjectResource {
     }
 
     @GET
-    @Path("/clientProjects/user={id}")
+    @Path("/clientProjects/user")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getRecentlyUpdatedProjects(@PathParam("id") int id){
-        List<Project> recentlyUpdatedProjects = projectController.getRecentlyUpdatedProjects(id);
+    public Response getRecentlyUpdatedProjects(@Auth Optional<AuthUser> user){
+        int userId = Integer.parseInt(user.get().getName());
+        List<Project> recentlyUpdatedProjects = projectController.getRecentlyUpdatedProjects(userId);
         return Response
                 .status(200)
                 .entity(recentlyUpdatedProjects)
@@ -134,10 +137,11 @@ public class ProjectResource {
     }
 
     @GET
-    @Path("/clientProjects/top/user={id}")
+    @Path("/clientProjects/top/user}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTopViewedClientProjects(@PathParam("id") int id){
-        List<Project> topViewedClientProjects = projectController.getTopViewedClientProjects(id);
+    public Response getTopViewedClientProjects(@Auth Optional<AuthUser> user){
+        int userId = Integer.parseInt(user.get().getName());
+        List<Project> topViewedClientProjects = projectController.getTopViewedClientProjects(userId);
         return Response
                 .status(200)
                 .entity(topViewedClientProjects)
