@@ -26,8 +26,11 @@ public class CategoryResource {
     @GET
     @Path("/categories")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Category> getCategories(){
-        return categoryController.getCategories();
+    public Response getCategories(){
+        return Response
+                .status(200)
+                .entity(categoryController.getCategories())
+                .build();
 
     }
 

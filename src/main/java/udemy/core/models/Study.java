@@ -9,8 +9,13 @@ public class Study {
     @NotNull
     @JsonProperty
     public String name;
+    @NotNull
+    @JsonProperty
+    public int id;
 
-    public Study(String name) {
+
+    public Study(String name, int id) {
         this.name = name;
+        this.id = id;
     }
 }

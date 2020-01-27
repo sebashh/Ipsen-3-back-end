@@ -7,7 +7,11 @@ public class RegisterController {
 
     RegisterDAO registerDAO;
 
+
     public UserModel createUser(String email, String password) {
+
         return registerDAO.registerUser(email, password);
     }
+
+
 }
