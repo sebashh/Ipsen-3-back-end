@@ -3,6 +3,7 @@ package udemy.auth;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
 import io.dropwizard.auth.basic.BasicCredentials;
+import udemy.ENUM.Roles;
 import udemy.User;
 import udemy.Controllers.AuthenticationController;
 import java.util.Optional;
@@ -15,23 +16,20 @@ public class PlntAuthenticator implements Authenticator<BasicCredentials, User> 
         this.authController = authController;
     }
 
+
     @Override
     public final Optional<User> authenticate(BasicCredentials basicCredentials) throws AuthenticationException {
 
-        Optional<User> result;
 
         try {
-            result = Optional.of(authController.getUserByEmail(basicCredentials.getUsername()));
-            if (!result.isPresent()) {
-                return result;
-            } else if (authController.passwordValidator(basicCredentials.getPassword(), result.get().getPassword()) == true) {
-                return result;
-            } else {
-                return Optional.empty();
-            }
+//            String storedPassword = authController.getPaswordByEmail(basicCredentials.getUsername());
+//            System.out.println("result: " + storedPassword);
+            authController.verifyPassword(basicCredentials);
+                System.out.println(basicCredentials.getPassword()+ "...");
         }
         catch (Exception e) {
             throw new AuthenticationException(e);
         }
+        return Optional.empty();
     }
 }

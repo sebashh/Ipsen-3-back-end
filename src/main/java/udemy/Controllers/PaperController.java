@@ -78,4 +78,8 @@ public class PaperController {
             List<Paper> papers = paperDAO.getProjectPapers(id);
             return papers;
         }
+
+    public int getPaperAmount(int id) {
+        return paperDAO.getPaperAmount(id);
+    }
 }

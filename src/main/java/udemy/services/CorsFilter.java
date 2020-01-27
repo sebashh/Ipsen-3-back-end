@@ -15,10 +15,9 @@ public class CorsFilter
 
         MultivaluedMap<String, Object> headers = responseContext.getHeaders();
 
-        headers.add("Access-Control-Allow-Origin", "*");
-        //headers.add("Access-Control-Allow-Origin", "http://podcastpedia.org"); //allows CORS requests only coming from podcastpedia.org
+        headers.add("Access-Control-Allow-Origin", "http://localhost:4200"); //allows CORS requests only coming from podcastpedia.org
         headers.add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS");
-        headers.add("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Codingpedia, Accept,  Access-Control-Allow-Headers, Authorization");
+        headers.add("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Codingpedia, Accept, encrypt, Access-Control-Allow-Headers, Authorization");
 
     }
 

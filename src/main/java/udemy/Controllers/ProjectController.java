@@ -20,9 +20,17 @@ public class ProjectController {
     }
 
     public Project getProject(int id){
-        System.out.println(id);
         return projectDAO.getProject(id);
     }
+
+    public void followProject(int project_id, int user_id){
+        projectDAO.followProject(project_id, user_id);
+    }
+
+    public void unFollowProject(int project_id, int user_id){
+        projectDAO.unFollowProject(project_id, user_id);
+    }
+
 
     public List<Project> getAllProjectsOfClient(int client_id){
         return projectDAO.getAllProjectsOfClient(client_id);
@@ -42,5 +50,13 @@ public class ProjectController {
 
     public List<Project> getTopViewedClientProjects(int id) {
         return projectDAO.getTopViewedProjectsClient(id);
+    }
+
+    public int getFollowAmount(int id) {
+        return projectDAO.getFollowAmount(id);
+    }
+
+    public boolean isFollowing(int projectId, int userId) {
+        return projectDAO.isFollowing(projectId, userId);
     }
 }
