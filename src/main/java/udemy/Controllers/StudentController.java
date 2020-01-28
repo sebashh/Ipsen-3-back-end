@@ -32,7 +32,8 @@ public class StudentController {
     }
 
     public void updateStudent(Student student) {
-        studentDAO.updateStudent(student.id, student.email);
+        userDAO.updateUser(student.id, student.email);
+        studyDAO.updateEducational(studyDAO.getStudyIdFromName(student.study), student.id);
     }
 
     public List<Student> getStudentInfo(){
@@ -45,5 +46,6 @@ public class StudentController {
         }
         return students;
     }
+
 
 }

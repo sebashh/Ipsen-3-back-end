@@ -67,6 +67,7 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         final UserController userController = new UserController(userDAO);
         final StudentDAO studentDAO = jdbi.onDemand(StudentDAO.class);
         final StudyDAO studyDAO = jdbi.onDemand(StudyDAO.class);
+        final StudyController studyController = new StudyController(studyDAO);
         final StudentController studentController = new StudentController(userDAO,studentDAO,studyDAO);
         environment.jersey().register(new StudentResource(studentController));
         final TeacherDAO teacherDAO = jdbi.onDemand(TeacherDAO.class);
@@ -77,7 +78,8 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         environment.jersey().register(new ClientResource(clientController));
         final StatisticsController statisticsController = new StatisticsController(statisticsDAO);
         final PaperController paperController = new PaperController(paperDAO);
-
+        final CategoryDAO categoryDAO = jdbi.onDemand(CategoryDAO.class);
+        final CategoryController categoryController = new CategoryController(categoryDAO);
 
         environment.jersey().register(new StatisticsResource(statisticsController));
         environment.jersey().register(new ProjectResource(projectController));
@@ -93,9 +95,10 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         environment.jersey().register(RolesAllowedDynamicFeature.class);
 
 
-
         environment.jersey().register(new ProjectResource(projectController));
         environment.jersey().register(new UserResource(userController));
+        environment.jersey().register(new StudyResource(studyController));
+        environment.jersey().register(new CategoryResource(categoryController));
 
 
     }

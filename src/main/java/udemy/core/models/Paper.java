@@ -39,7 +39,7 @@ public class Paper {
         this.author = author;
         this.paperFile = paperFile;
         this.uploadedBy = uploadedBy;
-        this.uploadDate = uploadDate;
+        this.uploadDate = uploadDate.substring(0,10);;
         this.id = id;
     }
 

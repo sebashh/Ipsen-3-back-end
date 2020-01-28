@@ -1,7 +1,9 @@
 package udemy.Controllers;
 
 import udemy.core.models.Project;
+import udemy.persistance.CategoryDAO;
 import udemy.persistance.ProjectDAO;
+import udemy.persistance.StudyDAO;
 
 import java.util.List;
 
@@ -49,7 +51,9 @@ public class ProjectController {
     }
 
     public void updateProject(Project project) {
-        System.out.println(project.title);
+        int studyId = projectDAO.getStudyId(project.study);
+        int categoryId = projectDAO.getCategoryId(project.category);
+        projectDAO.updateProject(project.projectId, project.title, project.description, studyId, categoryId);
     }
 
     public int getFollowAmount(int id) {

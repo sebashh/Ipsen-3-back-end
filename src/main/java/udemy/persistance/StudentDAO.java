@@ -17,7 +17,4 @@ public interface StudentDAO {
     @SqlQuery("select * from \"User\" inner join student on id = student.user_id")
     List<ExtendThisUser> getAllStudents();
 
-    @SqlUpdate("update \"User\" set email = :email where id = :id")
-    void updateStudent(@Bind("id")int id,
-                       @Bind("email")String email);
 }

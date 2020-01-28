@@ -30,6 +30,7 @@ public class ClientController {
     }
 
     public void updateClient(Client client) {
-        System.out.println(client.email);
+        userDAO.updateUser(client.id, client.email);
+        clientDAO.updateClient(client.id, client.company_name, client.description);
     }
 }

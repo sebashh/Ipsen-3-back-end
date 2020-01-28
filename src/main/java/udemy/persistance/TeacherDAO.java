@@ -1,7 +1,9 @@
 package udemy.persistance;
 
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
+import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
+import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import udemy.Mapper.TeacherMapper;
 import udemy.core.models.ExtendThisUser;
 
@@ -13,4 +15,5 @@ public interface TeacherDAO {
 
     @SqlQuery("select * from \"User\" inner join teacher on id = teacher.user_id")
     List<ExtendThisUser> getAllTeachers();
+
 }

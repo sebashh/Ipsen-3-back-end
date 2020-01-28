@@ -81,4 +81,8 @@ public interface UserDAO {
 
     @SqlUpdate("delete from \"User\" where id= :user_id")
     void deleteUser(@Bind("user_id")int user_id);
+
+    @SqlUpdate("update \"User\" set email = :email where id = :id")
+    void updateUser(@Bind("id")int id,
+                    @Bind("email")String email);
 }
