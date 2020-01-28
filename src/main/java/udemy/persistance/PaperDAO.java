@@ -22,4 +22,5 @@ public interface PaperDAO {
 
     @SqlQuery ("SELECT * FROM paper WHERE project_id=:id")
     List<Paper> getProjectPapers(@Bind("id")int id);
+
 }

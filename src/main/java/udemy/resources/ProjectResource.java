@@ -7,7 +7,9 @@ import udemy.core.models.Project;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Filter;
 
 @Path("/ipsen3projects")
 public class ProjectResource {
@@ -16,7 +18,6 @@ public class ProjectResource {
     public ProjectResource(ProjectController projectController) {
         this.projectController= projectController;
     }
-
 
 
 
@@ -62,4 +63,51 @@ public class ProjectResource {
                 .entity(ProjectsOfClient)
                 .build();
     }
+
+    @GET
+    @Path("/projectsNewerThan={newerThan}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProjectsNewerThan(@PathParam("newerThan") String newerThan)
+    {
+        List<Project> ProjectsNewerThan = projectController.getProjectsNewerThan(newerThan);
+        return Response
+                .status(200)
+                .entity(ProjectsNewerThan)
+                .build();
+    }
+
+    @GET
+    @Path("/filter/study={studyId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllProjectsByStudyId(@PathParam("studyId") int studyId){
+        List<Project> ProjectsByStudy = projectController.getAllProjectsByStudyId(studyId);
+        return Response
+                .status(200)
+                .entity(ProjectsByStudy)
+                .build();
+    }
+
+    @GET
+    @Path("/filter/study={studyId}+category={categoryId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProjectsFromStudyAndCategoryId(@PathParam("studyId") int studyId, @PathParam("categoryId") int categoryId ){
+        List<Project> ProjectsByBoth= projectController.getProjectsFromStudyAndCategoryId(studyId, categoryId);
+        return Response
+                .status(200)
+                .entity(ProjectsByBoth)
+                .build();
+    }
+
+    @GET
+    @Path("/filter/category={categoryId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllProjectsByCategoryId(@PathParam("categoryId") int categoryId){
+
+        List<Project> ProjectsByCategory = projectController.getAllProjectsByCategoryId(categoryId);
+        return Response
+                .status(200)
+                .entity(ProjectsByCategory)
+                .build();
+    }
+
 }

@@ -3,6 +3,7 @@ package udemy.Controllers;
 import udemy.core.models.Project;
 import udemy.persistance.ProjectDAO;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -22,6 +23,23 @@ public class ProjectController {
     public Project getProject(int id){
         System.out.println(id);
         return projectDAO.getProject(id);
+    }
+
+    public List<Project> getAllProjectsByCategoryId(int categoryId){
+        System.out.println(categoryId);
+        return projectDAO.getProjectsFromCategoryId(categoryId);
+    }
+
+    public List<Project> getProjectsNewerThan(String newerThan){
+        return projectDAO.getProjectsNewerThan(newerThan);
+    }
+
+    public List<Project> getAllProjectsByStudyId(int studyId){
+        return projectDAO.getProjectsFromStudyId(studyId);
+    }
+
+    public List<Project>getProjectsFromStudyAndCategoryId(int studyId, int categoryId){
+        return projectDAO.getProjectsFromStudyAndCategoryId(studyId, categoryId);
     }
 
     public List<Project> getAllProjectsOfClient(int client_id){
