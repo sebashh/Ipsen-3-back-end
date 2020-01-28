@@ -1,36 +1,62 @@
 package udemy.resources;
 
-
 import udemy.Controllers.UserController;
-import udemy.core.models.Notification;
-import udemy.core.models.Project;
+import udemy.core.models.User;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
-@Path("/user={id}")
+@Path("/ipsen3users")
 public class UserResource {
+    private UserController userController;
 
-
-    private UserController controller;
-
-    public UserResource(UserController con){
-        this.controller = con;
+    public UserResource(UserController userController) {
+        this.userController = userController;
     }
 
-    @GET
-    @Path("/notifications")
+    @POST
+    @Path("/client")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getNotifications(@PathParam("id") int id){
-        List<Project> notifications =  controller.getNotifications(id);
-        return Response
-                .status(200)
-                .entity(notifications)
+    public Response postClient(User user){
+        if(userController.uploadClient(user))
+        return Response.status(200)
+                .entity(true)
+                .build();
+        else return Response.status(Response.Status.NOT_ACCEPTABLE)
+                .entity(false)
                 .build();
     }
+
+    @POST
+    @Path("/student")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response postStudent(User user){
+        if(userController.uploadStudent(user)){
+            return Response.status(200)
+                    .entity(true)
+                    .build();
+        }
+        else{
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(false)
+                    .build();
+        }
+
+    }
+
+    @POST
+    @Path("/teacher")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response postTeacher(User user){
+        if(userController.uploadTeacher(user)){
+            return Response.status(200)
+                    .entity(true)
+                    .build();
+        }
+        else return Response.status(Response.Status.NOT_ACCEPTABLE)
+                .entity(false)
+                .build();
+    }
+
 }
