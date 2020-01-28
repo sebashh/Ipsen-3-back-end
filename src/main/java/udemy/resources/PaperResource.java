@@ -70,4 +70,16 @@ public class PaperResource {
     public List<Paper> getPapers() {
         return paperController.retrievePaperData();
     }
+
+    @DELETE
+    @Path("/delete={id}")
+    public void delete(@PathParam("id") int id) {
+        paperController.deletePaper(id);
+    }
+
+    @PUT
+    @Path("/paperUpdate")
+    public void updatePaper(Paper paper){
+        paperController.updatePaper(paper);
+    }
 }

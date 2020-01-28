@@ -46,8 +46,7 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
 
         final JdbiFactory factory = new JdbiFactory();
         final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
-        environment.jersey().register(new JsonProcessingExceptionMapper(true));
-        environment.jersey().register(CorsFilter.class);
+
 
 
         //generating DOA
@@ -57,6 +56,9 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         final CategoryDAO categoryDAO = jdbi.onDemand(CategoryDAO.class);
         final StatisticsDAO statisticsDAO = jdbi.onDemand(StatisticsDAO.class);
         final StudyDAO studyDAO = jdbi.onDemand(StudyDAO.class);
+        final StudentDAO studentDAO = jdbi.onDemand(StudentDAO.class);
+        final TeacherDAO teacherDAO = jdbi.onDemand(TeacherDAO.class);
+        final ClientDAO clientDAO = jdbi.onDemand(ClientDAO.class);
 
         //generating Controller
         final JWTController jwtController = new JWTController();
@@ -64,27 +66,38 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         final ProjectController projectController = new ProjectController(projectDAO);
         final AuthenticationController authenticationController = new AuthenticationController(userDAO);
         final UserController userController = new UserController(userDAO, authenticationController);
+        final StudyController studyController = new StudyController(studyDAO);
+        final StudentController studentController = new StudentController(userDAO,studentDAO,studyDAO);
+        final TeacherController teacherController = new TeacherController(userDAO, teacherDAO, studyDAO);
+        final ClientController clientController = new ClientController(userDAO, clientDAO);
         final StatisticsController statisticsController = new StatisticsController(statisticsDAO);
         final PaperController paperController = new PaperController(paperDAO);
-        final StudyController studyController = new StudyController(studyDAO);
 
+//        BackupService backupService = new BackupService();
 
-        //register resources
-        environment.jersey().register(new CategoryResource(categoryController));
+        //authentication
+        PlntAuthenticator plntAuthenticator = new PlntAuthenticator(authenticationController);
+        environment.jersey().register(new AuthenticationResource(authenticationController, plntAuthenticator));
+        environment.jersey().register(new JsonProcessingExceptionMapper(true));
+        environment.jersey().register(CorsFilter.class);
+        environment.jersey().register(new AuthDynamicFeature(AccountAuthorizationFilter.class));
+        environment.jersey().register(AccountAuthorizationFilter.class);
+        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(AuthUser.class));
+        environment.jersey().register(RolesAllowedDynamicFeature.class);
+
         environment.jersey().register(new StatisticsResource(statisticsController));
         environment.jersey().register(new UserResource(userController));
         environment.jersey().register(new ProjectResource(projectController));
         environment.jersey().register(new PaperResource(paperController));
         environment.jersey().register(new StudyResource(studyController));
-        PlntAuthenticator plntAuthenticator = new PlntAuthenticator(authenticationController);
-        environment.jersey().register(new AuthenticationResource(authenticationController, plntAuthenticator));
-//        BackupService backupService = new BackupService();
-
-        //authentication
-        environment.jersey().register(new AuthDynamicFeature(AccountAuthorizationFilter.class));
-        environment.jersey().register(AccountAuthorizationFilter.class);
-        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(AuthUser.class));
-        environment.jersey().register(RolesAllowedDynamicFeature.class);
+        environment.jersey().register(new ClientResource(clientController));
+        environment.jersey().register(new TeacherResource(teacherController));
+        environment.jersey().register(new StudentResource(studentController));
         environment.jersey().register(new ProjectResource(projectController));
+        environment.jersey().register(new UserResource(userController));
+        environment.jersey().register(new StudyResource(studyController));
+        environment.jersey().register(new CategoryResource(categoryController));
+
+
     }
 }

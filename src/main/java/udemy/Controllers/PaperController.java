@@ -79,6 +79,15 @@ public class PaperController {
             return papers;
         }
 
+        public void deletePaper(int id){
+            System.out.println("Sent ID is :" + id);
+            paperDAO.deletePaper(id);
+        }
+
+    public void updatePaper(Paper paper) {
+        paperDAO.updatePaper(paper.id, paper.title, paper.author, paper.paperFile);
+    }
+
     public int getPaperAmount(int id) {
         return paperDAO.getPaperAmount(id);
     }

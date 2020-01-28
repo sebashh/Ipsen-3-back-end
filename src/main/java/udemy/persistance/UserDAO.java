@@ -73,8 +73,7 @@ public interface UserDAO {
 
     @SqlQuery("select id from study where name = :study")
     int getStudyId(
-            @Bind("study") String study
-    );
+            @Bind("study") String study);
 
     @SqlQuery("SELECT * FROM project " +
             "WHERE id = (SELECT project_id FROM follow_project WHERE user_id = :id)" +
@@ -84,4 +83,11 @@ public interface UserDAO {
 
     @SqlUpdate("UPDATE \"User\" SET last_login = :date WHERE id = :id")
     void updateLastLogin(@Bind("id")int id, @Bind("date") Date date);
+
+    @SqlUpdate("delete from \"User\" where id= :user_id")
+    void deleteUser(@Bind("user_id")int user_id);
+
+    @SqlUpdate("update \"User\" set email = :email where id = :id")
+    void updateUser(@Bind("id")int id,
+                    @Bind("email")String email);
 }

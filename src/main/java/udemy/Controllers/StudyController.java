@@ -19,4 +19,6 @@ public class StudyController {
     public List<Study> getStudies(){
         return studyDAO.getStudies();
     }
+
+
 }
