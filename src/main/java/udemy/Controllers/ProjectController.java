@@ -43,7 +43,19 @@ public class ProjectController {
     }
 
     public List<Project> getUserProjects(int id) {
-        return projectDAO.getUserFollowedProjects(id);
+        return projectDAO.getUserFollowedProjectsRandom(id);
+    }
+
+    public List<Project> getCreatedProjectWithInterest(int id){
+        return projectDAO.getCreatedProjectWithInterests(id);
+    }
+
+    public List<Project> getRecentlyUpdatedProjects(int id) {
+        return projectDAO.getRecentlyUpdatedProjects(id);
+    }
+
+    public List<Project> getTopViewedClientProjects(int id) {
+        return projectDAO.getTopViewedProjectsClient(id);
     }
 
     public void deleteProject(int id){

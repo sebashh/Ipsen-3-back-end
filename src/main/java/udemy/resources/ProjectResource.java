@@ -100,6 +100,55 @@ public class ProjectResource {
     }
 
     @GET
+    @Path("/followed/user")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response GetFollowedProjectsOfUser(@Auth Optional<AuthUser> user){
+        int userId = Integer.parseInt(user.get().getName());
+        List<Project> followedUserProjects = projectController.getUserProjects(userId);
+        return Response
+                .status(200)
+                .entity(followedUserProjects)
+                .build();
+    }
+
+    @GET
+    @Path("/interested/user")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCreatedProjectsWithInterests(@Auth Optional<AuthUser> user){
+        int userId = Integer.parseInt(user.get().getName());
+        List<Project> userInterestedProjects = projectController.getCreatedProjectWithInterest(userId);
+        return Response
+                .status(200)
+                .entity(userInterestedProjects)
+                .build();
+    }
+
+    @GET
+    @Path("/clientProjects/user")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getRecentlyUpdatedProjects(@Auth Optional<AuthUser> user){
+        int userId = Integer.parseInt(user.get().getName());
+        List<Project> recentlyUpdatedProjects = projectController.getRecentlyUpdatedProjects(userId);
+        return Response
+                .status(200)
+                .entity(recentlyUpdatedProjects)
+                .build();
+    }
+
+    @GET
+    @Path("/clientProjects/top/user}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTopViewedClientProjects(@Auth Optional<AuthUser> user){
+        int userId = Integer.parseInt(user.get().getName());
+        List<Project> topViewedClientProjects = projectController.getTopViewedClientProjects(userId);
+        return Response
+                .status(200)
+                .entity(topViewedClientProjects)
+                .build();
+    }
+
+
+    @GET
     @Path("/project={id}/follow/amount")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getFollowAmount(@PathParam("id") int id){

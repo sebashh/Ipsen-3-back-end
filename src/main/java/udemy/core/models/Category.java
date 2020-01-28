@@ -8,8 +8,12 @@ public class Category {
     @NotNull
     @JsonProperty
     public String name;
+    @NotNull
+    @JsonProperty
+    public int id;
 
-    public Category(String name) {
+    public Category(String name, int id) {
         this.name = name;
+        this.id = id;
     }
 }

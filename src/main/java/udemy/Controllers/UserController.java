@@ -1,6 +1,7 @@
 package udemy.Controllers;
 
 import udemy.core.models.Project;
+import udemy.core.models.User;
 import udemy.persistance.ProjectDAO;
 import udemy.persistance.UserDAO;
 
@@ -11,9 +12,11 @@ public class UserController {
 
     private UserDAO userDAO;
     private ProjectController projectController;
+    private AuthenticationController authController;
 
-    public UserController(UserDAO userDAO){
+    public UserController(UserDAO userDAO, AuthenticationController authenticationController){
         this.userDAO = userDAO;
+        this.authController = authenticationController;
     }
 
     public void UpdateLastLogin(int id){
@@ -22,9 +25,37 @@ public class UserController {
 
     public List<Project> getNotifications(int id) {
         List<Project> userProjects = userDAO.getNewNotifiactions(id);
-        System.out.println(userProjects);
         UpdateLastLogin(id);
         return null;
+    }
+
+    public boolean uploadTeacher(User user) {
+        String encryptPassword = authController.getEncrPass(user.password_user);
+        int userId = userDAO.uploadTeacher(user.study, user.email_user, encryptPassword);
+        if(userId != 0) {
+            for (int category : user.categories) {
+                userDAO.uploadInterests(userId, category);
+            }
+            return true;
+        }
+        else return false;
+    }
+
+    public boolean uploadClient(User user) {
+        String encryptPassword = authController.getEncrPass(user.password_user);
+        return userDAO.uploadClient(user.picture_company, user.name_company, user.description_company, user.email_user, encryptPassword);
+    }
+
+    public boolean uploadStudent(User user) {
+        String encryptPassword = authController.getEncrPass(user.password_user);
+        int userId = userDAO.uploadStudent(user.study, user.email_user, encryptPassword);
+        if(userId != 0 && userId != -1) {
+            for (int category : user.categories) {
+                userDAO.uploadInterests(userId, category);
+            }
+            return true;
+        }
+        else return false;
     }
 
     public void deleteUser(int id){

@@ -42,8 +42,8 @@ public interface UserDAO {
     @SqlQuery("SELECT whatUser(:id)")
     String getUserRole(@Bind("id") int id);
 
-    @SqlUpdate("select createClient(:picture_company, :name_company, :description_company, :email_user, :password_user)")
-    void uploadClient(
+    @SqlQuery("select createClient(:picture_company, :name_company, :description_company, :email_user, :password_user)")
+    boolean uploadClient(
             @Bind("picture_company") ByteArray picture_company,
             @Bind("name_company")String name_company,
             @Bind("description_company")String description_company,
@@ -51,18 +51,24 @@ public interface UserDAO {
             @Bind("password_user") String password_user
     );
 
-    @SqlUpdate("select createStudent(:id_study, :email_user, :password_user)")
-    void uploadStudent(
+    @SqlQuery("select createStudent(:id_study, :email_user, :password_user)")
+    Integer uploadStudent(
             @Bind("id_study") int id_study,
             @Bind("email_user") String email_user,
             @Bind("password_user") String password_user
     );
 
-    @SqlUpdate("select createTeacher(:id_study, :email_user, :password_user)")
-    void uploadTeacher(
+    @SqlQuery("select createTeacher(:id_study, :email_user, :password_user)")
+    int uploadTeacher(
             @Bind("id_study") int id_study,
             @Bind("email_user") String email_user,
             @Bind("password_user") String password_user
+    );
+
+    @SqlUpdate("INSERT INTO Interests(user_id, category_id) VALUES(:user_id, :category_id)")
+    void uploadInterests(
+
+            @Bind("user_id") int user_id, @Bind("category_id") int category_id
     );
 
     @SqlQuery("select id from study where name = :study")

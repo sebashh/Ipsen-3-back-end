@@ -27,7 +27,6 @@ public class AccountAuthorizationFilter implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
-        System.out.println("intercepting all http");
         if(requestContext.getHeaders().containsKey("authorization")){
             String authString = requestContext.getHeaders().getFirst("authorization");
             String schema = requestContext.getUriInfo().getRequestUri().getScheme();

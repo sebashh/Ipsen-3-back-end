@@ -11,7 +11,7 @@ public class CategoryMapper implements RowMapper<Category> {
 
     @Override
     public Category map(ResultSet resultSet, StatementContext statementContext) throws SQLException{
-        return new Category(resultSet.getString("name"));
+        return new Category(resultSet.getString("name"), resultSet.getInt("id"));
     }
 
 }
