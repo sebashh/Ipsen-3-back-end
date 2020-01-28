@@ -27,8 +27,7 @@ public class StudentController {
     }
 
     public void uploadStudent(User user) {
-        int id = userDAO.getStudyId(user.study);
-        userDAO.uploadStudent(id, user.email_user, user.password_user);
+        userDAO.uploadStudent(user.study, user.email_user, user.password_user);
     }
 
     public void updateStudent(Student student) {

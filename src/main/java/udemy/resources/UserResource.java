@@ -7,7 +7,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/ipsen3users")
+@Path("/users")
 public class UserResource {
     private UserController userController;
 
@@ -60,9 +60,9 @@ public class UserResource {
     }
 
     @DELETE
-    @Path("/delete")
+    @Path("/delete={id}")
     public void delete(@PathParam("id") int id) {
-        controller.deleteUser(id);
+        userController.deleteUser(id);
     }
 
 

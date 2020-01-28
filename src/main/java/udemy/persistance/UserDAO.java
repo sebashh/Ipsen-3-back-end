@@ -73,8 +73,7 @@ public interface UserDAO {
 
     @SqlQuery("select id from study where name = :study")
     int getStudyId(
-            @Bind("study") String study
-    );
+            @Bind("study") String study);
 
     @SqlQuery("SELECT * FROM project " +
             "WHERE id = (SELECT project_id FROM follow_project WHERE user_id = :id)" +

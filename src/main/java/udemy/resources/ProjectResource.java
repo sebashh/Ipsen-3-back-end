@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Optional;
 
-@Path("/ipsen3projects")
+@Path("/projects")
 public class ProjectResource {
     private ProjectController projectController;
 
