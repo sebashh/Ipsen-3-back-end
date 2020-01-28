@@ -43,7 +43,7 @@ import javax.ws.rs.core.Response;
         try {
             BasicCredentials credentials = new BasicCredentials(loginModel.getEmail(), loginModel.getPassword());
             plntAuthenticator.authenticate(credentials);
-            if(authenticationController.verifyPassword(credentials) == true) {
+            if(authenticationController.verifyPassword(credentials)) {
                 int userId = authenticationController.getUserIdByEmail(loginModel.getEmail());
                 String userRole = authenticationController.getUserRole(userId);
                 AuthModel model = JWTController.generateAuthModel(Integer.toString(userId), userRole);
