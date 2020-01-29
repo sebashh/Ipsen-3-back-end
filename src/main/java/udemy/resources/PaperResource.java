@@ -1,6 +1,8 @@
 package udemy.resources;
 
+import io.dropwizard.auth.Auth;
 import udemy.Controllers.PaperController;
+import udemy.auth.AuthUser;
 import udemy.core.models.Paper;
 
 import javax.annotation.security.RolesAllowed;
@@ -10,6 +12,7 @@ import javax.ws.rs.core.Response;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
+import java.util.Optional;
 
 @Path("/paper")
 public class PaperResource {
@@ -24,7 +27,9 @@ public class PaperResource {
     @Path("/upload")
     @RolesAllowed("teacher")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response uploadPaper(Paper paper){
+    public Response uploadPaper(Paper paper,@Auth Optional<AuthUser> user){
+        int userId = Integer.parseInt(user.get().getName());
+        paper.uploadedBy = userId;
         return paperController.confirmFileUpload(paper);
     }
 

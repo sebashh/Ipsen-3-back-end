@@ -114,4 +114,8 @@ public class ProjectController {
     public List<Project> getAllProjects() {
         return projectDAO.getAllProjects();
     }
+
+    public void increaseProjectViews(int projectId) {
+        projectDAO.increaseProjectViews(projectId);
+    }
 }
