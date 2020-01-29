@@ -61,9 +61,10 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         //generating Controller
         final JWTController jwtController = new JWTController();
         final CategoryController categoryController = new CategoryController(categoryDAO);
-        final ProjectController projectController = new ProjectController(projectDAO);
+
         final AuthenticationController authenticationController = new AuthenticationController(userDAO);
         final UserController userController = new UserController(userDAO, authenticationController);
+        final ProjectController projectController = new ProjectController(projectDAO, userController);
         final StatisticsController statisticsController = new StatisticsController(statisticsDAO);
         final PaperController paperController = new PaperController(paperDAO);
         final StudyController studyController = new StudyController(studyDAO);

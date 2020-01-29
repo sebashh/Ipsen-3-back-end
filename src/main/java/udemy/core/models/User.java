@@ -14,7 +14,6 @@ public class User {
     public ByteArray picture_company;
     @JsonProperty
     public String name_company;
-    @NotNull
     @JsonProperty
     public List<Integer> categories;
     @JsonProperty

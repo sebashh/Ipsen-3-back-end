@@ -84,4 +84,14 @@ public interface UserDAO {
 
     @SqlUpdate("UPDATE \"User\" SET last_login = :date WHERE id = :id")
     void updateLastLogin(@Bind("id")int id, @Bind("date") Date date);
+
+    @SqlQuery("SELECT email FROM \"User\" WHERE id = :teacher")
+    String getEmailById(@Bind("teacher")int teacher);
+
+    @SqlUpdate("delete from \"User\" where id= :user_id")
+    void deleteUser(@Bind("user_id")int user_id);
+
+    @SqlUpdate("update \"User\" set email = :email where id = :id")
+    void updateUser(@Bind("id")int id,
+                    @Bind("email")String email);
 }
