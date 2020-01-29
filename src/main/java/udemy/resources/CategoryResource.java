@@ -24,7 +24,7 @@ public class CategoryResource {
     }
 
     @GET
-    @Path("/categories")
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCategories(){
         return Response

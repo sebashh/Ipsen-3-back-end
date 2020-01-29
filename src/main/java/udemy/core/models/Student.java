@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Student extends ExtendThisUser {
     @JsonProperty
-    public String study;
+    public int study;
 
     public Student(){
 
     }
-    public Student(int id, String email, String password, String lastLogin, String study){
+    public Student(int id, String email, String password, String lastLogin, int study){
         this.id = id;
         this.email = email;
         this.password = password;
@@ -17,7 +17,7 @@ public class Student extends ExtendThisUser {
         this.study = study;
     }
 
-    public Student(ExtendThisUser extendThisUser, String study){
+    public Student(ExtendThisUser extendThisUser, int study){
         this.id = extendThisUser.id;
         this.email = extendThisUser.email;
         this.password = extendThisUser.password;

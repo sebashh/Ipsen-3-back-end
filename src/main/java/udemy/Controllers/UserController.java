@@ -66,6 +66,11 @@ public class UserController {
         else return false;
     }
 
+    public String getUserEmail(int teacher) {
+        return userDAO.getEmailById(teacher);
+    }
+
+
     public void deleteUser(int id){
         userDAO.deleteUser(id);
     }

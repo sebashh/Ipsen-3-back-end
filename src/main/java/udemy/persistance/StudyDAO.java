@@ -15,8 +15,8 @@ public interface StudyDAO {
     List<Study> getStudies();
 
 
-    @SqlQuery("select name from educational inner join study on educational.study_id = study.id where user_id = :user_id")
-    String getStudyOfClient(@Bind("user_id")int user_id);
+    @SqlQuery("select id from study where user_id = :user_id")
+    int getStudyOfClient(@Bind("user_id")int user_id);
 
     @SqlQuery("select id from study where name = :name")
     int getStudyIdFromName(@Bind("name")String name);
