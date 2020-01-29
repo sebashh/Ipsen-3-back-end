@@ -11,6 +11,6 @@ import java.sql.SQLException;
 public class PaperMapper implements RowMapper<Paper> {
     @Override
     public Paper map(ResultSet rs, StatementContext ctx) throws SQLException {
-        return new Paper(rs.getInt("id"),rs.getString("title"),rs.getString("author"), rs.getInt("uploaded_by"), rs.getString("upload_date"),rs.getString("pdf_location"), rs.getInt("id"));
+        return new Paper(rs.getInt("project_id"),rs.getString("title"),rs.getString("author"), rs.getInt("uploaded_by"), rs.getString("upload_date"),rs.getString("pdf_location"), rs.getInt("id"));
     }
 }

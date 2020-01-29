@@ -16,7 +16,7 @@ import java.util.List;
 @RegisterRowMapper(PaperMapper.class)
 public interface PaperDAO {
 
-    @SqlQuery("SELECT * FROM paper")
+    @SqlQuery("SELECT id, title, author, uploaded_by, upload_date::DATE, pdf_location, project_id FROM paper")
     List<Paper> getPapers();
 
 
