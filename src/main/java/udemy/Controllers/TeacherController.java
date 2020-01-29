@@ -41,7 +41,7 @@ public class TeacherController {
 
     public void updateTeacher(Teacher teacher) {
         userDAO.updateUser(teacher.id, teacher.email);
-        studyDAO.updateEducational(studyDAO.getStudyIdFromName(teacher.study), teacher.id);
+        studyDAO.updateEducational(teacher.study, teacher.id);
 
     }
 

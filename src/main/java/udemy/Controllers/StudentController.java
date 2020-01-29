@@ -32,7 +32,7 @@ public class StudentController {
 
     public void updateStudent(Student student) {
         userDAO.updateUser(student.id, student.email);
-        studyDAO.updateEducational(studyDAO.getStudyIdFromName(student.study), student.id);
+        studyDAO.updateEducational(student.study, student.id);
     }
 
     public List<Student> getStudentInfo(){

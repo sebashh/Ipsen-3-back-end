@@ -21,7 +21,7 @@ public class StudyResource {
     }
 
     @GET
-    @Path("/studies")
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Study> getStudies(){
         return studyController.getStudies();

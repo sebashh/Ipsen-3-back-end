@@ -8,13 +8,13 @@ database:
   driverClass: org.postgresql.Driver
 
   # the username
-  user: postgres
+  user: roggrvls
 
   # the password
-  password: fertdert
+  password: AZCOUp_um32cGkBUchO2_e3y5yIwJa5A
 
   # the JDBC URL
-  url: jdbc:postgresql://localhost:5434/plnt-IPSEN3
+  url: jdbc:postgresql://manny.db.elephantsql.com:5432/roggrvls
 
   # any properties specific to your JDBC driver:
   properties:
@@ -30,10 +30,12 @@ database:
   validationQueryTimeout: 3s
 
   # the minimum number of connections to keep open
-  minSize: 8
+  minSize: 1
 
   # the maximum number of connections to keep open
-  maxSize: 32
+  maxSize: 1
+
+  initialSize: 1
 
   # whether or not idle connections should be validated
   checkConnectionWhileIdle: false
