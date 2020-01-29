@@ -41,14 +41,14 @@ public class AuthenticationController {
         return userDAO.getUserRole(userId);
     }
 
-    public String getPaswordByEmail(String username) {
+    public String getPasswordByEmail(String username) {
         return userDAO.getPassword(username);
     }
 
     public boolean verifyPassword(BasicCredentials basicCredentials) throws AuthenticationException {
         try {
-            String storedPassword = getPaswordByEmail(basicCredentials.getUsername());
-            if(passwordValidator(basicCredentials.getPassword(), storedPassword) == true) {
+            String storedPassword = getPasswordByEmail(basicCredentials.getUsername());
+            if(passwordValidator(basicCredentials.getPassword(), storedPassword)) {
                 return true;
             } else {
                 return false;

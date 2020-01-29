@@ -3,7 +3,9 @@ package udemy.Controllers;
 import udemy.User;
 import udemy.core.models.AccessModel;
 import udemy.core.models.Project;
+import udemy.persistance.CategoryDAO;
 import udemy.persistance.ProjectDAO;
+import udemy.persistance.StudyDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +57,14 @@ public class ProjectController {
 
     public List<Project> getTopViewedClientProjects(int id) {
         return projectDAO.getTopViewedProjectsClient(id);
+    }
+
+    public void deleteProject(int id){
+        projectDAO.deleteProject(id);
+    }
+
+    public void updateProject(Project project) {
+        projectDAO.updateProject(project.projectId, project.title, project.description, project.category, project.study);
     }
 
     public int getFollowAmount(int id) {
