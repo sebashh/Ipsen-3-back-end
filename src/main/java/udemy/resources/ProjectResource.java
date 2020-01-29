@@ -107,12 +107,14 @@ public class ProjectResource {
     @GET
     @Path("/projectsNewerThan={newerThan}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProjectsNewerThan(@PathParam("newerThan") String newerThan)
-    {
+    public Response getProjectsNewerThan(@PathParam("newerThan") String newerThan) {
         List<Project> ProjectsNewerThan = projectController.getProjectsNewerThan(newerThan);
         return Response
                 .status(200)
                 .entity(ProjectsNewerThan)
+                .build();
+    }
+    @GET
     @Path("/followed/user")
     @Produces(MediaType.APPLICATION_JSON)
     public Response GetFollowedProjectsOfUser(@Auth Optional<AuthUser> user){
@@ -127,11 +129,14 @@ public class ProjectResource {
     @GET
     @Path("/filter/study={studyId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllProjectsByStudyId(@PathParam("studyId") int studyId){
+    public Response getAllProjectsByStudyId(@PathParam("studyId") int studyId) {
         List<Project> ProjectsByStudy = projectController.getAllProjectsByStudyId(studyId);
         return Response
                 .status(200)
                 .entity(ProjectsByStudy)
+                .build();
+    }
+    @GET
     @Path("/interested/user")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCreatedProjectsWithInterests(@Auth Optional<AuthUser> user){
@@ -146,11 +151,14 @@ public class ProjectResource {
     @GET
     @Path("/filter/study={studyId}+category={categoryId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProjectsFromStudyAndCategoryId(@PathParam("studyId") int studyId, @PathParam("categoryId") int categoryId ){
-        List<Project> ProjectsByBoth= projectController.getProjectsFromStudyAndCategoryId(studyId, categoryId);
+    public Response getProjectsFromStudyAndCategoryId(@PathParam("studyId") int studyId, @PathParam("categoryId") int categoryId ) {
+        List<Project> ProjectsByBoth = projectController.getProjectsFromStudyAndCategoryId(studyId, categoryId);
         return Response
                 .status(200)
                 .entity(ProjectsByBoth)
+                .build();
+    }
+    @GET
     @Path("/clientProjects/user")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getRecentlyUpdatedProjects(@Auth Optional<AuthUser> user){

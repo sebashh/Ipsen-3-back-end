@@ -25,7 +25,7 @@ public class ProjectController {
     }
 
     public Project getProject(int id){
-        return projectDAO.getProj   ect(id);
+        return projectDAO.getProject(id);
     }
 
     public List<Project> getAllProjectsByCategoryId(int categoryId){

@@ -57,10 +57,8 @@ public interface ProjectDAO {
     @SqlQuery("SELECT * FROM project WHERE study_id = :studyId AND category_id = :categoryId")
     List<Project> getProjectsFromStudyAndCategoryId(@Bind("studyId")int studyId, @Bind("categoryId")int categoryId);
 
-    @SqlQuery("select project.id, title, summary, created_on, client_id, study.name as study_id, category.name as category_id\n" +
 
-    @SqlQuery("SELECT Project.id, title, summary, created_on, client_id, study_id, category_id" +
-            " FROM Project INNER JOIN follow_project ON Project.id = follow_project.Project_id " +
+    @SqlQuery("SELECT Project.id, title, summary, created_on, client_id, study_id, category_id" + " FROM Project INNER JOIN follow_project ON Project.id = follow_project.Project_id " +
             " AND follow_project.user_id = :id ORDER BY Random() LIMIT 3")
     List<Project> getUserFollowedProjectsRandom(@Bind("id")int id);
 
