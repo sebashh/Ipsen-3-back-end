@@ -29,10 +29,10 @@ public interface ProjectDAO {
                        @Bind("category_id")int categoryId);
 
     @SqlQuery("SELECT id FROM study WHERE name = :name")
-    int getStudyId(@Bind("name")String name);
+    int getStudyId(@Bind("name") int name);
 
     @SqlQuery("SELECT id FROM category WHERE name = :name")
-    int getCategoryId(@Bind("name")String name);
+    int getCategoryId(@Bind("name") int name);
 
     @SqlQuery("SELECT id FROM project ORDER BY id DESC limit 1")
     int getNewProjectId();
