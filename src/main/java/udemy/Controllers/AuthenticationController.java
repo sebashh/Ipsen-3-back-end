@@ -17,12 +17,13 @@ public class AuthenticationController {
     public String getEncrPass(String password) {
         password = BCrypt.with(BCrypt.Version.VERSION_2Y).hashToString(4, password.toCharArray());
         return password;
-    }
+       }
 
 
     public boolean passwordValidator(String passCredential, String password) {
         BCrypt.Result cryptResult = BCrypt.verifyer().verify(passCredential.toCharArray(), password);
         return cryptResult.verified;
+
     }
 
 

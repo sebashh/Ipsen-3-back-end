@@ -67,6 +67,16 @@ public class ProjectController {
         projectDAO.updateProject(project.projectId, project.title, project.description, project.category, project.study);
     }
 
+    public void deleteProject(int id){
+        projectDAO.deleteProject(id);
+    }
+
+    public void updateProject(Project project) {
+        int studyId = projectDAO.getStudyId(project.study);
+        int categoryId = projectDAO.getCategoryId(project.category);
+        projectDAO.updateProject(project.projectId, project.title, project.description, studyId, categoryId);
+    }
+
     public int getFollowAmount(int id) {
         return projectDAO.getFollowAmount(id);
     }
