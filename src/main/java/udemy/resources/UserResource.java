@@ -1,7 +1,9 @@
 package udemy.resources;
 
 import udemy.Controllers.UserController;
+import udemy.core.models.Admin;
 import udemy.core.models.User;
+import udemy.core.models.UserModel;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -23,6 +25,19 @@ public class UserResource {
         return Response.status(200)
                 .entity(true)
                 .build();
+        else return Response.status(Response.Status.NOT_ACCEPTABLE)
+                .entity(false)
+                .build();
+    }
+
+    @POST
+    @Path("/admin")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response postAdmin(Admin admin){
+        if(userController.uploadAdmin(admin))
+            return Response.status(200)
+                    .entity(true)
+                    .build();
         else return Response.status(Response.Status.NOT_ACCEPTABLE)
                 .entity(false)
                 .build();

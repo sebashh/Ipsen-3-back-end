@@ -58,6 +58,12 @@ public interface UserDAO {
             @Bind("password_user") String password_user
     );
 
+    @SqlQuery("select createAdmin(:email, :password)")
+    boolean uploadAdmin(
+            @Bind("email") String email,
+            @Bind("password") String password);
+
+
     @SqlQuery("select createTeacher(:id_study, :email_user, :password_user)")
     int uploadTeacher(
             @Bind("id_study") int id_study,
