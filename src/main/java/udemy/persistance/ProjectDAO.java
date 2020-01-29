@@ -15,7 +15,7 @@ public interface ProjectDAO {
     @SqlQuery("SELECT pdf_location FROM paper WHERE id = :projectId")
     String getProjectFile(@Bind("projectId") int id);
 
-    @SqlQuery("select project.id, title, summary, created_on, client_id, study.name as study_id, category.name as category_id\n" +
+    @SqlQuery("select project.id, title, summary, created_on, client_id, study.name as study_name, category.name as category_name\n" +
             "from project\n" +
             "INNER JOIN category ON project.category_id = category.id\n" +
             "INNER JOIN study ON project.study_id = study.id \n" +
@@ -84,22 +84,6 @@ public interface ProjectDAO {
             " GROUP BY Project.id, study.name, category.name" +
             " ORDER BY COUNT(\"View\".*) DESC LIMIT 3")
     List<Project> getTopViewedProjectsClient(@Bind("clientId") int clientId);
-
-    @SqlQuery("select project.id, title, summary, created_on, client_id, study.name as study_id, category.name as category_id\n" +
-            "from project\n" +
-            "INNER JOIN category ON project.category_id = category.id\n" +
-            "INNER JOIN study ON project.study_id = study.id")
-    List<Project> getAllProjects();
-
-    @SqlUpdate("update project set title = :title, summary = :summary, study_id = :study_id, category_id = :category_id where id = :id")
-    void updateProject(@Bind("id")int id,
-                       @Bind("title")String title,
-                       @Bind("summary")String summary,
-                       @Bind("study_id")int study_id,
-                       @Bind("category_id")int category_id);
-
-    @SqlUpdate("delete from project where id= :project_id")
-    void deleteProject(@Bind("project_id")int project_id);
 
     @SqlQuery("select COUNT(*) FROM follow_project WHERE project_id=:id")
     int getFollowAmount(@Bind("id")int id);

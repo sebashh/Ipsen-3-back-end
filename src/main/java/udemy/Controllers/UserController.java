@@ -57,8 +57,4 @@ public class UserController {
         }
         else return false;
     }
-
-    public void deleteUser(int id){
-        userDAO.deleteUser(id);
-    }
 }

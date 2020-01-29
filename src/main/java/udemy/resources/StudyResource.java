@@ -12,7 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("/studies")
+@Path("/ipsen3studies")
 public class StudyResource {
     private StudyController studyController;
 
