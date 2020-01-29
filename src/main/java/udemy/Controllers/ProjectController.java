@@ -1,9 +1,7 @@
 package udemy.Controllers;
 
 import udemy.core.models.Project;
-import udemy.persistance.CategoryDAO;
 import udemy.persistance.ProjectDAO;
-import udemy.persistance.StudyDAO;
 
 import java.util.List;
 
@@ -38,10 +36,6 @@ public class ProjectController {
         return projectDAO.getAllProjectsOfClient(client_id);
     }
 
-    public List<Project> getAllProjects(){
-        return projectDAO.getAllProjects();
-    }
-
     public List<Project> getUserProjects(int id) {
         return projectDAO.getUserFollowedProjectsRandom(id);
     }
@@ -56,16 +50,6 @@ public class ProjectController {
 
     public List<Project> getTopViewedClientProjects(int id) {
         return projectDAO.getTopViewedProjectsClient(id);
-    }
-
-    public void deleteProject(int id){
-        projectDAO.deleteProject(id);
-    }
-
-    public void updateProject(Project project) {
-        int studyId = projectDAO.getStudyId(project.study);
-        int categoryId = projectDAO.getCategoryId(project.category);
-        projectDAO.updateProject(project.projectId, project.title, project.description, studyId, categoryId);
     }
 
     public int getFollowAmount(int id) {

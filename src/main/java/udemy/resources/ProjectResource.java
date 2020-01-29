@@ -14,13 +14,15 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Optional;
 
-@Path("/projects")
+@Path("/ipsen3projects")
 public class ProjectResource {
     private ProjectController projectController;
 
     public ProjectResource(ProjectController projectController) {
         this.projectController= projectController;
     }
+
+
 
 
     @GET
@@ -33,7 +35,6 @@ public class ProjectResource {
                 .entity(output)
                 .build();
     }
-
 
     @GET
     @Path("/upload/test")
@@ -158,28 +159,4 @@ public class ProjectResource {
                 .entity(amount)
                 .build();
     }
-    @GET
-    @Path("/projects=all")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllProjects(){
-
-        List<Project> AllProjects = projectController.getAllProjects();
-        return Response
-                .status(200)
-                .entity(AllProjects)
-                .build();
-    }
-
-    @DELETE
-    @Path("/delete={id}")
-    public void delete(@PathParam("id") int id) {
-        projectController.deleteProject(id);
-    }
-
-    @PUT
-    @Path("/projectUpdate")
-    public void updateTeacher(Project project){
-        projectController.updateProject(project);
-    }
-
 }

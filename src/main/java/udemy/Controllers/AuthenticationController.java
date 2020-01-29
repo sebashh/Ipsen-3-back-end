@@ -17,13 +17,12 @@ public class AuthenticationController {
     public String getEncrPass(String password) {
         password = BCrypt.with(BCrypt.Version.VERSION_2Y).hashToString(4, password.toCharArray());
         return password;
-       }
+    }
 
 
     public boolean passwordValidator(String passCredential, String password) {
         BCrypt.Result cryptResult = BCrypt.verifyer().verify(passCredential.toCharArray(), password);
         return cryptResult.verified;
-
     }
 
 
@@ -42,14 +41,14 @@ public class AuthenticationController {
         return userDAO.getUserRole(userId);
     }
 
-    public String getPasswordByEmail(String username) {
+    public String getPaswordByEmail(String username) {
         return userDAO.getPassword(username);
     }
 
     public boolean verifyPassword(BasicCredentials basicCredentials) throws AuthenticationException {
         try {
-            String storedPassword = getPasswordByEmail(basicCredentials.getUsername());
-            if(passwordValidator(basicCredentials.getPassword(), storedPassword)) {
+            String storedPassword = getPaswordByEmail(basicCredentials.getUsername());
+            if(passwordValidator(basicCredentials.getPassword(), storedPassword) == true) {
                 return true;
             } else {
                 return false;
