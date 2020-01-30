@@ -29,4 +29,13 @@ public interface PaperDAO {
 
     @SqlQuery ("SELECT COUNT(*) FROM paper WHERE project_id=:id")
     int getPaperAmount(@Bind("id")int id);
+
+    @SqlUpdate("update paper set title = :title, author = :author, pdf_location = :pdf_location where id = :id")
+    void updatePaper(@Bind("id")int id,
+                     @Bind("title")String title,
+                     @Bind("author")String author,
+                     @Bind("pdf_location")String pdf_location);
+
+    @SqlUpdate("delete from paper where id= :paper_id")
+    void deletePaper(@Bind("paper_id")int paper_id);
 }

@@ -33,7 +33,7 @@ public class Project {
         this.description = description;
         this.study = study;
         this.category = category;
-        this.createdOn = createdOn;
+        this.createdOn = createdOn.substring(0,10);
         this.clientId = clientId;
     }
 }

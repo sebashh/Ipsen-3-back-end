@@ -21,6 +21,7 @@ public class StatisticsController {
         int teacherAmount = statisticsDAO.getTotalTeachers();
         int clientAmount = statisticsDAO.getTotalClients();
         int projectAmount = statisticsDAO.getTotalProjects();
+        System.out.println("client: " + clientAmount);
         Statistics statistics = new Statistics(userAmount,studentAmount,teacherAmount,clientAmount,projectAmount);
         return statistics;
     }

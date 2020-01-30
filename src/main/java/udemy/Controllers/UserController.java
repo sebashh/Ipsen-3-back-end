@@ -1,7 +1,9 @@
 package udemy.Controllers;
 
+import udemy.core.models.Admin;
 import udemy.core.models.Project;
 import udemy.core.models.User;
+import udemy.core.models.UserModel;
 import udemy.persistance.ProjectDAO;
 import udemy.persistance.UserDAO;
 
@@ -27,6 +29,12 @@ public class UserController {
         List<Project> userProjects = userDAO.getNewNotifiactions(id);
         UpdateLastLogin(id);
         return null;
+    }
+
+    public boolean uploadAdmin(Admin admin){
+        System.out.println(admin.name);
+        String encryptPassword = authController.getEncrPass(admin.password);
+        return userDAO.uploadAdmin(admin.name, encryptPassword);
     }
 
     public boolean uploadTeacher(User user) {
@@ -60,5 +68,9 @@ public class UserController {
 
     public String getUserEmail(int teacher) {
         return userDAO.getEmailById(teacher);
+    }
+
+    public void deleteUser(int id){
+        userDAO.deleteUser(id);
     }
 }

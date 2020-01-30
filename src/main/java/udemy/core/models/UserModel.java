@@ -1,7 +1,7 @@
 package udemy.core.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import at.favre.lib.crypto.bcrypt.BCrypt;
+//import at.favre.lib.crypto.bcrypt.BCrypt;
 import javax.validation.constraints.NotNull;
 
 public class UserModel {
@@ -12,6 +12,8 @@ public class UserModel {
     @NotNull
     @JsonProperty("password")
     private String encryptedPassword;
+
+    public UserModel(){}
 
     public UserModel(String email, String encryptedPassword) {
         this.email = email;
@@ -30,9 +32,9 @@ public class UserModel {
         return encryptedPassword;
     }
 
-    public String setEncryptedPassword(String password) {
-        this.encryptedPassword = BCrypt.with(BCrypt.Version.VERSION_2Y).hashToString(12, getEncryptedPassword().toCharArray());
-        ;
-        return password;
-    }
+//    public String setEncryptedPassword(String password) {
+//        this.encryptedPassword = BCrypt.with(BCrypt.Version.VERSION_2Y).hashToString(12, getEncryptedPassword().toCharArray());
+//        ;
+//        return password;
+//    }
 }

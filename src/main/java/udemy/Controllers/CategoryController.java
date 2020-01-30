@@ -16,6 +16,10 @@ public class CategoryController {
         this.categoryDAO = categoryDAO;
     }
 
+    public boolean addCategory(String category){
+        return categoryDAO.addCategory(category);
+    }
+
 
     public List<Category> getCategories(){
         return categoryDAO.getCategories();
