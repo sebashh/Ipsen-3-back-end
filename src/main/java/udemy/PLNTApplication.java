@@ -4,6 +4,7 @@ import udemy.Controllers.*;
 import udemy.auth.AccountAuthorizationFilter;
 import udemy.auth.AuthUser;
 import udemy.auth.PlntAuthenticator;
+import udemy.core.models.Student;
 import udemy.persistance.*;
 import udemy.resources.*;
 import io.dropwizard.Application;
@@ -57,9 +58,9 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         final CategoryDAO categoryDAO = jdbi.onDemand(CategoryDAO.class);
         final StatisticsDAO statisticsDAO = jdbi.onDemand(StatisticsDAO.class);
         final StudyDAO studyDAO = jdbi.onDemand(StudyDAO.class);
-        final ClientDAO clientDAO = jdbi.onDemand(ClientDAO.class);
         final TeacherDAO teacherDAO = jdbi.onDemand(TeacherDAO.class);
         final StudentDAO studentDAO = jdbi.onDemand(StudentDAO.class);
+        final ClientDAO clientDAO = jdbi.onDemand(ClientDAO.class);
 
         //generating Controller
         final JWTController jwtController = new JWTController();
@@ -71,10 +72,9 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         final StatisticsController statisticsController = new StatisticsController(statisticsDAO);
         final PaperController paperController = new PaperController(paperDAO);
         final StudyController studyController = new StudyController(studyDAO);
-        final ClientController clientController = new ClientController(userDAO, clientDAO);
-        final StudentController studentController = new StudentController(userDAO, studentDAO, studyDAO);
         final TeacherController teacherController = new TeacherController(userDAO, teacherDAO, studyDAO);
-
+        final StudentController studentController = new StudentController(userDAO, studentDAO, studyDAO);
+        final ClientController clientController = new ClientController(userDAO, clientDAO);
 
         //register resources
         environment.jersey().register(new CategoryResource(categoryController));
@@ -88,6 +88,9 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         environment.jersey().register(new TeacherResource(teacherController));
         PlntAuthenticator plntAuthenticator = new PlntAuthenticator(authenticationController);
         environment.jersey().register(new AuthenticationResource(authenticationController, plntAuthenticator));
+        environment.jersey().register(new TeacherResource(teacherController));
+        environment.jersey().register(new StudentResource(studentController));
+        environment.jersey().register(new ClientResource(clientController));
 //        BackupService backupService = new BackupService();
 
         //authentication

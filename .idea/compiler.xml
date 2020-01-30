@@ -6,9 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Ipsen_3_Back_End" />
         <module name="DropBookmarks" />
         <module name="Ipsen-3-back-end" />
+        <module name="Ipsen_3_Back_End" />
       </profile>
     </annotationProcessing>
   </component>

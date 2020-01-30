@@ -15,7 +15,9 @@ public class StudyController {
         this.studyDAO = studyDAO;
     }
 
-
+    public boolean addStudy(String study){
+        return studyDAO.addStudy(study);
+    }
     public List<Study> getStudies(){
         return studyDAO.getStudies();
     }

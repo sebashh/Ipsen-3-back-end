@@ -13,6 +13,8 @@ public class UserModel {
     @JsonProperty("password")
     private String encryptedPassword;
 
+    public UserModel(){}
+
     public UserModel(String email, String encryptedPassword) {
         this.email = email;
         this.encryptedPassword = encryptedPassword;

@@ -127,4 +127,7 @@ public interface ProjectDAO {
 
     @SqlQuery("SELECT * FROM project")
     List<Project> getAllProjects();
+
+    @SqlUpdate("INSERT INTO \"View\" VALUES (:projectId)")
+    void increaseProjectViews(@Bind("projectId") int projectId);
 }

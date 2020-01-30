@@ -36,7 +36,6 @@ public class PaperController {
                 fos = new FileOutputStream(path + filePath);
                 fos.write(decoder);
                 fos.close();
-                System.out.println("file saved to desktop");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
