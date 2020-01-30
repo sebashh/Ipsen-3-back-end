@@ -256,4 +256,15 @@ public class ProjectResource {
         projectController.updateProject(project);
     }
 
+
+    @GET
+    @Path("/project={id}/view")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response increaseProjectViews(@PathParam("id") int projectId){
+        System.out.println("project is bekeken: " + projectId);
+        projectController.increaseProjectViews(projectId);
+        return Response
+                .status(200)
+                .build();
+    }
 }

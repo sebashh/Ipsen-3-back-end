@@ -1,6 +1,8 @@
 package udemy.resources;
 
+import io.dropwizard.auth.Auth;
 import udemy.Controllers.UserController;
+import udemy.auth.AuthUser;
 import udemy.core.models.Admin;
 import udemy.core.models.User;
 import udemy.core.models.UserModel;
@@ -8,6 +10,7 @@ import udemy.core.models.UserModel;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Optional;
 
 @Path("/users")
 public class UserResource {
@@ -72,6 +75,15 @@ public class UserResource {
         else return Response.status(Response.Status.NOT_ACCEPTABLE)
                 .entity(false)
                 .build();
+    }
+
+    @GET
+    @Path("/email")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getUserEmailById(@Auth Optional<AuthUser> user){
+        int userId = Integer.parseInt(user.get().getName());
+        String userEmail = userController.getUserEmail(userId);
+        return Response.status(200).entity(userEmail).build();
     }
 
     @DELETE
