@@ -40,6 +40,17 @@ public class ProjectResource {
                 .build();
     }
 
+//    @POST
+//    @Path("/admin/project/create")
+//    @Produces(MediaType.TEXT_PLAIN)
+//    public Response createProjectByAdmin(Project project, int id){
+//        projectController.uploadProject(project, id);
+//        return Response
+//                .status(200)
+//                .build();
+//    }
+
+
     @GET
     @RolesAllowed({"teacher", "student"})
     @Path("/project={id}/follow")

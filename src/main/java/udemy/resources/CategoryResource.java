@@ -7,7 +7,10 @@ import udemy.core.models.Category;
 import udemy.core.models.Paper;
 import udemy.core.models.Project;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -29,19 +32,6 @@ public class CategoryResource {
                 .entity(categoryController.getCategories())
                 .build();
 
-    }
-
-    @POST
-    @Path("/add")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response addCategory(String category){
-        if(categoryController.addCategory(category))
-            return Response.status(200)
-                    .entity(true)
-                    .build();
-        else return Response.status(Response.Status.NOT_ACCEPTABLE)
-                .entity(false)
-                .build();
     }
 
 }
