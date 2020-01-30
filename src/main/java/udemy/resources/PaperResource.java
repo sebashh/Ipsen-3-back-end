@@ -25,12 +25,16 @@ public class PaperResource {
 
     @POST
     @Path("/upload")
-    @RolesAllowed("teacher")
+    @RolesAllowed({"teacher", "admin"})
     @Produces(MediaType.APPLICATION_JSON)
     public Response uploadPaper(Paper paper,@Auth Optional<AuthUser> user){
-        int userId = Integer.parseInt(user.get().getName());
-        paper.uploadedBy = userId;
-        return paperController.confirmFileUpload(paper);
+        System.out.println(paper.uploadedBy);
+        if(paper.uploadedBy == 0) {
+            int userId = Integer.parseInt(user.get().getName());
+            paper.uploadedBy = userId;
+        }
+            return paperController.confirmFileUpload(paper);
+
     }
 
     @GET

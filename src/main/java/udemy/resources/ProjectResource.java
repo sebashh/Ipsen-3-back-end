@@ -29,7 +29,7 @@ public class ProjectResource {
     @POST
     @Path("/project/create")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response getTest(Project project, @Auth Optional<AuthUser> user){
+    public Response createProject(Project project, @Auth Optional<AuthUser> user){
         if(project.clientId != 0){
             projectController.uploadProject(project);
         } else {
