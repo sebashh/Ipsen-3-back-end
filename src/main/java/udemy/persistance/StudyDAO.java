@@ -15,7 +15,10 @@ public interface StudyDAO {
     List<Study> getStudies();
 
 
-    @SqlQuery("select id from study where user_id = :user_id")
+    @SqlUpdate("insert into \"study\" (name) values (:study);")
+    boolean addStudy(@Bind("study") String study);
+
+    @SqlQuery("select study_id from educational where user_id = :user_id")
     int getStudyOfClient(@Bind("user_id")int user_id);
 
     @SqlQuery("select id from study where name = :name")

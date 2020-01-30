@@ -21,7 +21,7 @@ public class Student extends ExtendThisUser {
         this.id = extendThisUser.id;
         this.email = extendThisUser.email;
         this.password = extendThisUser.password;
-        this.lastLogin = extendThisUser.lastLogin.substring(0,10);;
+        this.lastLogin = extendThisUser.lastLogin.substring(0,10);
         this.study = study;
     }
 

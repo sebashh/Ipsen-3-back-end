@@ -70,7 +70,6 @@ public class UserController {
         return userDAO.getEmailById(teacher);
     }
 
-
     public void deleteUser(int id){
         userDAO.deleteUser(id);
     }

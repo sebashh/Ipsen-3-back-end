@@ -23,7 +23,11 @@ public class ProjectController {
     public void uploadProject(Project project, int clientId) {
 
         projectDAO.uploadProject(project.title, project.description , clientId, project.study, project.category);
+    }
 
+    public void uploadProject(Project project) {
+
+        projectDAO.uploadProject(project.title, project.description , project.clientId, project.study, project.category);
     }
 
     public Project getProject(int id){

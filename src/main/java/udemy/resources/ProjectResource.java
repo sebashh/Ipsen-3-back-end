@@ -30,11 +30,26 @@ public class ProjectResource {
     @Path("/project/create")
     @Produces(MediaType.TEXT_PLAIN)
     public Response getTest(Project project, @Auth Optional<AuthUser> user){
-        projectController.uploadProject(project, Integer.parseInt(user.get().getName()));
+        if(project.clientId != 0){
+            projectController.uploadProject(project);
+        } else {
+            projectController.uploadProject(project, Integer.parseInt(user.get().getName()));
+        }
         return Response
                 .status(200)
                 .build();
     }
+
+//    @POST
+//    @Path("/admin/project/create")
+//    @Produces(MediaType.TEXT_PLAIN)
+//    public Response createProjectByAdmin(Project project, int id){
+//        projectController.uploadProject(project, id);
+//        return Response
+//                .status(200)
+//                .build();
+//    }
+
 
     @GET
     @RolesAllowed({"teacher", "student"})
