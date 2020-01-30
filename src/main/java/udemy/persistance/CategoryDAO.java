@@ -17,4 +17,6 @@ public interface CategoryDAO {
     @SqlQuery("SELECT * FROM category")
     List<Category> getCategories();
 
+    @SqlUpdate("insert into \"category\" (name) values (:category);")
+    boolean addCategory(@Bind("category") String category);
 }
