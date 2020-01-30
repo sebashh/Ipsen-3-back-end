@@ -1,9 +1,11 @@
 package udemy.Controllers;
 
-import udemy.User;
 import udemy.core.models.AccessModel;
 import udemy.core.models.Project;
+import udemy.core.models.User;
+import udemy.persistance.CategoryDAO;
 import udemy.persistance.ProjectDAO;
+import udemy.persistance.StudyDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,11 @@ public class ProjectController {
     public void uploadProject(Project project, int clientId) {
 
         projectDAO.uploadProject(project.title, project.description , clientId, project.study, project.category);
+    }
 
+    public void uploadProject(Project project) {
+
+        projectDAO.uploadProject(project.title, project.description , project.clientId, project.study, project.category);
     }
 
     public Project getProject(int id){
@@ -73,6 +79,14 @@ public class ProjectController {
         return projectDAO.getTopViewedProjectsClient(id);
     }
 
+    public void deleteProject(int id){
+        projectDAO.deleteProject(id);
+    }
+
+    public void updateProject(Project project) {
+        projectDAO.updateProject(project.projectId, project.title, project.description, project.category, project.study);
+    }
+
     public int getFollowAmount(int id) {
         return projectDAO.getFollowAmount(id);
     }
@@ -94,13 +108,11 @@ public class ProjectController {
     }
 
     public boolean isProjectOwner(int id, int userId) {
-        System.out.println("project owner id: " + projectDAO.getProjectOwner(id));
         return userId == projectDAO.getProjectOwner(id);
 
     }
 
     public boolean accessRequestResponse(boolean accepted, int userId, int teacherId, int projectId) {
-        System.out.println("project user id: " + userId);
         if(isProjectOwner(projectId, userId)){
             if(accepted) projectDAO.acceptAcces(projectId, teacherId);
             else projectDAO.denieAcces(projectId, teacherId);
@@ -129,5 +141,9 @@ public class ProjectController {
 
     public List<Project> getAllProjects() {
         return projectDAO.getAllProjects();
+    }
+
+    public void increaseProjectViews(int projectId) {
+        projectDAO.increaseProjectViews(projectId);
     }
 }

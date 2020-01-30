@@ -1,6 +1,8 @@
 package udemy.resources;
 
+import io.dropwizard.auth.Auth;
 import udemy.Controllers.PaperController;
+import udemy.auth.AuthUser;
 import udemy.core.models.Paper;
 
 import javax.annotation.security.RolesAllowed;
@@ -10,6 +12,7 @@ import javax.ws.rs.core.Response;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
+import java.util.Optional;
 
 @Path("/paper")
 public class PaperResource {
@@ -22,10 +25,16 @@ public class PaperResource {
 
     @POST
     @Path("/upload")
-    @RolesAllowed("teacher")
+    @RolesAllowed({"teacher", "admin"})
     @Produces(MediaType.APPLICATION_JSON)
-    public Response uploadPaper(Paper paper){
-        return paperController.confirmFileUpload(paper);
+    public Response uploadPaper(Paper paper,@Auth Optional<AuthUser> user){
+        System.out.println(paper.uploadedBy);
+        if(paper.uploadedBy == 0) {
+            int userId = Integer.parseInt(user.get().getName());
+            paper.uploadedBy = userId;
+        }
+            return paperController.confirmFileUpload(paper);
+
     }
 
     @GET
@@ -69,5 +78,17 @@ public class PaperResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Paper> getPapers() {
         return paperController.retrievePaperData();
+    }
+
+    @DELETE
+    @Path("/delete={id}")
+    public void delete(@PathParam("id") int id) {
+        paperController.deletePaper(id);
+    }
+
+    @PUT
+    @Path("/paperUpdate")
+    public void updatePaper(Paper paper){
+        paperController.updatePaper(paper);
     }
 }

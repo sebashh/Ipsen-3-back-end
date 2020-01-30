@@ -36,7 +36,6 @@ public class PaperController {
                 fos = new FileOutputStream(path + filePath);
                 fos.write(decoder);
                 fos.close();
-                System.out.println("file saved to desktop");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -78,6 +77,15 @@ public class PaperController {
             List<Paper> papers = paperDAO.getProjectPapers(id);
             return papers;
         }
+
+        public void deletePaper(int id){
+            System.out.println("Sent ID is :" + id);
+            paperDAO.deletePaper(id);
+        }
+
+    public void updatePaper(Paper paper) {
+        paperDAO.updatePaper(paper.id, paper.title, paper.author, paper.paperFile);
+    }
 
     public int getPaperAmount(int id) {
         return paperDAO.getPaperAmount(id);

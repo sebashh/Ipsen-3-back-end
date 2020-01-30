@@ -58,6 +58,12 @@ public interface UserDAO {
             @Bind("password_user") String password_user
     );
 
+    @SqlQuery("select createAdmin(:email, :password)")
+    boolean uploadAdmin(
+            @Bind("email") String email,
+            @Bind("password") String password);
+
+
     @SqlQuery("select createTeacher(:id_study, :email_user, :password_user)")
     int uploadTeacher(
             @Bind("id_study") int id_study,
@@ -87,4 +93,14 @@ public interface UserDAO {
 
     @SqlQuery("SELECT email FROM \"User\" WHERE id = :teacher")
     String getEmailById(@Bind("teacher")int teacher);
+
+    @SqlUpdate("delete from \"User\" where id= :user_id")
+    void deleteUser(@Bind("user_id")int user_id);
+
+    @SqlUpdate("update \"User\" set email = :email where id = :id")
+    void updateUser(@Bind("id")int id,
+                    @Bind("email")String email);
+
+    @SqlUpdate("INSERT INTO logins VALUES (:userId)")
+    void updateLoginAmount(@Bind("userId") int userId);
 }

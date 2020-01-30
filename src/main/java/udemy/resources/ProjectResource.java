@@ -31,12 +31,27 @@ public class ProjectResource {
     @POST
     @Path("/project/create")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response getTest(Project project, @Auth Optional<AuthUser> user){
-        projectController.uploadProject(project, Integer.parseInt(user.get().getName()));
+    public Response createProject(Project project, @Auth Optional<AuthUser> user){
+        if(project.clientId != 0){
+            projectController.uploadProject(project);
+        } else {
+            projectController.uploadProject(project, Integer.parseInt(user.get().getName()));
+        }
         return Response
                 .status(200)
                 .build();
     }
+
+//    @POST
+//    @Path("/admin/project/create")
+//    @Produces(MediaType.TEXT_PLAIN)
+//    public Response createProjectByAdmin(Project project, int id){
+//        projectController.uploadProject(project, id);
+//        return Response
+//                .status(200)
+//                .build();
+//    }
+
 
     @GET
     @RolesAllowed({"teacher", "student"})
@@ -258,6 +273,41 @@ public class ProjectResource {
         return Response
                 .status(200)
                 .entity(projectController.getAllRequests(projectId))
+                .build();
+    }
+    @GET
+    @Path("/projects=all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllProjects(){
+
+        List<Project> AllProjects = projectController.getAllProjects();
+        return Response
+                .status(200)
+                .entity(AllProjects)
+                .build();
+    }
+
+    @DELETE
+    @Path("/delete={id}")
+    public void delete(@PathParam("id") int id) {
+        projectController.deleteProject(id);
+    }
+
+    @PUT
+    @Path("/projectUpdate")
+    public void updateTeacher(Project project){
+        projectController.updateProject(project);
+    }
+
+
+    @GET
+    @Path("/project={id}/view")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response increaseProjectViews(@PathParam("id") int projectId){
+        System.out.println("project is bekeken: " + projectId);
+        projectController.increaseProjectViews(projectId);
+        return Response
+                .status(200)
                 .build();
     }
 }
