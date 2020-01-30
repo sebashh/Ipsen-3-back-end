@@ -4,6 +4,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.basic.BasicCredentials;
 import udemy.User;
+import udemy.core.models.LoginModel;
 import udemy.persistance.UserDAO;
 
 public class AuthenticationController {
@@ -59,4 +60,8 @@ public class AuthenticationController {
                 throw new AuthenticationException(e);
             }
         }
+
+    public void updateLoginAmount(int userId) {
+        userDAO.updateLoginAmount(userId);
     }
+}

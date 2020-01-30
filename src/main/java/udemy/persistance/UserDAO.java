@@ -100,4 +100,7 @@ public interface UserDAO {
     @SqlUpdate("update \"User\" set email = :email where id = :id")
     void updateUser(@Bind("id")int id,
                     @Bind("email")String email);
+
+    @SqlUpdate("INSERT INTO logins VALUES (:userId)")
+    void updateLoginAmount(@Bind("userId") int userId);
 }

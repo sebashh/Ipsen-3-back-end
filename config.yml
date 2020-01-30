@@ -7,9 +7,9 @@ database:
   # the name of your JDBC driver
   driverClass: org.postgresql.Driver
 
-  user: Ipsen3
+  user: postgres
 
-  password: Ipsen3
+  password: Rc58j95tt
 
   url: jdbc:postgresql://localhost/Ipsen3
 #  # the username
