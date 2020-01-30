@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.logging.Filter;
 import java.util.Optional;
 
-@Path("/ipsen3projects")
+@Path("/projects")
 public class ProjectResource {
     private ProjectController projectController;
 
