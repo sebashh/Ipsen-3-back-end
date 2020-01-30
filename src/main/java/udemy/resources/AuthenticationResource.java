@@ -47,6 +47,7 @@ import javax.ws.rs.core.Response;
                 int userId = authenticationController.getUserIdByEmail(loginModel.getEmail());
                 String userRole = authenticationController.getUserRole(userId);
                 AuthModel model = JWTController.generateAuthModel(Integer.toString(userId), userRole);
+                authenticationController.updateLoginAmount(userId);
                 return Response.ok(200)
                         .entity(model)
                         .build();

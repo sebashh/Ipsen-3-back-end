@@ -105,31 +105,31 @@ public interface StatisticsDAO {
             " viewdays ON viewdays.day = g.series::date")
     List<DateStatistic> getAdminViewStatistics();
 
-    @SqlQuery("WITH logindays AS (" +
-            " SELECT date(date_trunc('day', last_login)) \"day\", count(id) \"total\"" +
-            " FROM \"User\" JOIN Student ON \"User\".id = Student.user_id" +
-            " GROUP BY 1)" +
-            " SELECT g.series::date AS \"days\", logindays.total" +
-            " FROM generate_series(now() - interval '6 days' , now() , '1 day'::interval) AS g(series) LEFT JOIN" +
-            " logindays ON logindays.day = g.series::date")
+    @SqlQuery("SELECT g.series::date AS \"days\", COUNT(Student.*) \"total\"" +
+            " FROM generate_series(now() - interval '6 days', now(), '1 day'::interval) AS g(series) LEFT JOIN" +
+            " logins ON logins.login_date = g.series::date LEFT JOIN Student ON logins.user_id = Student.user_id" +
+            " GROUP BY g.series::date")
     List<DateStatistic> getAdminLoginStudentStatistics();
 
-    @SqlQuery("WITH logindays AS (" +
-            " SELECT date(date_trunc('day', last_login)) \"day\", count(id) \"total\"" +
-            " FROM \"User\" JOIN Teacher ON \"User\".id = Teacher.user_id" +
-            " GROUP BY 1)" +
-            " SELECT g.series::date AS \"days\", logindays.total" +
-            " FROM generate_series(now() - interval '6 days' , now(), '1 day'::interval) AS g(series) LEFT JOIN" +
-            " logindays ON logindays.day = g.series::date")
+    @SqlQuery("SELECT g.series::date AS \"days\", COUNT(Teacher.*) \"total\"" +
+            " FROM generate_series(now() - interval '6 days', now(), '1 day'::interval) AS g(series) LEFT JOIN" +
+            " logins ON logins.login_date = g.series::date LEFT JOIN Teacher ON logins.user_id = Teacher.user_id" +
+            " GROUP BY g.series::date")
     List<DateStatistic> getAdminLoginTeacherStatistics();
 
-    @SqlQuery("WITH logindays AS (" +
+    @SqlQuery("SELECT g.series::date AS \"days\", COUNT(Client.*) \"total\"" +
+            " FROM generate_series(now() - interval '6 days', now(), '1 day'::interval) AS g(series) LEFT JOIN" +
+            " logins ON logins.login_date = g.series::date LEFT JOIN Client ON logins.user_id = Client.user_id" +
+            " GROUP BY g.series::date")
+    List<DateStatistic> getAdminLoginClientStatistics();
+}
+
+/*
+WITH logindays AS (" +
             " SELECT date(date_trunc('day', last_login)) \"day\", count(id) \"total\"" +
             " FROM \"User\" JOIN Client ON \"User\".id = Client.user_id" +
             " GROUP BY 1)" +
             " SELECT g.series::date AS \"days\", logindays.total" +
             " FROM generate_series(now() - interval '6 days' , now() , '1 day'::interval) AS g(series) LEFT JOIN" +
-            " logindays ON logindays.day = g.series::date")
-    List<DateStatistic> getAdminLoginClientStatistics();
-}
-
+            " logindays ON logindays.day = g.series::date
+ */
