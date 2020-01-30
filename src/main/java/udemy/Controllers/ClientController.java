@@ -19,6 +19,10 @@ public class ClientController {
         this.clientDAO = clientDAO;
     }
 
+    public Client getClient(int id){
+        return clientDAO.getClient(id);
+    }
+
     public void uploadClient(User user) {
 
         userDAO.uploadClient(user.picture_company, user.name_company, user.description_company, user.email_user, user.password_user);

@@ -7,13 +7,13 @@ public class Client extends ExtendThisUser{
     @JsonProperty
     public String company_name;
     public String description;
-    public byte[] picture;
+    public String picture;
 
     public Client(){
 
     }
 
-    public Client(int id, String email, String password, String lastLogin, String company_name, String description, byte[] picture){
+    public Client(int id, String email, String password, String lastLogin, String company_name, String description, String picture){
         this.id = id;
         this.email = email;
         this.password = password;
@@ -23,11 +23,11 @@ public class Client extends ExtendThisUser{
         this.picture = picture;
     }
 
-    public Client(ExtendThisUser extendThisUser, String company_name, String description, byte[] picture){
-        this.id = extendThisUser.id;
-        this.email = extendThisUser.email;
-        this.password = extendThisUser.password;
-        this.lastLogin = extendThisUser.lastLogin;
+    public Client(int id, String email, String lastLogin, String company_name, String description, String picture){
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.lastLogin = lastLogin;
         this.company_name = company_name;
         this.description = description;
         this.picture = picture;

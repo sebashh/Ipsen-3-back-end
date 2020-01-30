@@ -21,7 +21,7 @@ public class UserResource {
     }
 
     @POST
-    @Path("/client")
+    @Path("/register/client")
     @Produces(MediaType.APPLICATION_JSON)
     public Response postClient(User user){
         if(userController.uploadClient(user))
@@ -32,6 +32,8 @@ public class UserResource {
                 .entity(false)
                 .build();
     }
+
+
 
     @POST
     @Path("/admin")
@@ -47,7 +49,7 @@ public class UserResource {
     }
 
     @POST
-    @Path("/student")
+    @Path("/register/student")
     @Produces(MediaType.APPLICATION_JSON)
     public Response postStudent(User user){
         if(userController.uploadStudent(user)){
@@ -64,7 +66,7 @@ public class UserResource {
     }
 
     @POST
-    @Path("/teacher")
+    @Path("/register/teacher")
     @Produces(MediaType.APPLICATION_JSON)
     public Response postTeacher(User user){
         if(userController.uploadTeacher(user)){

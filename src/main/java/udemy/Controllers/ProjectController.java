@@ -1,8 +1,8 @@
 package udemy.Controllers;
 
-import udemy.User;
 import udemy.core.models.AccessModel;
 import udemy.core.models.Project;
+import udemy.core.models.User;
 import udemy.persistance.CategoryDAO;
 import udemy.persistance.ProjectDAO;
 import udemy.persistance.StudyDAO;
@@ -92,13 +92,11 @@ public class ProjectController {
     }
 
     public boolean isProjectOwner(int id, int userId) {
-        System.out.println("project owner id: " + projectDAO.getProjectOwner(id));
         return userId == projectDAO.getProjectOwner(id);
 
     }
 
     public boolean accessRequestResponse(boolean accepted, int userId, int teacherId, int projectId) {
-        System.out.println("project user id: " + userId);
         if(isProjectOwner(projectId, userId)){
             if(accepted) projectDAO.acceptAcces(projectId, teacherId);
             else projectDAO.denieAcces(projectId, teacherId);

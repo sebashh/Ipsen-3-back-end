@@ -83,6 +83,9 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         environment.jersey().register(new ProjectResource(projectController));
         environment.jersey().register(new PaperResource(paperController));
         environment.jersey().register(new StudyResource(studyController));
+        environment.jersey().register(new StudentResource(studentController));
+        environment.jersey().register(new ClientResource(clientController));
+        environment.jersey().register(new TeacherResource(teacherController));
         PlntAuthenticator plntAuthenticator = new PlntAuthenticator(authenticationController);
         environment.jersey().register(new AuthenticationResource(authenticationController, plntAuthenticator));
         environment.jersey().register(new TeacherResource(teacherController));

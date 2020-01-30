@@ -15,6 +15,9 @@ public interface ClientDAO {
     @SqlQuery("select * from \"User\" inner join client on id = client.user_id")
     List<Client> getAllClients();
 
+    @SqlQuery("select * from \"User\" inner join client on id = client.user_id where id = :userId")
+    Client getClient(@Bind("userId")int userId);
+
     @SqlUpdate("update client set company_name = :company_name, description = :description where user_id = :user_id")
     void updateClient(@Bind("user_id")int user_id,
                       @Bind("company_name")String company_name,
