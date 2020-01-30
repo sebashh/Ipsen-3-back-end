@@ -20,5 +20,4 @@ public class CorsFilter
         headers.add("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Codingpedia, Accept, encrypt, Access-Control-Allow-Headers, authorization");
 
     }
-
 }
