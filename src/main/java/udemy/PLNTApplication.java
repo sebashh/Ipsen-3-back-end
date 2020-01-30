@@ -57,6 +57,9 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         final CategoryDAO categoryDAO = jdbi.onDemand(CategoryDAO.class);
         final StatisticsDAO statisticsDAO = jdbi.onDemand(StatisticsDAO.class);
         final StudyDAO studyDAO = jdbi.onDemand(StudyDAO.class);
+        final ClientDAO clientDAO = jdbi.onDemand(ClientDAO.class);
+        final TeacherDAO teacherDAO = jdbi.onDemand(TeacherDAO.class);
+        final StudentDAO studentDAO = jdbi.onDemand(StudentDAO.class);
 
         //generating Controller
         final JWTController jwtController = new JWTController();
@@ -68,6 +71,9 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         final StatisticsController statisticsController = new StatisticsController(statisticsDAO);
         final PaperController paperController = new PaperController(paperDAO);
         final StudyController studyController = new StudyController(studyDAO);
+        final ClientController clientController = new ClientController(userDAO, clientDAO);
+        final StudentController studentController = new StudentController(userDAO, studentDAO, studyDAO);
+        final TeacherController teacherController = new TeacherController(userDAO, teacherDAO, studyDAO);
 
 
         //register resources
@@ -77,6 +83,9 @@ public class PLNTApplication extends Application<PLNTConfiguration> {
         environment.jersey().register(new ProjectResource(projectController));
         environment.jersey().register(new PaperResource(paperController));
         environment.jersey().register(new StudyResource(studyController));
+        environment.jersey().register(new StudentResource(studentController));
+        environment.jersey().register(new ClientResource(clientController));
+        environment.jersey().register(new TeacherResource(teacherController));
         PlntAuthenticator plntAuthenticator = new PlntAuthenticator(authenticationController);
         environment.jersey().register(new AuthenticationResource(authenticationController, plntAuthenticator));
 //        BackupService backupService = new BackupService();
