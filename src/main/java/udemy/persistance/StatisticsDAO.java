@@ -108,19 +108,19 @@ public interface StatisticsDAO {
     @SqlQuery("SELECT g.series::date AS \"days\", COUNT(Student.*) \"total\"" +
             " FROM generate_series(now() - interval '6 days', now(), '1 day'::interval) AS g(series) LEFT JOIN" +
             " logins ON logins.login_date = g.series::date LEFT JOIN Student ON logins.user_id = Student.user_id" +
-            " GROUP BY g.series::date")
+            " GROUP BY g.series::date order by g.series::date asc")
     List<DateStatistic> getAdminLoginStudentStatistics();
 
     @SqlQuery("SELECT g.series::date AS \"days\", COUNT(Teacher.*) \"total\"" +
             " FROM generate_series(now() - interval '6 days', now(), '1 day'::interval) AS g(series) LEFT JOIN" +
             " logins ON logins.login_date = g.series::date LEFT JOIN Teacher ON logins.user_id = Teacher.user_id" +
-            " GROUP BY g.series::date")
+            " GROUP BY g.series::date order by g.series::date asc")
     List<DateStatistic> getAdminLoginTeacherStatistics();
 
     @SqlQuery("SELECT g.series::date AS \"days\", COUNT(Client.*) \"total\"" +
             " FROM generate_series(now() - interval '6 days', now(), '1 day'::interval) AS g(series) LEFT JOIN" +
             " logins ON logins.login_date = g.series::date LEFT JOIN Client ON logins.user_id = Client.user_id" +
-            " GROUP BY g.series::date")
+            " GROUP BY g.series::date order by g.series::date asc")
     List<DateStatistic> getAdminLoginClientStatistics();
 }
 
