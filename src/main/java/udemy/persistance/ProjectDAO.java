@@ -7,6 +7,7 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import udemy.Mapper.ProjectMapper;
 import udemy.core.models.Project;
 
+import java.util.Date;
 import java.util.List;
 
 @RegisterRowMapper(ProjectMapper.class)
@@ -36,17 +37,28 @@ public interface ProjectDAO {
 
     @SqlQuery("SELECT id FROM project ORDER BY id DESC limit 1")
     int getNewProjectId();
-
+    
 //    @SqlQuery("SELECT * FROM project WHERE title = :title")
 //    int getAll(@Bind("title")String title);
+    @SqlQuery("SELECT * FROM project WHERE DATE(created_on) >= :newerThan")
+    List<Project> getProjectsNewerThan(@Bind("newerThan") String newerThan);
+    // Deze haalt een lijst van projecten die nieuwer zijn dan een geven datum
+
+    @SqlQuery("SELECT * FROM project WHERE category_id = :categoryId")
+    List<Project> getProjectsFromCategoryId(@Bind("categoryId")int categoryId);
 
 
     @SqlQuery("SELECT * FROM project INNER JOIN follow_project ON project.id = follow_project.project_id AND follow_project.user_id = :id")
     List<Project> getUserFollowedProjects(@Bind("id")int id);
 
+    @SqlQuery("SELECT * FROM project WHERE study_id = :studyId")
+    List<Project> getProjectsFromStudyId(@Bind("studyId")int studyId);
 
-    @SqlQuery("SELECT Project.id, title, summary, created_on, client_id, study_id, category_id" +
-            " FROM Project INNER JOIN follow_project ON Project.id = follow_project.Project_id " +
+    @SqlQuery("SELECT * FROM project WHERE study_id = :studyId AND category_id = :categoryId")
+    List<Project> getProjectsFromStudyAndCategoryId(@Bind("studyId")int studyId, @Bind("categoryId")int categoryId);
+
+
+    @SqlQuery("SELECT Project.id, title, summary, created_on, client_id, study_id, category_id" + " FROM Project INNER JOIN follow_project ON Project.id = follow_project.Project_id " +
             " AND follow_project.user_id = :id ORDER BY Random() LIMIT 3")
     List<Project> getUserFollowedProjectsRandom(@Bind("id")int id);
 

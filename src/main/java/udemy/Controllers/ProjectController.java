@@ -34,6 +34,22 @@ public class ProjectController {
         return projectDAO.getProject(id);
     }
 
+    public List<Project> getAllProjectsByCategoryId(int categoryId){
+        System.out.println(categoryId);
+        return projectDAO.getProjectsFromCategoryId(categoryId);
+    }
+
+    public List<Project> getProjectsNewerThan(String newerThan){
+        return projectDAO.getProjectsNewerThan(newerThan);
+    }
+
+    public List<Project> getAllProjectsByStudyId(int studyId){
+        return projectDAO.getProjectsFromStudyId(studyId);
+    }
+
+    public List<Project>getProjectsFromStudyAndCategoryId(int studyId, int categoryId){
+        return projectDAO.getProjectsFromStudyAndCategoryId(studyId, categoryId);
+    }
     public void followProject(int project_id, int user_id){
         projectDAO.followProject(project_id, user_id);
     }

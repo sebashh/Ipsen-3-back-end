@@ -7,19 +7,14 @@ database:
   # the name of your JDBC driver
   driverClass: org.postgresql.Driver
 
-  user: postgres
+  # the username
+  user: user2
 
-  password: Rc58j95tt
+  # the password
+  password: admin1
 
+  # the JDBC URL
   url: jdbc:postgresql://localhost/Ipsen3
-#  # the username
-#  user: roggrvls
-#
-#  # the password
-#  password: AZCOUp_um32cGkBUchO2_e3y5yIwJa5A
-#
-#  # the JDBC URL
-#  url: jdbc:postgresql://manny.db.elephantsql.com:5432/roggrvls
 
   # any properties specific to your JDBC driver:
   properties:
