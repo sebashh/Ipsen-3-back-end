@@ -75,9 +75,9 @@ public interface ProjectDAO {
     List<Project> getCreatedProjectWithInterests(@Bind("studentId") int studentId);
 
 
-    @SqlQuery("SELECT Project.id, Project.title, summary, created_on, client_id, study_id, category_id FROM Project JOIN Paper ON Project.id = Paper.project_id JOIN Client ON Client.user_id = " +
+    @SqlQuery("SELECT distinct on(Project.id) Project.id, Project.title, summary, created_on, client_id, study_id, category_id FROM Project JOIN Paper ON Project.id = Paper.project_id JOIN Client ON Client.user_id = " +
             " Project.client_id JOIN \"User\" ON Client.user_id = \"User\".id" +
-            " WHERE \"User\".id = :clientId ORDER BY Paper.upload_date DESC LIMIT 3")
+            " WHERE \"User\".id = :clientId ORDER BY Project.id, Paper.upload_date DESC LIMIT 3")
     List<Project> getRecentlyUpdatedProjects(@Bind("clientId") int clientId);
 
 
