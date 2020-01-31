@@ -197,6 +197,7 @@ public class ProjectResource {
                 .build();
     }
 
+    @GET
     @Path("/clientProjects/top/user")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getTopViewedClientProjects(@Auth Optional<AuthUser> user){
